@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 import { Form, Field } from 'react-final-form';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from "react-router-dom";
 
 const onSubmit = async values => {
 
@@ -40,17 +47,24 @@ const MyForm = () => (
     )}
   />
 );
-const Login = () => {
-  return(
-    <div>
-      <div>
-        <MyForm/>
-      </div>
-      <div>
-        <a href="/register">Register</a><br/>
-        <a href="/events"> Continue as Guest </a>
-      </div>
-    </div>
-  )
+ class Login extends Component{
+  clicked(){
+    console.log("c");
+  }
+  render(){
+    return(
+
+        <div>
+          <div>
+            <MyForm/>
+          </div>
+          <div>
+            <Link to={{ pathname: '/events', isLoggedIn:true }}>Register</Link><br/>
+            <Link to={{ pathname: '/events', isLoggedIn:false }}>Continue as Guest</Link>
+
+          </div>
+        </div>
+
+  )}
 }
 export default Login;

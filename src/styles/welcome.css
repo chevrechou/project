@@ -1,0 +1,23 @@
+.welcome-container{
+  background-color: rgb(201, 201, 201);
+  padding: 0.5% 0.5%;
+  display: flex;
+}
+.welcome-left{
+  padding-top: 30%;
+  padding-bottom:60%;
+  display: flex;
+  float:left;
+  width: 50%;
+  justify-content: center;
+  /* border-left:4px solid black; */
+}
+.welcome-right{
+  padding-top: 45%;
+    padding-bottom:30%;
+    display: flex;
+  float:right;
+    width: 50%;
+    justify-content: center;
+    border-left:4px solid black;
+}

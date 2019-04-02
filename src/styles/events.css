@@ -1,0 +1,49 @@
+.events-container{
+   overflow: hidden;
+   padding: 0.35% .45%;
+   display: flex;
+   /* height: 100%; */
+}
+.list{
+  display:flex;
+  /* width: 100%; */
+
+  float: right;
+
+}
+.area{
+    /* overflow: hidden; */
+    height:auto;
+}
+.sidebar{
+  border-radius: 20px 0px 0px 20px;
+    border-left: 1px  ;
+  display: flex;
+  width: 30%;
+  height:auto;
+  float: left;
+  /* padding-bottom: 100%;
+    margin-bottom: -100%; */
+  background-color: rgba(224, 177, 0, 0.5);
+}
+.events-but{
+  display: inline;
+  float:right;
+}
+.searchBar{
+  display: flex;
+  float:right;
+  padding-bottom: 2%;
+
+}
+.right{
+  background-color: rgb(235, 235, 235);
+
+  float:right;
+  width: 70%;
+  padding-top: 0.5%;
+  border-right: 1px;
+  border-radius: 0 20px 20px 0px;
+    padding-right: 5%;
+    padding-left: 2%;
+}

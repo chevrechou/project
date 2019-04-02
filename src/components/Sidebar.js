@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from "react-router-dom";
 
 
 class Sidebar extends Component {
@@ -6,8 +13,17 @@ class Sidebar extends Component {
     super(props);
     this.state={
       username:"",
-      type:""
+      userID:"",
+      type:"",
+      isLogged:true,
+
     }
+  }
+  componentDidMount(){
+    this.setState({
+      userID:this.props.userID,
+      username:this.props.username,
+    })
   }
 
   render() {
@@ -23,8 +39,9 @@ class Sidebar extends Component {
           <ul>
             <a href="/">My Events </a>
           </ul>
+
           <ul>
-            <a href="/home"> Log Out  </a>
+            <Link to={{ pathname: '/home', isLoggedIn:false }}>Log Out  </Link>
           </ul>
 
         </div>
