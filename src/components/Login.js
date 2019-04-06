@@ -7,6 +7,7 @@ import {
   Redirect,
   withRouter
 } from "react-router-dom";
+import "../styles/login.css";
 
 const onSubmit = async values => {
 
@@ -15,32 +16,32 @@ const onSubmit = async values => {
 const MyForm = () => (
   <Form
       onSubmit={onSubmit}
-
+className="login-container"
       render={({ handleSubmit, form, submitting, values }) => (
         <form onSubmit={handleSubmit}>
-          <div>
-            <label>User Name</label>
-            <Field
-              name="Username"
-              component="input"
-              type="text"
-              placeholder="Username"
-            />
+          <div className="input-field-container">
+            <div className="username-field">
+              <label>User Name</label>
+              <Field
+              className="inputField"
+                name="Username"
+                component="input"
+                type="text"
+                placeholder="Username"
+              />
+            </div>
+            <div className="password-field">
+              <label>Password</label>
+              <Field
+                name="Password"
+                component="input"
+                type="text"
+                placeholder="Password"
+              />
+            </div>
           </div>
-          <div>
-            <label>Password</label>
-            <Field
-              name="Password"
-              component="input"
-              type="text"
-              placeholder="Password"
-            />
-          </div>
-
-
         <br/>
-
-          <button type="submit" placeholder="Login">Login</button>
+        <button type="submit" placeholder="Login">Login</button>
 
         {/*  <pre>{JSON.stringify( values, 0, 2)}</pre>*/}
         </form>
@@ -54,15 +55,15 @@ const MyForm = () => (
   render(){
     return(
 
-        <div>
-          <div>
-            <MyForm/>
-          </div>
-          <div>
-            <Link to={{ pathname: '/events', isLoggedIn:true }}>Register</Link><br/>
-            <Link to={{ pathname: '/events', isLoggedIn:false }}>Continue as Guest</Link>
+        <div className="login-container">
 
-          </div>
+            <MyForm/>
+{/*
+          // <div>
+          //   <Link to={{ pathname: '/events', isLoggedIn:true }}>Register</Link><br/>
+          //   <Link to={{ pathname: '/events', isLoggedIn:false }}>Continue as Guest</Link>
+
+          //</div>*/}
         </div>
 
   )}

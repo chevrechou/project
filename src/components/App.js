@@ -28,7 +28,12 @@ class App extends Component {
             </div>
 
           )}/>
-          <Route path="/event" component={Events}></Route>
+          <Route exact={true} path='/myevents' render={(props) => (
+            <div className="App">
+              <Events {...props}  />
+            </div>
+
+          )}/>
 
         </div>
       </BrowserRouter>

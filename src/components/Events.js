@@ -5,7 +5,7 @@ import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } fro
 import "../styles/events.css";
 import ScrollArea from 'react-scrollbar';
 import SearchInput, {createFilter} from 'react-search-input';
-import emails from './mails';
+
 import Popup from 'reactjs-popup'
 import SearchField from "react-search-field";
 

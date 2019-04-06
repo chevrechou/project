@@ -7,6 +7,8 @@ import {
   withRouter
 } from "react-router-dom";
 import '../styles/welcome.css'
+import Login from "./Login";
+
 
 class Welcome extends Component {
   constructor(props){
@@ -22,9 +24,9 @@ class Welcome extends Component {
       <div className="welcome-container">
 
           <section className="welcome-left">
-            <h2> Welcome <br/><br/>
-            <a href="/home">Sign In</a><br/>
-            <a href="/home"> Register </a><br/>
+           Welcome <br/><br/>
+            <Login/>
+              <h2><a href="/home"> Register </a><br/>
             </h2> <br/>
           </section>
           <section className="welcome-right">

@@ -1,0 +1,19 @@
+.login-container{
+  width: 80%;
+  max-width: 80%;
+  margin-left: 2em;
+  margin-right: 2em;
+  background-color: red;
+}
+.input-field-container{
+display: block;
+}
+.username-field{
+  display: flex;
+}
+.password-field{
+  display: flex;
+}
+.inputField{
+    max-width: 80%;
+}
