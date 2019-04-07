@@ -16,9 +16,10 @@ const onSubmit = async values => {
 const MyForm = () => (
   <Form
       onSubmit={onSubmit}
-className="login-container"
+      className="login-container"
       render={({ handleSubmit, form, submitting, values }) => (
         <form onSubmit={handleSubmit}>
+        <section>
           <div className="input-field-container">
             <div className="username-field">
               <label>User Name</label>
@@ -33,6 +34,7 @@ className="login-container"
             <div className="password-field">
               <label>Password</label>
               <Field
+                className="inputField"
                 name="Password"
                 component="input"
                 type="text"
@@ -40,7 +42,8 @@ className="login-container"
               />
             </div>
           </div>
-        <br/>
+
+        </section>
         <button type="submit" placeholder="Login">Login</button>
 
         {/*  <pre>{JSON.stringify( values, 0, 2)}</pre>*/}
@@ -58,12 +61,7 @@ className="login-container"
         <div className="login-container">
 
             <MyForm/>
-{/*
-          // <div>
-          //   <Link to={{ pathname: '/events', isLoggedIn:true }}>Register</Link><br/>
-          //   <Link to={{ pathname: '/events', isLoggedIn:false }}>Continue as Guest</Link>
 
-          //</div>*/}
         </div>
 
   )}

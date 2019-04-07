@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import '../styles/sidebar.css';
 
-class Sidebar extends Component {
+class Admin extends Component {
   constructor(props){
     super(props);
     this.state={
@@ -51,13 +51,6 @@ class Sidebar extends Component {
           <ul>
             <Link to={{ pathname: '/', isLoggedIn:false }}>Log Out  </Link>
           </ul>
-          <ul>
-          <Link to={{ pathname: '/admin',
-              state: { username: this.state.username,
-                      userID:this.state.userID} ,
-
-                    }}>Admin</Link>
-          </ul>
 
         </div>
 
@@ -66,4 +59,4 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar;
+export default Admin;

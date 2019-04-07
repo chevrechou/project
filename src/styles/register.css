@@ -1,0 +1,22 @@
+.register-container{
+  background-color: rgb(4, 69, 77, 0.42);
+
+  text-align: center;
+  /* padding-top: 10%; */
+  align-items: center;
+}
+.registrationForm-container{
+  background-color: rgba(217, 201, 218, 0.48) ;
+  width: 50%;
+  margin: 0 auto;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding-top:3%;
+
+}
+.guest-opt{
+  margin-top: 2%;
+}
+.content{
+  margin-top: 10%;
+}

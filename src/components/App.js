@@ -5,6 +5,9 @@ import Home from './Home.js';
 import Welcome from './Welcome.js';
 import Events from './Events.js';
 import {BrowserRouter, Route} from 'react-router-dom';
+import MyEvents from './MyEvents';
+import Register from './Register';
+import Admin from './Admin';
 
 
 class App extends Component {
@@ -15,6 +18,11 @@ class App extends Component {
           <Route exact={true} path='/' render={() => (
             <div className="App">
               <Welcome />
+            </div>
+          )}/>
+          <Route exact={true} path='/register' render={() => (
+            <div className="Register">
+              <Register />
             </div>
           )}/>
           <Route exact={true} path='/home' render={() => (
@@ -30,7 +38,13 @@ class App extends Component {
           )}/>
           <Route exact={true} path='/myevents' render={(props) => (
             <div className="App">
-              <Events {...props}  />
+              <MyEvents {...props}  />
+            </div>
+
+          )}/>
+          <Route exact={true} path='/admin' render={(props) => (
+            <div className="App">
+              <Admin {...props}  />
             </div>
 
           )}/>
