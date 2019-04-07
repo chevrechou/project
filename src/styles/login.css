@@ -3,9 +3,12 @@
   max-width: 80%;
   margin-left: 2em;
   margin-right: 2em;
-  background-color: red;
+  background-color: rgb(153,0,0);
   align-items: left;
   text-align: center;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  
 }
 .input-field-container{
 display: block;
@@ -25,4 +28,5 @@ label {
     clear:left;
     text-align:right;
     padding-right:10px;
+    color: white;
 }

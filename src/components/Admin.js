@@ -6,7 +6,9 @@ import {
   Redirect,
   withRouter
 } from "react-router-dom";
+import Sidebar from './Sidebar';
 import '../styles/sidebar.css';
+
 
 class Admin extends Component {
   constructor(props){
@@ -29,9 +31,13 @@ class Admin extends Component {
   render() {
     return (
       <div className="sidebar-container">
+        <div className="sidebar">
+          <Sidebar className="sidebar"/>
+        </div>
         <div className="profile">
 
         </div>
+
         <div className="menu">
           <ul>
           <Link to={{ pathname: '/events',
