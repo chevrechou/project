@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Sidebar from './Sidebar';
-
+import Select from 'react-select';
 import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 import "../styles/events.css";
 import ScrollArea from 'react-scrollbar';
@@ -9,7 +9,11 @@ import SearchInput, {createFilter} from 'react-search-input';
 import Popup from 'reactjs-popup'
 import SearchField from "react-search-field";
 
-
+const options = [
+  { value: 'newest', label: 'Newest' },
+  { value: 'tag', label: 'Tag' },
+  { value: 'vanilla', label: 'Vanilla' }
+];
 class Events extends Component {
   constructor(props){
     super(props);
@@ -24,7 +28,8 @@ class Events extends Component {
       type:"",
       isLoggedIn:false,
       searchTerm: "",
-      open: false
+      open: false,
+      selectedOption: "Newest",
      }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -35,7 +40,10 @@ class Events extends Component {
 
 
 
-
+  handleChange = (selectedOption) => {
+   this.setState({ selectedOption });
+   console.log(`Option selected:`, selectedOption);
+  }
   componentDidMount () {
       console.log("comp did mount " + this.props.location.isLoggedIn);
        this.setState({
@@ -83,6 +91,7 @@ class Events extends Component {
       </div>
   }
 
+  const { selectedOption } = this.state;
 
     return (
       <div className="events-container">
@@ -90,18 +99,27 @@ class Events extends Component {
           <Sidebar className="sidebar"/>
         </div>
         <section className="right">
-        <div className="searchBar">
-        <SearchField
-            placeholder="Search..."
-            onChange={this.onChange}
-            onEnter={this.onEnter}
-            onSearchClick={this.onSearchClick}
-            searchText=""
-            classNames="test-class"
+          <section className="right-top">
+          <div className="searchBar">
+
+          <SearchField
+              placeholder="Search..."
+              onChange={this.onChange}
+              onEnter={this.onEnter}
+              onSearchClick={this.onSearchClick}
+              searchText=""
+              classNames="test-class"
+            />
+
+          </div>
+          <div className="select-bar">
+          <Select
+          value={selectedOption}
+          onChange={this.handleChange}
+          options={options}
           />
-
-        </div>
-
+          </div>
+          </section>
 
         <div className="list">
 

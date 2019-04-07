@@ -12,11 +12,23 @@
   border: 1px solid black;
   border-radius: 15px;
   padding-top:3%;
+  align-items: center;
 
+
+
+}
+.inner-reg{
+  margin:0 auto;
+  text-align: left;
+  display: inline-block;
 }
 .guest-opt{
   margin-top: 2%;
 }
 .content{
   margin-top: 10%;
+  /* float: left; */
+}
+.reg-but{
+  align-self: center !important;
 }

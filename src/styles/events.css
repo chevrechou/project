@@ -2,6 +2,7 @@
    overflow: hidden;
    padding: 0.35% .45%;
    display: flex;
+   position: absolute;
    /* height: 100%; */
 }
 .list{
@@ -31,10 +32,11 @@
   float:right;
 }
 .searchBar{
-  display: flex;
+  /* display: flex; */
   float:right;
   padding-bottom: 2%;
-
+  z-index: 0;
+   resize: horizontal;
 }
 .right{
   background-color: rgb(235, 235, 235);
@@ -46,4 +48,14 @@
   border-radius: 0 20px 20px 0px;
     padding-right: 5%;
     padding-left: 2%;
+}
+.select-bar{
+  z-index: 1;
+   resize: horizontal;
+  width: 10em;
+  padding-left: 2%;
+}
+.right-top{
+  display: flex;
+  float:right;
 }

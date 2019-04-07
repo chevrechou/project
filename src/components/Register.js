@@ -19,6 +19,7 @@ const MyForm = () => (
 
       render={({ handleSubmit, form, submitting, values,pristine }) => (
         <form onSubmit={handleSubmit}   className="registrationForm-container">
+          <section className="inner-reg">
           <div >
             <label>User Name</label>
             <Field
@@ -28,12 +29,21 @@ const MyForm = () => (
               placeholder="Username"
             />
           </div>
+          <div >
+            <label>Email </label>
+            <Field
+              name="Email"
+              component="input"
+              type="text"
+              placeholder="Email"
+            />
+          </div>
           <div>
             <label>Password</label>
             <Field
               name="Password"
               component="input"
-              type="text"
+              type="password"
               placeholder="Password"
             />
           </div>
@@ -42,15 +52,18 @@ const MyForm = () => (
             <Field
               name="PasswordConfirmation"
               component="input"
-              type="text"
+              type="password"
               placeholder="Re-type Password"
             />
           </div>
 
 
-          <br/>
-          <button type="submit" placeholder="Register">Register</button>
+
+            </section>
+              <br/>  <br/>
+          <button className="reg-but" type="submit" placeholder="Register">Register</button>
           <pre>{JSON.stringify( values, 0, 2)}</pre>
+
         </form>
     )}
   />

@@ -5,11 +5,15 @@ import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } fro
 import "../styles/events.css";
 import ScrollArea from 'react-scrollbar';
 import SearchInput, {createFilter} from 'react-search-input';
-
-import Popup from 'reactjs-popup'
+import Select from 'react-select';
+import Popup from 'reactjs-popup';
 import SearchField from "react-search-field";
 
-
+const options = [
+  { value: 'newest', label: 'Newest' },
+  { value: 'tag', label: 'Tag' },
+  { value: 'vanilla', label: 'Vanilla' }
+];
 class MyEvents extends Component {
   constructor(props){
     super(props);
@@ -24,7 +28,8 @@ class MyEvents extends Component {
       type:"",
       isLoggedIn:false,
       searchTerm: "",
-      open: false
+      open: false,
+      selectedOption: null,
      }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -42,11 +47,15 @@ class MyEvents extends Component {
         username:this.props.location.state.username,
         userID:this.props.location.state.userID,
         type:this.props.type,
-        isLoggedIn:this.props.location.isLoggedIn
-
+        isLoggedIn:this.props.location.isLoggedIn,
+         selectedOption: null,
        });
 
    }
+   handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    console.log(`Option selected:`, selectedOption);
+  }
    openModal (){
      console.log("opening modal");
      this.setState({ open: true })
@@ -68,7 +77,7 @@ class MyEvents extends Component {
   }
   render() {
     console.log(this.state);
-
+const { selectedOption } = this.state;
 
   const isLoggedIn=this.state.isLoggedIn;
   let buttons;
@@ -91,7 +100,9 @@ class MyEvents extends Component {
           <Sidebar className="sidebar"/>
         </div>
         <section className="right">
+        <section className="right-top">
         <div className="searchBar">
+
         <SearchField
             placeholder="Search..."
             onChange={this.onChange}
@@ -102,6 +113,14 @@ class MyEvents extends Component {
           />
 
         </div>
+        <div className="select-bar">
+        <Select
+        value={selectedOption}
+        onChange={this.handleChange}
+        options={options}
+        />
+        </div>
+        </section>
 
 
         <div className="list">
