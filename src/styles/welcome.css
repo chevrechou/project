@@ -1,23 +1,29 @@
 .welcome-container{
-  background-color: rgb(201, 201, 201);
+  background-color: rgb(255, 255, 255);
   padding: 0.5% 0.5%;
   display: flex;
 }
 .welcome-left{
-  padding-top: 20%;
+  padding-top: 10%;
   /* padding-bottom: 60%; */
   display: block;
-  float:left;
-  width: 50%;
+  /*float:left;*/
+  padding-left: 5%;
+  padding-right: 5%;
+  width: 100%;
   justify-content: center;
   /* border-left:4px solid black; */
 }
-.welcome-right{
-  padding-top: 25%;
-      padding-bottom: 30%;
-    display: flex;
-  float:right;
-    width: 50%;
-    justify-content: center;
-    border-left:4px solid black;
+
+
+.welcome-logo {
+  background-image: url('../img/WelcomeLogo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: flex;
+  height: 100%;
+
+  width: 100%;
+  justify-content: center;
+
 }

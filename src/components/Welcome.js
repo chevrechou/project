@@ -23,18 +23,23 @@ class Welcome extends Component {
     return (
       <div className="welcome-container">
 
+
+
+
           <section className="welcome-left">
-           Welcome <br/><br/>
+            <div className="welcome-logo"></div>
+
             <Login/>
-            <br/><br/>
+            <br/>
               <h2>  <Link to={{ pathname: '/register', isLoggedIn:false }}> Register </Link><br/>
-            </h2> <br/>
-          </section>
-          <section className="welcome-right">
+            </h2>
+            or <br/>
             <h4>
               <Link to={{ pathname: '/events', isLoggedIn:false }}>Continue as Guest </Link>
             </h4>
           </section>
+
+          
 
 
       </div>
