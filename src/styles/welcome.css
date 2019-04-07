@@ -4,8 +4,8 @@
   display: flex;
 }
 .welcome-left{
-  padding-top: 30%;
-  padding-bottom:60%;
+  padding-top: 20%;
+  /* padding-bottom: 60%; */
   display: block;
   float:left;
   width: 50%;
@@ -13,8 +13,8 @@
   /* border-left:4px solid black; */
 }
 .welcome-right{
-  padding-top: 45%;
-    padding-bottom:30%;
+  padding-top: 25%;
+      padding-bottom: 30%;
     display: flex;
   float:right;
     width: 50%;

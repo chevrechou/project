@@ -10,7 +10,7 @@ import Popup from 'reactjs-popup'
 import SearchField from "react-search-field";
 
 
-class Events extends Component {
+class MyEvents extends Component {
   constructor(props){
     super(props);
     console.log("HERE");
@@ -37,9 +37,10 @@ class Events extends Component {
 
 
   componentDidMount () {
-      console.log("comp did mount " + this.props.location.isLoggedIn);
+      console.log("myEVENTS " + this.props.location.isLoggedIn);
        this.setState({
-        username:this.props.username,
+        username:this.props.location.state.username,
+        userID:this.props.location.state.userID,
         type:this.props.type,
         isLoggedIn:this.props.location.isLoggedIn
 
@@ -66,7 +67,7 @@ class Events extends Component {
       console.log(value);
   }
   render() {
-    console.log("user is logged in: " + this.state.isLoggedIn);
+    console.log(this.state);
 
 
   const isLoggedIn=this.state.isLoggedIn;
@@ -220,4 +221,4 @@ Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus v
   }
 }
 
-export default Events;
+export default MyEvents;

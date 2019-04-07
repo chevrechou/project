@@ -26,7 +26,8 @@ class Welcome extends Component {
           <section className="welcome-left">
            Welcome <br/><br/>
             <Login/>
-              <h2><a href="/home"> Register </a><br/>
+            <br/><br/>
+              <h2>  <Link to={{ pathname: '/register', isLoggedIn:false }}> Register </Link><br/>
             </h2> <br/>
           </section>
           <section className="welcome-right">
