@@ -8,6 +8,9 @@ import SearchInput, {createFilter} from 'react-search-input';
 import Select from 'react-select';
 import Popup from 'reactjs-popup';
 import SearchField from "react-search-field";
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import PerfectScrollbar from 'react-perfect-scrollbar';
+import data from "../test.json";
 
 const options = [
   { value: 'newest', label: 'Newest' },
@@ -30,6 +33,7 @@ class MyEvents extends Component {
       searchTerm: "",
       open: false,
       selectedOption: null,
+      data,
      }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -94,149 +98,82 @@ const { selectedOption } = this.state;
   }
 
 
-    return (
-      <div className="events-container">
-        <div className="sidebar">
-          <Sidebar className="sidebar"/>
-        </div>
-        <section className="right">
+  return (
+    <div className="events-container">
+      <div className="sidebar">
+        <Sidebar className="sidebar"/>
+      </div>
+      <section className="right">
+
         <section className="right-top">
-        <div className="searchBar">
+          <div className="searchBar">
 
-        <SearchField
-            placeholder="Search..."
-            onChange={this.onChange}
-            onEnter={this.onEnter}
-            onSearchClick={this.onSearchClick}
-            searchText=""
-            classNames="test-class"
+          <SearchField
+              placeholder="Search..."
+              onChange={this.onChange}
+              onEnter={this.onEnter}
+              onSearchClick={this.onSearchClick}
+              searchText=""
+              classNames="test-class"
+            />
+
+          </div>
+          <div className="select-bar">
+          <Select
+          value={selectedOption}
+          onChange={this.handleChange}
+          options={options}
           />
-
-        </div>
-        <div className="select-bar">
-        <Select
-        value={selectedOption}
-        onChange={this.handleChange}
-        options={options}
-        />
-        </div>
+          </div>
         </section>
 
 
-        <div className="list">
+      <PerfectScrollbar>
+        {
+          this.state.data.map((value) =>
+          <div>
+            <div className="list">
 
-        <ScrollArea horizontal={false} className="area" >
+        <ListGroup>
 
-          <ListGroup>
-          {/*for (int i=0; i< events.size(); i++)
-            events[i].name
-            events[i].date
-            events[i].description
-            */}
-          <ListGroupItem >
-          <ListGroupItemHeading>Event Name</ListGroupItemHeading>
+        <ListGroupItem >
+          <ListGroupItemHeading>{value.Name} </ListGroupItemHeading>
           <ListGroupItemText>
             <div className="event-text">
               Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
             </div>
-          {buttons}
-          <Popup
-          open={this.state.open}
-          closeOnDocumentClick
-          onClose={this.closeModal}
-        >
-        <div className= "event-details">
-          {/*  <a className="close" onClick={this.closeModal}>
-            close
-            </a> */}
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae magni
-            omnis delectus nemo, maxime molestiae dolorem numquam mollitia, voluptate
-            ea, accusamus excepturi deleniti ratione sapiente! Laudantium, aperiam
-            doloribus. Odit, aut.
-            </div>
-        </Popup>
+            {buttons}
+            <Popup
+            open={this.state.open}
+            closeOnDocumentClick
+            onClose={this.closeModal}
+            >
+              <div className= "event-details">
+              {/*  <a className="close" onClick={this.closeModal}>
+                close
+                </a> */}
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae magni
+                omnis delectus nemo, maxime molestiae dolorem numquam mollitia, voluptate
+                ea, accusamus excepturi deleniti ratione sapiente! Laudantium, aperiam
+                doloribus. Odit, aut.
+                </div>
+            </Popup>
           </ListGroupItemText>
-        </ListGroupItem>
-        <ListGroupItem >
-  <ListGroupItemHeading>List group item heading</ListGroupItemHeading>
-  <ListGroupItemText>
-  Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-  </ListGroupItemText>
-</ListGroupItem>
-<ListGroupItem >
-<ListGroupItemHeading>List group item heading</ListGroupItemHeading>
-<ListGroupItemText>
-Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-</ListGroupItemText>
-</ListGroupItem>
-<ListGroupItem >
-<ListGroupItemHeading>List group item heading</ListGroupItemHeading>
-<ListGroupItemText>
-Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-</ListGroupItemText>
-</ListGroupItem>
-<ListGroupItem >
-<ListGroupItemHeading>List group item heading</ListGroupItemHeading>
-<ListGroupItemText>
-Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-</ListGroupItemText>
-</ListGroupItem>
-<ListGroupItem >
-<ListGroupItemHeading>List group item heading</ListGroupItemHeading>
-<ListGroupItemText>
-Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-</ListGroupItemText>
-</ListGroupItem>
+      </ListGroupItem>
 
-        <ListGroupItem>
-          <ListGroupItemHeading>List group item heading</ListGroupItemHeading>
-          <ListGroupItemText>
-          Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-          </ListGroupItemText>
-        </ListGroupItem>
-        <ListGroupItem>
-          <ListGroupItemHeading>List group item heading</ListGroupItemHeading>
-          <ListGroupItemText>
-          Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-          </ListGroupItemText>
-        </ListGroupItem>
-        <ListGroupItem>
-          <ListGroupItemHeading>List group item heading</ListGroupItemHeading>
-          <ListGroupItemText>
-          Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-          </ListGroupItemText>
-        </ListGroupItem>
-        <ListGroupItem>
-          <ListGroupItemHeading>List group item heading</ListGroupItemHeading>
-          <ListGroupItemText>
-          Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-          </ListGroupItemText>
-        </ListGroupItem>
-        <ListGroupItem >
-          <ListGroupItemHeading>List group item heading</ListGroupItemHeading>
-          <ListGroupItemText>
-          Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-          </ListGroupItemText>
-        </ListGroupItem>
-        <ListGroupItem>
-          <ListGroupItemHeading>List group item heading</ListGroupItemHeading>
-          <ListGroupItemText>
-          Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-          </ListGroupItemText>
-        </ListGroupItem>
-        <ListGroupItem>
-          <ListGroupItemHeading>List group item heading</ListGroupItemHeading>
-          <ListGroupItemText>
-          Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-          </ListGroupItemText>
-        </ListGroupItem>
-      </ListGroup>
 
-      </ScrollArea>
-  </div>
-  </section>
-      </div>
-    );
+
+
+    </ListGroup>
+
+
+
+    </div>
+  </div>)}
+  </PerfectScrollbar>
+    </section>
+    </div>
+  );
   }
 }
 

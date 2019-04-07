@@ -2,7 +2,7 @@
    overflow: hidden;
    padding: 0.35% .45%;
    display: flex;
-   position: absolute;
+   /* position: absolute; */
    /* height: 100%; */
 }
 .list{
@@ -57,5 +57,5 @@
 }
 .right-top{
   display: flex;
-  float:right;
+  /* float:right; */
 }
