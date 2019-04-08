@@ -3,4 +3,6 @@ class Guest extends User{
 		super(id, username);
 		this.accessLevel = 0;
 	}
+
+	// Should have no methods since lowest access level
 }

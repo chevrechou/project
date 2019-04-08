@@ -3,4 +3,10 @@ class Faculty extends User{
 		super(id, username);
 		this.accessLevel = 2;
 	}
+
+	// Add event
+
+	// Edit event
+
+	// Delete event
 }

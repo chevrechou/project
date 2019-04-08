@@ -3,4 +3,8 @@ class Admin extends Faculty{
 		super(id, username);
 		this.accessLevel = 3;
 	}
+
+	// Edit event
+
+	// Delete event
 }
