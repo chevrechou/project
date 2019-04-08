@@ -264,7 +264,6 @@ class EventManager {
             })
         })
     }
-
     getAllEvents(accessLevel, limit) {
         if(!accessLevel || !limit){
             console.log("Invalid call");
