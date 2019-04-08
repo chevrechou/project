@@ -27,7 +27,6 @@ class EventManager {
                 if(err) console.log(err);
                 console.log("Success!");
                 con.end();
-                //at this point, send all data to the front end to display 
             })
         })
     }
@@ -98,7 +97,6 @@ class EventManager {
                         }
                     });
                 }
-                //at this point, send all data to the front end to display 
             })
         });
     }
@@ -123,10 +121,6 @@ class EventManager {
                 }
                 else{
                     console.log(result1);
-                    // if(result.length > 0){
-                    //     title = result1[0].title;
-                    // }
-                    // console.log("Title: " +title);
                     var newQuery = "SELECT u.email FROM user u, event e, favorites f WHERE u.UserID=f.UserID AND f.EventID=e.EventID AND e.eventID="+id;
                     con.query(newQuery, function(err, result2){
                         if(err){
@@ -362,14 +356,3 @@ class EventManager {
         });
     }
 }
-var em = new EventManager();
-var json = {
-    Title: 'Endgame2',
-    DateTime: '05/01/19',
-    Location: 'Regal LA Live',
-    Description: '10 years!',
-    AccessLevel: '3',
-    UserID: '1'
-}
-// em.createEvent(JSON.stringify(json));
-em.deleteEvent(9);
