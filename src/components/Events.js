@@ -100,6 +100,7 @@ class Events extends Component {
       return item.Name.toLowerCase().search(
       value.toLowerCase()) !== -1;
     });
+
     this.setState({filtered: updatedList});
   }
 
@@ -141,8 +142,8 @@ class Events extends Component {
             </div>
           </section>
 
-
-        <PerfectScrollbar>
+          <div className="events-title">All Events</div>
+        <PerfectScrollbar className="scroll-container">
           {
             this.state.filtered.map((value) =>
             <div>

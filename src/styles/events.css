@@ -8,9 +8,9 @@
 }
 .list{
   display:block;
-  /* width: 100%; */
-
-  /* float: right; */
+  margin:.2em;
+  border:0.4px solid transparent;
+  border-radius: 15px;
 
 }
 .area{
@@ -33,7 +33,7 @@
   float:right;
 }
 .searchBar{
-  /* display: flex; */
+
   float:right;
   padding-bottom: 2%;
   z-index: 0;
@@ -45,11 +45,24 @@
   float:right;
   width: 70%;
   padding-top: 0.5%;
-  padding-bottom:8%;
+  padding-bottom:10%;
   border-right: 1px;
   border-radius: 0 20px 20px 0px;
-    padding-right: 5%;
+    padding-right: 6%;
     padding-left: 2%;
+    overflow: hidden;
+}
+
+.events-title{
+  /* float:left; */
+  text-align: left;
+  margin-bottom: 1%;
+}
+.scroll-container{
+  border:2px solid black;
+  border-radius: 2%;
+  background-color: rgba(217, 215, 217, 0.43)
+
 }
 .select-bar{
   z-index: 1;
@@ -64,4 +77,11 @@
 }
 .item{
   height:100%;
+}
+.empty-myevents{
+  border: 2px solid transparent;
+  border-radius: 25px;
+  /* padding: 22% 25%; */
+  margin: auto auto;
+
 }

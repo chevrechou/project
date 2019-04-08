@@ -17,7 +17,6 @@ const MyForm = () => (
   <div   className="register-container">
   <Form
       onSubmit={onSubmit}
-
       render={({ handleSubmit, form, submitting, values,pristine }) => (
         <form onSubmit={handleSubmit}   className="registrationForm-container">
           <section className="inner-reg">

@@ -63,7 +63,7 @@ class MyEvents extends Component {
     }
     if(found){
           console.log(obj[c])
-        delete obj[c];
+        delete data[c];
     }
     console.log(obj)
 
@@ -97,12 +97,12 @@ class MyEvents extends Component {
 
   render() {
     console.log(this.state.isLoggedIn);
-const { selectedOption } = this.state;
+    const { selectedOption } = this.state;
 
   const isLoggedIn=this.state.isLoggedIn;
   var isNotEmpty=false;
-  for (var i=0; i<this.state.myEvents.length; i++) {
-  if (this.state.myEvents[i] != null) {
+  for (var i=0; i<this.state.data.length; i++) {
+  if (this.state.data[i] != null) {
     isNotEmpty = true;
     break;
   }
@@ -116,75 +116,65 @@ console.log(this.state.myEvents.length)
         <Sidebar className="sidebar"/>
       </div>
 
-      <section className="right">
+
       {
         (isNotEmpty)?
-        <div>
-        <section className="right-top">
-          <div className="searchBar">
+        <section className="right">
+          <section className="right-top">
+            <div className="searchBar">
 
-          <SearchField
-              placeholder="Search..."
-              onChange={this.search}
-              onEnter={this.search}
-              onSearchClick={this.search}
-              searchText=""
-              classNames="test-class"
-            />
+            <SearchField
+                placeholder="Search..."
+                onChange={this.search}
+                onEnter={this.search}
+                onSearchClick={this.search}
+                searchText=""
+                classNames="test-class"
+              />
 
-          </div>
-          <div className="select-bar">
-          <Select
-          value={selectedOption}
-          onChange={this.handleChange}
-          options={options}
-          />
-          </div>
-        </section>
-
-
-      <PerfectScrollbar>
-        {
-          this.state.myEvents.map((value) =>
-          <div>
-            <div className="list">
-
-        <ListGroup>
-
-        <ListGroupItem >
-          <ListGroupItemHeading>{value.Name} </ListGroupItemHeading>
-          <ListGroupItemText>
-            <div className="event-text">
-            {value.Description}
             </div>
-            {(isLoggedIn)?
-                <div className="events-but">
-                  <button  onClick={this.openModal}> Details </button> <button onClick={() => this.removeEvent(value)}>Remove from my Events </button>
-                </div>
-                :
-                <div className="events-but">
-                  <button  onClick={this.openModal}> Details </button>
-                </div>
-            }
-            <Popup
-            open={this.state.open}
-            closeOnDocumentClick
-            onClose={this.closeModal}
-            >
-              <div className= "event-details">
-              {value.Description}
+            <div className="select-bar">
+            <Select
+            value={selectedOption}
+            onChange={this.handleChange}
+            options={options}
+            />
+            </div>
+          </section>
 
-                </div>
-            </Popup>
-          </ListGroupItemText>
-      </ListGroupItem>
-    </ListGroup>
+          <div className="events-title">My Events</div>
+            <PerfectScrollbar  className="scroll-container">
+            {
+              this.state.myEvents.map((value) =>
+            <div className="list">
+              <ListGroup>
+                <ListGroupItem >
+                  <ListGroupItemHeading>{value.Name} </ListGroupItemHeading>
+                  <ListGroupItemText>
+                    <div className="event-text">{value.Description}</div>
+                      { (isLoggedIn)?
+                        <div className="events-but">
+                          <button  onClick={this.openModal}> Details </button> <button onClick={() => this.removeEvent(value)}>Remove from my Events </button>
+                        </div>
+                        :
+                        <div className="events-but"><button  onClick={this.openModal}> Details </button></div>
+                      }
+                        <Popup
+                        open={this.state.open}
+                        closeOnDocumentClick
+                        onClose={this.closeModal}
+                        >
+                          <div className= "event-details">{value.Description}</div>
+                        </Popup>
+                    </ListGroupItemText>
+                  </ListGroupItem>
+                </ListGroup>
 
-    </div>
-  </div>)}
-  </PerfectScrollbar>
-  </div>:<div> Empty </div>}
-    </section>
+              </div>)}
+            </PerfectScrollbar>
+          </section>
+          :<div className="empty-myevents"> <h3> No events to show. </h3> </div>
+        }
     </div>
 
   );
