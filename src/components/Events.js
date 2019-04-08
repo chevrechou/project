@@ -141,8 +141,8 @@ class Events extends Component {
             </div>
           </section>
 
-
-        <PerfectScrollbar>
+          <div className="events-title">All Events</div>
+        <PerfectScrollbar className="scroll-container">
           {
             this.state.filtered.map((value) =>
             <div>

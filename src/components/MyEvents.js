@@ -97,7 +97,7 @@ class MyEvents extends Component {
 
   render() {
     console.log(this.state.isLoggedIn);
-const { selectedOption } = this.state;
+    const { selectedOption } = this.state;
 
   const isLoggedIn=this.state.isLoggedIn;
   var isNotEmpty=false;
@@ -116,10 +116,10 @@ console.log(this.state.myEvents.length)
         <Sidebar className="sidebar"/>
       </div>
 
-      <section className="right">
+
       {
         (isNotEmpty)?
-        <div>
+        <section className="right">
         <section className="right-top">
           <div className="searchBar">
 
@@ -142,8 +142,8 @@ console.log(this.state.myEvents.length)
           </div>
         </section>
 
-
-      <PerfectScrollbar>
+        <div className="events-title">My Events</div>
+      <PerfectScrollbar  className="scroll-container">
         {
           this.state.myEvents.map((value) =>
           <div>
@@ -183,8 +183,8 @@ console.log(this.state.myEvents.length)
     </div>
   </div>)}
   </PerfectScrollbar>
-  </div>:<div> Empty </div>}
-    </section>
+ </section>:<div> Empty </div>}
+
     </div>
 
   );
