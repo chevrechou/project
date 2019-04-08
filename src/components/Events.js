@@ -16,27 +16,29 @@ const options = [
   { value: 'tag', label: 'Tag' },
   { value: 'vanilla', label: 'Vanilla' }
 ];
+
+
 class Events extends Component {
   constructor(props){
     super(props);
     console.log("HERE");
-    this.onChange=this.onChange.bind(this);
-    this.onEnter=this.onEnter.bind(this);
-    this.onSearchClick=this.onSearchClick.bind(this);
+
     this.searchUpdated = this.searchUpdated.bind(this)
     this.state={
       username:"",
       userID:"",
       type:"",
-      isLoggedIn:false,
+      isLoggedIn:true,
       searchTerm: "",
       open: false,
       selectedOption: "Newest",
       data,
+      filtered:data,
      }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-
+    this.search=this.search.bind(this);
+    // this.addEvent=this.addEvent.bind(this);
   }
 
 
@@ -52,10 +54,13 @@ class Events extends Component {
        this.setState({
         username:this.props.username,
         type:this.props.type,
-        isLoggedIn:this.props.location.isLoggedIn
+      //  isLoggedIn:this.props.location.isLoggedIn
 
        });
 
+   }
+   addEvent(value){
+     console.log(value);
    }
    openModal (){
      console.log("opening modal");
@@ -67,36 +72,24 @@ class Events extends Component {
   searchUpdated (term) {
     this.setState({searchTerm: term})
   }
-  onChange(value){
-   console.log(value);
-  }
-  onEnter(value){
-    console.log(value);
-  }
-  onSearchClick(value){
-      console.log(value);
+
+
+  search(value){
+    console.log(data);
+    var updatedList = data;
+    updatedList = updatedList.filter(function(item){
+      return item.Name.toLowerCase().search(
+      value.toLowerCase()) !== -1;
+    });
+    this.setState({filtered: updatedList});
   }
 
-  handleScroll(scrollData){
-      console.log(scrollData);
-    }
   render() {
     console.log("user is logged in: " + this.state.isLoggedIn);
 
 
   const isLoggedIn=this.state.isLoggedIn;
-  let buttons;
-  if (isLoggedIn){
-    buttons =
-      <div className="events-but">
-        <button  onClick={this.openModal}> Details </button> <button> Add to My Events </button>
-      </div>
-  }else{
-    buttons=
-      <div className="events-but">
-        <button  onClick={this.openModal}> Details </button>
-      </div>
-  }
+
 
   const { selectedOption } = this.state;
 
@@ -112,9 +105,9 @@ class Events extends Component {
 
             <SearchField
                 placeholder="Search..."
-                onChange={this.onChange}
-                onEnter={this.onEnter}
-                onSearchClick={this.onSearchClick}
+                onChange={this.search}
+                onEnter={this.search}
+                onSearchClick={this.search}
                 searchText=""
                 classNames="test-class"
               />
@@ -132,25 +125,35 @@ class Events extends Component {
 
         <PerfectScrollbar>
           {
-            this.state.data.map((value) =>
+            this.state.filtered.map((value) =>
             <div>
               <div className="list">
 
           <ListGroup>
 
-          <ListGroupItem >
+          <ListGroupItem className="item" >
             <ListGroupItemHeading>{value.Name} </ListGroupItemHeading>
             <ListGroupItemText>
               <div className="event-text">
-                Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+              {value.Description}
               </div>
-              {buttons}
+              { (isLoggedIn)?
+
+                    <div className="events-but">
+                      <button  onClick={this.openModal}> Details </button> <button onClick={() => this.addEvent(value)}>  Add to My Events </button>
+                    </div>:
+
+                    <div className="events-but">
+                      <button  onClick={this.openModal}> Details </button>
+                    </div>
+                }
               <Popup
               open={this.state.open}
               closeOnDocumentClick
+              className="pop"
               onClose={this.closeModal}
               >
-                <div className= "event-details">
+                <div >
                 {/*  <a className="close" onClick={this.closeModal}>
                   close
                   </a> */}

@@ -1,0 +1,17 @@
+label{
+  color:black;
+  padding-bottom: .7em;
+}
+
+.eventForm-inner-reg{
+  line-height: 5vh;
+  width: 100%;
+}
+
+.description-input-container{
+  display: inline-flex;
+
+}
+.desc{
+  height: 5em;
+}
