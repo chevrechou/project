@@ -100,6 +100,7 @@ class Events extends Component {
       return item.Name.toLowerCase().search(
       value.toLowerCase()) !== -1;
     });
+
     this.setState({filtered: updatedList});
   }
 

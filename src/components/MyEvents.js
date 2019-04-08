@@ -63,7 +63,7 @@ class MyEvents extends Component {
     }
     if(found){
           console.log(obj[c])
-        delete obj[c];
+        delete data[c];
     }
     console.log(obj)
 
@@ -101,8 +101,8 @@ class MyEvents extends Component {
 
   const isLoggedIn=this.state.isLoggedIn;
   var isNotEmpty=false;
-  for (var i=0; i<this.state.myEvents.length; i++) {
-  if (this.state.myEvents[i] != null) {
+  for (var i=0; i<this.state.data.length; i++) {
+  if (this.state.data[i] != null) {
     isNotEmpty = true;
     break;
   }
