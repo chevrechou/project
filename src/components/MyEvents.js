@@ -52,15 +52,23 @@ class MyEvents extends Component {
 
    }
    removeEvent(value){
-     var key = value.id;
-     console.log(key);
-     var toDelete=this.state.myEvents;
-  delete toDelete[key];
-  console.log(toDelete);
-  delete this.state.myEvents[value]
-    console.log(this.state.myEvents);
+     var c, found=false;
+     var id='id';
+     var obj = this.state.myEvents;
+     for(c in obj) {
+        if(obj[c][id] == value.id) {
+            found=true;
+            break;
+        }
+    }
+    if(found){
+          console.log(obj[c])
+        delete obj[c];
+    }
+    console.log(obj)
+
     this.setState({
-      myEvents:this.state.myEvents
+      myEvents:obj
     })
    }
    search(value){
@@ -92,16 +100,26 @@ class MyEvents extends Component {
 const { selectedOption } = this.state;
 
   const isLoggedIn=this.state.isLoggedIn;
+  var isNotEmpty=false;
+  for (var i=0; i<this.state.myEvents.length; i++) {
+  if (this.state.myEvents[i] != null) {
+    isNotEmpty = true;
+    break;
+  }
+}
 
-
-
+console.log(this.state.myEvents.length)
   return (
+
     <div className="events-container">
       <div className="sidebar">
         <Sidebar className="sidebar"/>
       </div>
-      <section className="right">
 
+      <section className="right">
+      {
+        (isNotEmpty)?
+        <div>
         <section className="right-top">
           <div className="searchBar">
 
@@ -160,19 +178,15 @@ const { selectedOption } = this.state;
             </Popup>
           </ListGroupItemText>
       </ListGroupItem>
-
-
-
-
     </ListGroup>
-
-
 
     </div>
   </div>)}
   </PerfectScrollbar>
+  </div>:<div> Empty </div>}
     </section>
     </div>
+
   );
   }
 }

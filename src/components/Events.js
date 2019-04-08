@@ -60,7 +60,26 @@ class Events extends Component {
 
    }
    addEvent(value){
-     console.log(value);
+     console.log(value.id);
+     var found=false;
+     var obj = require('../myevents.json');
+
+     var c, found=false;
+     var id='id';
+
+     for(c in obj) {
+        if(obj[c][id] == value.id) {
+            found=true;
+            break;
+        }
+    }
+    if (!found){
+        obj.push(value);
+    }else{
+      console.log("ALREADY IN MY EVENTS")
+    }
+
+
    }
    openModal (){
      console.log("opening modal");
