@@ -120,71 +120,61 @@ console.log(this.state.myEvents.length)
       {
         (isNotEmpty)?
         <section className="right">
-        <section className="right-top">
-          <div className="searchBar">
+          <section className="right-top">
+            <div className="searchBar">
 
-          <SearchField
-              placeholder="Search..."
-              onChange={this.search}
-              onEnter={this.search}
-              onSearchClick={this.search}
-              searchText=""
-              classNames="test-class"
-            />
+            <SearchField
+                placeholder="Search..."
+                onChange={this.search}
+                onEnter={this.search}
+                onSearchClick={this.search}
+                searchText=""
+                classNames="test-class"
+              />
 
-          </div>
-          <div className="select-bar">
-          <Select
-          value={selectedOption}
-          onChange={this.handleChange}
-          options={options}
-          />
-          </div>
-        </section>
-
-        <div className="events-title">My Events</div>
-      <PerfectScrollbar  className="scroll-container">
-        {
-          this.state.myEvents.map((value) =>
-          <div>
-            <div className="list">
-
-        <ListGroup>
-
-        <ListGroupItem >
-          <ListGroupItemHeading>{value.Name} </ListGroupItemHeading>
-          <ListGroupItemText>
-            <div className="event-text">
-            {value.Description}
             </div>
-            {(isLoggedIn)?
-                <div className="events-but">
-                  <button  onClick={this.openModal}> Details </button> <button onClick={() => this.removeEvent(value)}>Remove from my Events </button>
-                </div>
-                :
-                <div className="events-but">
-                  <button  onClick={this.openModal}> Details </button>
-                </div>
-            }
-            <Popup
-            open={this.state.open}
-            closeOnDocumentClick
-            onClose={this.closeModal}
-            >
-              <div className= "event-details">
-              {value.Description}
+            <div className="select-bar">
+            <Select
+            value={selectedOption}
+            onChange={this.handleChange}
+            options={options}
+            />
+            </div>
+          </section>
 
-                </div>
-            </Popup>
-          </ListGroupItemText>
-      </ListGroupItem>
-    </ListGroup>
+          <div className="events-title">My Events</div>
+            <PerfectScrollbar  className="scroll-container">
+            {
+              this.state.myEvents.map((value) =>
+            <div className="list">
+              <ListGroup>
+                <ListGroupItem >
+                  <ListGroupItemHeading>{value.Name} </ListGroupItemHeading>
+                  <ListGroupItemText>
+                    <div className="event-text">{value.Description}</div>
+                      { (isLoggedIn)?
+                        <div className="events-but">
+                          <button  onClick={this.openModal}> Details </button> <button onClick={() => this.removeEvent(value)}>Remove from my Events </button>
+                        </div>
+                        :
+                        <div className="events-but"><button  onClick={this.openModal}> Details </button></div>
+                      }
+                        <Popup
+                        open={this.state.open}
+                        closeOnDocumentClick
+                        onClose={this.closeModal}
+                        >
+                          <div className= "event-details">{value.Description}</div>
+                        </Popup>
+                    </ListGroupItemText>
+                  </ListGroupItem>
+                </ListGroup>
 
-    </div>
-  </div>)}
-  </PerfectScrollbar>
- </section>:<div> Empty </div>}
-
+              </div>)}
+            </PerfectScrollbar>
+          </section>
+          :<div className="empty-myevents"> <h3> No events to show. </h3> </div>
+        }
     </div>
 
   );

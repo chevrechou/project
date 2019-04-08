@@ -78,3 +78,10 @@
 .item{
   height:100%;
 }
+.empty-myevents{
+  border: 2px solid transparent;
+  border-radius: 25px;
+  /* padding: 22% 25%; */
+  margin: auto auto;
+
+}
