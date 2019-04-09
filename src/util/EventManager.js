@@ -3,11 +3,8 @@ class EventManager {
 
     }
     createEvent(eventInfo){
-        var json = JSON.parse(eventInfo);
-        var info = [];
-        for(var key in json){
-            info.push("'"+json[key]+"'");
-        }
+        // var json = JSON.parse(eventInfo);
+        var info = eventInfo.split(',');
         console.log(info);
         var mysql = require('mysql');
         var con = mysql.createConnection({
@@ -24,8 +21,8 @@ class EventManager {
             var values = info.join(", ");
             console.log(values);    
             var query = "INSERT INTO event (Title, DateTime, Location, Description, AccessLevel, UserID) SELECT " +values + " FROM DUAL WHERE NOT EXISTS "
-            + "(SELECT Title, DateTime, Location, Description, AccessLevel, UserID FROM event WHERE Title="+info[0] + " AND DateTime="+info[1]+ " AND Location="+info[2]+
-            " AND Description="+info[3] + " AND AccessLevel="+info[4] + " AND UserID="+info[5]+");";
+            + "(SELECT Title, DateTime, Location, Description, AccessLevel, UserID FROM event WHERE Title="+mysql.escape(info[0]) + " AND DateTime="+ mysql.escape(info[1])+ " AND Location="+mysql.escape(info[2])+
+            " AND Description="+mysql.escape(info[3]) + " AND AccessLevel="+mysql.escape(info[4]) + " AND UserID="+mysql.escape(info[5])+");";
             con.query(query, function(err, result){
                 if(err) {
                     console.log(err);
@@ -65,11 +62,8 @@ class EventManager {
         })
     }
     editEvent(id, eventInfo) {
-        var json = JSON.parse(eventInfo);
-        var info = [];
-        for(var key in json){
-            info.push(json[key]);
-        }
+        var info = eventInfo.split(',');
+        console.log(info);
         var mysql = require('mysql');
         var con = mysql.createConnection({
             host: 'localhost',
@@ -133,6 +127,7 @@ class EventManager {
                                             con.end();
                                         });
                                     }
+                                    con.end();
                                 }
                             });
                         }

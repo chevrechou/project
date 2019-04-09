@@ -2,11 +2,11 @@ const EventManager = require('../../util/EventManager.js');
 let em = new EventManager();
 class User{
 	// string, string
-	constructor(id, username, EventManager){
+	constructor(id, username, eventManager){
 		if (this.constructor === User) {
             throw new TypeError('Abstract class "User" cannot be instantiated directly.'); 
         }
-        this.eventManager = EventManager;
+        this.eventManager = eventManager;
 		this.id = id;
 		this.username = username;
 	}
@@ -64,3 +64,4 @@ class User{
         })
 	}
 }
+module.exports = User;
