@@ -22,7 +22,13 @@ class Authenticator{
                     con.end();
                 }
                 else {
-                    var returnString = result[0].UserID + "," + result[0].username + "," + result[0].accessLevel;
+                    var returnString = '';
+                    if(result.length == 0){
+                        con.end();
+                        console.log("Username/Password do not match!")
+                        return null;
+                    }
+                    returnString = result[0].UserID + "," + result[0].username + "," + result[0].accessLevel;
                     console.log(returnString);
                     con.end();
                     return returnString;
