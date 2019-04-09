@@ -430,15 +430,16 @@ class EventManager {
             });
         });
     }
-}
-var em = new EventManager();
-// console.log(date);
-var json = {
-    Title: 'Captai!',
-    DateTime: "04/20/19",
-    Location: 'LA',
-    Description: 'Movie Night!',
-    AccessLevel: '1',
-    UserID: 2
-}
-em.addTagToEvent("Movies!",11);
+};
+module.exports = EventManager;
+// var em = new EventManager();
+// // console.log(date);
+// var json = {
+//     Title: 'Captai!',
+//     DateTime: "04/20/19",
+//     Location: 'LA',
+//     Description: 'Movie Night!',
+//     AccessLevel: '1',
+//     UserID: 2
+// }
+// em.addTagToEvent("Movies!",11);
