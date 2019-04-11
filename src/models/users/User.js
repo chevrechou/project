@@ -3,9 +3,9 @@ let em = new EventManager();
 class User{
 	// string, string
 	constructor(id, username, eventManager){
-		if (this.constructor === User) {
-            throw new TypeError('Abstract class "User" cannot be instantiated directly.'); 
-        }
+		// if (this.constructor === User) {
+        //     throw new TypeError('Abstract class "User" cannot be instantiated directly.'); 
+        // }
         this.eventManager = eventManager;
 		this.id = id;
 		this.username = username;
@@ -62,6 +62,35 @@ class User{
 				}
             })
         })
+	}
+
+	changeAccessLevel(newAccessLevel){
+		var mysql = require('mysql');
+        var con = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: 'root',
+            database: 'events'
+		});
+		var id = this.id;
+        con.connect(function(err){
+            if(err){
+                console.log(err);
+                con.end();
+			}
+			else {
+				var query = "UPDATE user SET AccessLevel=" + newAccessLevel + " WHERE UserID=" + id;
+				con.query(query, function(err, result){
+					if(err) {
+						console.log(err);
+					}
+					else {
+						console.log("Changed access level!");
+					}
+					con.end();
+				})
+			}
+		});
 	}
 }
 module.exports = User;
