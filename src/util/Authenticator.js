@@ -36,4 +36,39 @@ class Authenticator{
             });
         });
     }
+    createNewUser(username, email, password){
+        var mysql = require('mysql');
+        var con = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: 'root',
+            database: 'events'
+        });
+        con.connect(function(err){
+            if(err) {
+                console.log(err);
+                con.end();
+            }
+            var query = "INSERT INTO user (Username, Password, Email, AccessLevel) SELECT " + mysql.escape(username) + ", " + mysql.escape(password) + ", " + mysql.escape(email) + ", 1 FROM DUAL WHERE NOT EXISTS "
+            + "(SELECT Username, Password, Email, AccessLevel FROM user WHERE Username="+mysql.escape(username) + ");";
+            con.query(query, function(err, result){
+                if(err) {
+                    console.log(err);
+                    con.end();
+                }
+                else {
+                    var returnString = '';
+                    if(result.affectedRows == 0){
+                        con.end();
+                        console.log("Username was taken!")
+                        //do something here
+                    }
+                    else {
+                        con.end();
+                        //do something here
+                    }
+                }
+            });
+        });
+    }
 }
