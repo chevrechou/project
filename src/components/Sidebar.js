@@ -54,7 +54,7 @@ class Sidebar extends Component {
     return (
       <div className="sidebar-container">
         <div className="profile">
-
+          
         </div>
         <div className="menu">
           <ul>

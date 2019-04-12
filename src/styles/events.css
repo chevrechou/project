@@ -63,6 +63,7 @@
   /* float:left; */
   text-align: left;
   margin-bottom: 1%;
+  font-size: 2em;
 }
 .scroll-container{
   border:2px solid black;
@@ -90,4 +91,8 @@
   /* padding: 22% 25%; */
   margin: auto auto;
 
+}
+
+.list-group-item-heading, .list-group-item-text {
+  text-align: left;
 }
