@@ -1,6 +1,6 @@
 class EventManager {
     constructor(){
-
+        
     }
     createEvent(title, date, location, description, accessLevel, userId){
         var info = eventInfo.split(',');
@@ -60,8 +60,6 @@ class EventManager {
             })
         })
     }
-            this.eventManager.createEvent(event.Title, event.DateTime, event.Location, event.Description, event.AccessLevel, event.UserId);
-
     editEvent(eventId, title, date, location, description, accessLevel, userId) {
         var info = eventInfo.split(',');
         console.log(info);
@@ -139,7 +137,7 @@ class EventManager {
                 }
             })
         });
-    }
+    };
     deleteEvent(id) {
         var mysql = require('mysql');
         var con = mysql.createConnection({
@@ -217,7 +215,7 @@ class EventManager {
                 }
             })
         });
-    }
+    };
     removeFromFavorites(UserID, EventID) {
         var mysql = require('mysql');
         var con = mysql.createConnection({
@@ -239,7 +237,7 @@ class EventManager {
                 con.end();
             })
         })
-    }
+    };
     addTagToEvent(tag, EventID){
         var mysql = require('mysql');
         var con = mysql.createConnection({
@@ -262,7 +260,7 @@ class EventManager {
                 con.end();
             })
         })
-    }
+    };
     getAllEvents(accessLevel, limit) {
         if(!accessLevel || !limit){
             console.log("Invalid call");
@@ -290,7 +288,7 @@ class EventManager {
                 //at this point, send all data to the front end to display 
             })
         });
-    }
+    };
     getEventByID(id) {
         var mysql = require('mysql');
         var con = mysql.createConnection({
@@ -313,7 +311,7 @@ class EventManager {
                 //at this point, send all data to the front end to display 
             })
         });
-    }
+    };
     getUsersEvents(id){
         var mysql = require('mysql');
         var con = mysql.createConnection({
@@ -333,7 +331,7 @@ class EventManager {
             })
             //see user.js getSavedvents func
         });
-    }
+    };
     getEventsByTag(tag){
         var mysql = require('mysql');
         var con = mysql.createConnection({
@@ -356,7 +354,7 @@ class EventManager {
                 //at this point, send all data to the front end to display 
             })
         });
-    }
+    };
     getEventsByDesc(desc) {
         var mysql = require('mysql');
         var con = mysql.createConnection({
@@ -380,7 +378,7 @@ class EventManager {
                 //at this point, send all data to the front end to display 
             })
         });
-    }
+    };
     getEventsByOwner(id) {
         var mysql = require('mysql');
         var con = mysql.createConnection({
@@ -404,7 +402,7 @@ class EventManager {
                 //at this point, send all data to the front end to display 
             });
         });
-    }
+    };
     getNewEvents(id){
         var mysql = require('mysql');
         var con = mysql.createConnection({
@@ -429,16 +427,5 @@ class EventManager {
             });
         });
     }
-};
+}
 module.exports = EventManager;
-// var em = new EventManager();
-// // console.log(date);
-// var json = {
-//     Title: 'Captai!',
-//     DateTime: "04/20/19",
-//     Location: 'LA',
-//     Description: 'Movie Night!',
-//     AccessLevel: '1',
-//     UserID: 2
-// }
-// em.addTagToEvent("Movies!",11);
