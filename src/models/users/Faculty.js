@@ -13,12 +13,24 @@ class Faculty extends User{
 
 	// Edit event
 	editEvent(event){
-		this.eventManager.editEvent(event.Id, event.Title, event.DateTime, event.Location, event.Description, event.AccessLevel, event.UserId);
+		if(this.id == event.UserId){
+			this.eventManager.editEvent(event.Id, event.Title, event.DateTime, event.Location, event.Description, event.AccessLevel, event.UserId);
+		}
+		else {
+			console.log("User ID does not match owner ID of event");
+			return;
+		}
 	}
 
 	// Delete event
 	deleteEvent(EventID){
-		this.eventManager.deleteEvent(EventID);
+		if(this.id == event.UserId){
+			this.eventManager.deleteEvent(EventID);
+		}
+		else {
+			console.log("User ID does not match owner ID of event");
+			return;
+		}
 	}
 };
 module.exports = Faculty;
