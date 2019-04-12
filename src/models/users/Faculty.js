@@ -1,30 +1,24 @@
-const EventManager = require('../../util/EventManager.js');
 const User = require('./User.js');
 class Faculty extends User{
-	constructor(id, username, eventManager){
-		super(id, username, eventManager);
+	constructor(id, username, userManager, eventManager){
+		super(id, username, userManager, eventManager);
 		this.accessLevel = 2;
 	}
 
 	// Add event
+	// Takes in event JSON
 	addEvent(event){
-		// Takes in event json and wraps "createEvent"
-		// JSON should probably be parsed here instead of the EventManager class
-		// I think the EventManager class should only deal with inputting data to sql and not parsing it first
-		// That applies for all these functions that take in json
-		//this will return a comma separated string of data
-		var eventInfo = "'"+event.Title + "'"+ ',' + event.DateTime + ',' + "'"+event.Location + "'"+',' + "'"+event.Description + "'"+ ',' + event.AccessLevel + ',' + event.UserID;
-		this.eventManager.createEvent(eventInfo);
+		this.eventManager.createEvent(event.Title, event.DateTime, event.Location, event.Description, event.AccessLevel, event.UserId);
 	}
 
 	// Edit event
 	editEvent(event){
-		var eventInfo = event.Title + ',' + event.DateTime + ','+event.Location + ',' +event.Description + ',' + event.AccessLevel + ',' + event.UserID;
-		this.eventManager.editEvent(event.EventID, eventInfo);
+		this.eventManager.editEvent(event.Id, event.Title, event.DateTime, event.Location, event.Description, event.AccessLevel, event.UserId);
 	}
 
 	// Delete event
 	deleteEvent(EventID){
 		this.eventManager.deleteEvent(EventID);
 	}
-}
+};
+module.exports = Faculty;

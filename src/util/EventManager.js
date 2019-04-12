@@ -2,8 +2,7 @@ class EventManager {
     constructor(){
 
     }
-    createEvent(eventInfo){
-        // var json = JSON.parse(eventInfo);
+    createEvent(title, date, location, description, accessLevel, userId){
         var info = eventInfo.split(',');
         console.log(info);
         var mysql = require('mysql');
@@ -20,9 +19,9 @@ class EventManager {
             }
             var values = info.join(", ");
             console.log(values);    
-            var query = "INSERT INTO event (Title, DateTime, Location, Description, AccessLevel, UserID) SELECT " +values + " FROM DUAL WHERE NOT EXISTS "
-            + "(SELECT Title, DateTime, Location, Description, AccessLevel, UserID FROM event WHERE Title="+mysql.escape(info[0]) + " AND DateTime="+ mysql.escape(info[1])+ " AND Location="+mysql.escape(info[2])+
-            " AND Description="+mysql.escape(info[3]) + " AND AccessLevel="+mysql.escape(info[4]) + " AND UserID="+mysql.escape(info[5])+");";
+            var query = "INSERT INTO event (Title, DateTime, Location, Description, AccessLevel, UserID) SELECT " + values + " FROM DUAL WHERE NOT EXISTS "
+            + "(SELECT Title, DateTime, Location, Description, AccessLevel, UserID FROM event WHERE Title="+ title + " AND DateTime=" + date + " AND Location=" + location +
+            " AND Description=" + description + " AND AccessLevel="+ accessLevel + " AND UserID=" + userId + ");";
             con.query(query, function(err, result){
                 if(err) {
                     console.log(err);
@@ -61,7 +60,9 @@ class EventManager {
             })
         })
     }
-    editEvent(id, eventInfo) {
+            this.eventManager.createEvent(event.Title, event.DateTime, event.Location, event.Description, event.AccessLevel, event.UserId);
+
+    editEvent(eventId, title, date, location, description, accessLevel, userId) {
         var info = eventInfo.split(',');
         console.log(info);
         var mysql = require('mysql');
@@ -76,7 +77,10 @@ class EventManager {
                 console.log(err);
                 con.end();
             }
-            var query = "UPDATE event SET Title="+ mysql.escape(info[0]) + ", DateTime=" + mysql.escape(info[1]) + ", Location=" + mysql.escape(info[2]) + ", Description=" + mysql.escape(info[3]) + ", AccessLevel=" + mysql.escape(info[4]) + ", UserID=" + mysql.escape(info[5]) + " WHERE EventID=" + id;
+            var query = "UPDATE event SET Title="+ mysql.escape(title) + ", DateTime=" + mysql.escape(date) + ", Location=" + mysql.escape(location)
+                + ", Description=" + mysql.escape(description) + ", AccessLevel=" + mysql.escape(accessLevel) + ", UserID=" + mysql.escape(userId)
+                + " WHERE EventID=" + eventId;
+
             con.query(query, function(err, result){
                 if(err){
                     console.log(err);

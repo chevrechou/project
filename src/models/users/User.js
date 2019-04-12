@@ -1,96 +1,31 @@
+const UserManager = require('../../util/UserManager.js');
 const EventManager = require('../../util/EventManager.js');
-let em = new EventManager();
 class User{
 	// string, string
-	constructor(id, username, eventManager){
-		// if (this.constructor === User) {
-        //     throw new TypeError('Abstract class "User" cannot be instantiated directly.'); 
-        // }
-        this.eventManager = eventManager;
+	constructor(id, username, userManager, eventManager){
+		if (this.constructor === User) {
+            throw new TypeError("Abstract class "User" cannot be instantiated directly."); 
+        }
 		this.id = id;
 		this.username = username;
+        this.userManager = userManager;
+        this.eventManager = eventManager;
 	}
 
 
 	// Add favorite
-	addFavorite(eventID){
-		// This will take in event id
-		// Gets id paramater from self since it's stored in the user object
-		// Wraps around event manager addtofav method
-		this.eventManager.addToFavorites(this.id, eventID);
+	addFavorite(eventId){
+		this.eventManager.addToFavorites(this.id, eventId);
 	}
 
 	// Remove favorite
-	removeFavorite(eventID){
-		// Opposite of addFav with same conditions
-		this.eventManager.removeFromFavorites(this.id, eventID);
+	removeFavorite(eventId){
+		this.eventManager.removeFromFavorites(this.id, eventId);
 	}
 
 	// Change password
 	changePassword(oldPassword, newPassword){
-		var id = this.id
-		var mysql = require('mysql');
-        var con = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'events'
-        });
-        con.connect(function(err){
-            if(err){
-                console.log(err);
-                con.end();
-            }
-			var query = "SELECT password FROM user WHERE userID=" + id;
-			console.log(query);
-            con.query(query, function(err, result){
-                if(err) {
-					console.log(err);
-					con.end();
-				}
-				else {
-					if(result[0].password ==  oldPassword){
-						con.query("UPDATE user SET password=" + mysql.escape(newPassword) + " WHERE userID= " + mysql.escape(id) + ";", function(err, result) {
-							console.log("updated!");
-							con.end();
-						});
-					}
-					else {
-						console.log("Invalid old password");
-						con.end();
-					}
-				}
-            })
-        })
+		this.userManager.changePassword(oldPassword, newPassword);
 	}
-
-	changeAccessLevel(newAccessLevel){
-		var mysql = require('mysql');
-        var con = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'events'
-		});
-		var id = this.id;
-        con.connect(function(err){
-            if(err){
-                console.log(err);
-                con.end();
-			}
-			else {
-				var query = "UPDATE user SET AccessLevel=" + newAccessLevel + " WHERE UserID=" + id;
-				con.query(query, function(err, result){
-					if(err) {
-						console.log(err);
-					}
-					else {
-						console.log("Changed access level!");
-					}
-					con.end();
-				})
-			}
-		});
-	}
-}
+};
 module.exports = User;

@@ -1,10 +1,13 @@
+const Faculty = require('./Faculty.js');
 class Admin extends Faculty{
-	constructor(id, username){
-		super(id, username);
+	constructor(id, username, userManager, eventManager){
+		super(id, username, userManager, eventManager);
 		this.accessLevel = 3;
 	}
 
-	// Edit event
-
-	// Delete event
-}
+	// Change access level
+	changeAccessLevel(userId, accessLevel){
+		this.userManager.changeAccessLevel(userId, accessLevel);
+	}
+};
+module.exports = Admin;

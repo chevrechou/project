@@ -5,4 +5,5 @@ class Guest extends User{
 	}
 
 	// Should have no methods since lowest access level
-}
+};
+module.exports = Guest;
