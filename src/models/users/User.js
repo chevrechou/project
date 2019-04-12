@@ -1,10 +1,10 @@
 const UserManager = require('../../util/UserManager.js');
 const EventManager = require('../../util/EventManager.js');
 class User{
-	// string, string
+	// string, string, userManager, eventManager
 	constructor(id, username, userManager, eventManager){
 		if (this.constructor === User) {
-            throw new TypeError("Abstract class "+ User +" cannot be instantiated directly."); 
+            throw new TypeError("Abstract class " + User + " cannot be instantiated directly."); 
         }
 		this.id = id;
 		this.username = username;
