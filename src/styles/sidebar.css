@@ -3,6 +3,12 @@
   display: flex;
    justify-content: center;
 }
+
+.profile{
+  display: block;
+  margin: 0 auto;
+}
+
 .menu{
   padding-top:3%;
   /* background-color: rgb(178, 187, 61); */
