@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Sidebar from './Sidebar';
-
+import EditEventForm from './EditEventForm';
 import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 import "../styles/events.css";
 import ScrollArea from 'react-scrollbar';
@@ -182,9 +182,8 @@ console.log(this.state.myEvents.length)
                         closeOnDocumentClick
                         onClose={this.doneedit}
                         >
-                          <div className= "edit-event-details">
-                            Edit this event
-                          </div>
+
+                          <EditEventForm props={value}/>
                         </Popup>
                         </div>
                         :
