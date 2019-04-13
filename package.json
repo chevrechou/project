@@ -10,7 +10,7 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "final-form": "^4.12.0",
-    "java": "^0.11.0",
+  
     "material-ui-search-bar": "^1.0.0-beta.13",
     "mysql": "^2.16.0",
     "nodemailer": "^6.1.0",

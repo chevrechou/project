@@ -39,35 +39,27 @@ class Admin extends Component {
           <Sidebar className="sidebar"/>
         </div>
         <div className="admin-control">Administrator Control</div>
-      <PerfectScrollbar >
+        <PerfectScrollbar >
         {
           this.state.users.map((user) =>
           <div>
             <div className="list">
 
-        <ListGroup>
+              <ListGroup>
 
-        <ListGroupItem className="item" >
-          <ListGroupItemHeading>{user.Name} </ListGroupItemHeading>
-          <ListGroupItemText>
-            <div className="event-text">
-              {user.type}
+              <ListGroupItem className="item" >
+                <ListGroupItemHeading>{user.Name} </ListGroupItemHeading>
+                <ListGroupItemText>
+                  <div className="event-text">
+                    {user.type}
+                  </div>
+                </ListGroupItemText>
+              </ListGroupItem>
+              </ListGroup>
             </div>
-
-          </ListGroupItemText>
-      </ListGroupItem>
-
-
-
-
-    </ListGroup>
-
-
-
-
-    </div>
-  </div>)}
-  </PerfectScrollbar>
+          </div>)
+          }
+        </PerfectScrollbar>
 
       </div>
     );
