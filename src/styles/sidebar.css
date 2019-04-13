@@ -29,3 +29,6 @@ display: block;
    text-align: center;
    cursor: pointer;
 }
+.userInfo {
+  color:#FFC72C;
+}

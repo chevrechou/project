@@ -56,11 +56,11 @@ class Sidebar extends Component {
       <div className="menu">
       {(isLoggedIn)?
         <div></div>:
-        <ul>
-            <h2>{this.state.username}  </h2>
-            <h5>{this.state.type}
-            </h5>
-          </ul>
+        <ul className="userInfo">
+          <h2>{this.state.username}  </h2>
+          <h5>{this.state.type}
+          </h5>
+        </ul>
       }
 
           <ul>
