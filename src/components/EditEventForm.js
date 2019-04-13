@@ -12,7 +12,7 @@ const EditEventForm = (props) => {
   console.log(props.props)
   return(
   <div   className="eventForm-container">
-  <div className="title-edit"> <h2>Edit {props.props.Name}</h2>< /div>
+  <div className="title-edit"> <h2>Edit {props.props.Name}</h2></div>
   <div   className="editForm-form">
   <Form
       onSubmit={onSubmit}
