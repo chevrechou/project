@@ -40,9 +40,9 @@ const EventForm = () => (
             <Field
             className="desc"
               name="description"
-
+              placeholder="Event Description"
               maxlength="500"
-
+              component="textarea"
               render={({ input}) => (
 
                 <textarea {...input}/ >

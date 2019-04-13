@@ -7,7 +7,11 @@ import {
   withRouter
 } from "react-router-dom";
 import Sidebar from './Sidebar';
-import '../styles/sidebar.css';
+import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
+import '../styles/admin.css';
+
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
 
 class Admin extends Component {
@@ -18,7 +22,7 @@ class Admin extends Component {
       userID:"123",
       type:"",
       isLogged:true,
-
+      users:[]
     }
   }
   componentDidMount(){
@@ -30,35 +34,40 @@ class Admin extends Component {
 
   render() {
     return (
-      <div className="sidebar-container">
+      <div className="admin-container">
         <div className="sidebar">
           <Sidebar className="sidebar"/>
         </div>
-        <div className="profile">
+        <div className="admin-control">Administrator Control</div>
+      <PerfectScrollbar >
+        {
+          this.state.users.map((user) =>
+          <div>
+            <div className="list">
 
-        </div>
+        <ListGroup>
 
-        <div className="menu">
-          <ul>
-          <Link to={{ pathname: '/events',
-              state: { username: this.state.username,
-                      userID:this.state.userID} ,
+        <ListGroupItem className="item" >
+          <ListGroupItemHeading>{user.Name} </ListGroupItemHeading>
+          <ListGroupItemText>
+            <div className="event-text">
+              {user.type}
+            </div>
 
-                    }}>All Events</Link>
-          </ul>
-          <ul>
-          <Link to={{ pathname: '/myevents',
-              state: { username: this.state.username,
-                      userID:this.state.userID} ,
+          </ListGroupItemText>
+      </ListGroupItem>
 
-                           }}>My Events </Link>
-          </ul>
 
-          <ul>
-            <Link to={{ pathname: '/', isLoggedIn:false }}>Log Out  </Link>
-          </ul>
 
-        </div>
+
+    </ListGroup>
+
+
+
+
+    </div>
+  </div>)}
+  </PerfectScrollbar>
 
       </div>
     );

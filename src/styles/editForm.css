@@ -1,0 +1,29 @@
+label{
+  color:black;
+  padding-bottom: .7em;
+}
+.title-edit{
+  text-align: center;
+  margin: 0 auto;
+}
+.editForm-form{
+  margin: 0 auto;
+  text-align: center;
+}
+
+.edit-eventForm-inner-reg{
+  line-height: 5vh;
+  width: 100%;
+  /* text-align: left; */
+}
+.edit-input{
+  align-items: left;
+}
+
+.description-input-container{
+  display: inline-flex;
+
+}
+.desc{
+  height: 5em;
+}
