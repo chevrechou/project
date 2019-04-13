@@ -33,9 +33,12 @@ class MyEvents extends Component {
       selectedOption: null,
       data,
       myEvents:data,
+      edit:false
      }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.edit = this.edit.bind(this);
+    this.doneedit = this.doneedit.bind(this);
     this.search=this.search.bind(this);
     this.removeEvent=this.removeEvent.bind(this);
   }
@@ -71,6 +74,11 @@ class MyEvents extends Component {
       myEvents:obj
     })
    }
+   editEvent=(value) =>{
+     console.log("edit")
+
+
+   }
    search(value){
      console.log(data);
      var updatedList = data;
@@ -83,6 +91,16 @@ class MyEvents extends Component {
    handleChange = (selectedOption) => {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
+  }
+  edit(){
+    this.setState({
+      edit:true
+    })
+  }
+  doneedit(){
+    this.setState({
+      edit:false
+    })
   }
    openModal (){
      console.log("opening modal");
@@ -146,18 +164,31 @@ console.log(this.state.myEvents.length)
             <PerfectScrollbar  className="scroll-container">
             {
               this.state.myEvents.map((value) =>
+
             <div className="list">
               <ListGroup>
                 <ListGroupItem >
                   <ListGroupItemHeading>{value.Name} </ListGroupItemHeading>
                   <ListGroupItemText>
                     <div className="event-text">{value.Description}</div>
-                      { (isLoggedIn)?
+                      {
+                        (value.Created==="true")?
                         <div className="events-but">
-                          <button  onClick={this.openModal}> Details </button> <button onClick={() => this.removeEvent(value)}>Remove from my Events </button>
+                        <button onClick={this.edit}>Edit </button>
+                        <button  onClick={this.openModal}> Details </button>
+                        <button onClick={() => this.removeEvent(value)}>Remove from my Events </button>
+                        <Popup
+                        open={this.state.edit}
+                        closeOnDocumentClick
+                        onClose={this.doneedit}
+                        >
+                          <div className= "edit-event-details">
+                            Edit this event
+                          </div>
+                        </Popup>
                         </div>
                         :
-                        <div className="events-but"><button  onClick={this.openModal}> Details </button></div>
+                        <div className="events-but"><button  onClick={this.openModal}> Details </button><button onClick={() => this.removeEvent(value)}>Remove from my Events </button></div>
                       }
                         <Popup
                         open={this.state.open}
