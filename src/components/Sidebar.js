@@ -28,7 +28,7 @@ class Sidebar extends Component {
   componentDidMount(){
     this.setState({
       userID:this.props.userID,
-      username:this.props.username,
+      // username:this.props.username,
     })
   }
   componentWillReceiveProps(nextProps) {
@@ -49,14 +49,20 @@ class Sidebar extends Component {
 
 
   render() {
-    console.log(this.state.type)
-
+    console.log(this.state.username)
+  const isLoggedIn=this.state.isLoggedIn;
     return (
       <div className="sidebar-container">
-        <div className="profile">
-          
-        </div>
-        <div className="menu">
+      <div className="menu">
+      {(isLoggedIn)?
+        <div></div>:
+        <ul>
+            <h2>{this.state.username}  </h2>
+            <h5>{this.state.type}
+            </h5>
+          </ul>
+      }
+
           <ul>
           <Link to={{ pathname: '/events',
               state: { username: this.state.username,

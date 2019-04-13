@@ -56,14 +56,12 @@ const EditEventForm = (props) => {
           />
           </div>
 
-
-
             </section>
-              <br/>  <br/>
-          <button className="reg-but" type="submit" placeholder="Register">Edit Event</button>
-          <pre>{JSON.stringify( values, 0, 2)}</pre>
+          <br/>  <br/>
+        <button className="reg-but" type="submit" placeholder="Register">Edit Event</button>
+        <pre>{JSON.stringify( values, 0, 2)}</pre>
 
-        </form>
+      </form>
     )}
   />
   </div>
