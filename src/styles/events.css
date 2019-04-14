@@ -37,7 +37,14 @@
 .events-but{
   display: inline;
   float:right;
+  text-align: right;
+  min-width:50%;
 }
+
+.events-but button {
+  margin-left: 1%;
+}
+
 .searchBar{
   float:right;
   padding-bottom: 2%;
