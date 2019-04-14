@@ -38,17 +38,17 @@ class Admin extends Component {
         <div className="sidebar">
           <Sidebar className="sidebar"/>
         </div>
-        <section className="right-admin">
+        <section className="right">
         <div className="admin-control">Administrator Control</div>
         <PerfectScrollbar className="scroll-container-admin">
         {
           this.state.users.map((user) =>
-          <div>
-            <div className="list">
+
+            <div className="admin-list">
 
               <ListGroup>
 
-              <ListGroupItem className="item" >
+              <ListGroupItem className="user-admin" >
                 <ListGroupItemHeading>{user.userName} </ListGroupItemHeading>
                 <ListGroupItemText>
                   <div className="user-each">
@@ -59,7 +59,7 @@ class Admin extends Component {
                 </ListGroupItemText>
               </ListGroupItem>
               </ListGroup>
-            </div>
+          
           </div>)
           }
         </PerfectScrollbar>

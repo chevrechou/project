@@ -172,7 +172,7 @@ console.log(this.state.myEvents.length)
                   <ListGroupItemText>
                     <div className="event-date-location">
                       <ul><label> Date </label> {value.Date}</ul>
-                      <ul><label> Location </label> {value.Date}</ul>
+                      <ul><label> Location </label> {value.Location}</ul>
                     </div>
                     <div className="event-text">{value.Description}</div>
                       {

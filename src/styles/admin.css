@@ -14,6 +14,10 @@
 }
 .scroll-container-admin{
    display: inline;
+   border:2px solid black;
+   border-radius: 2%;
+   height:95% !important;
+   background-color: rgba(217, 215, 217, 0.43)
 }
 .right-admin{
   background-color: rgb(235, 235, 235);
@@ -32,4 +36,10 @@
 .user-each-type{
    float:right;
    background-color: red;
+}
+.admin-list{
+  display:block;
+  margin:.2em;
+  border:0.4px solid transparent;
+  border-radius: 15px;
 }

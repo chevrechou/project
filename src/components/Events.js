@@ -146,7 +146,7 @@ class Events extends Component {
         <PerfectScrollbar className="scroll-container">
           {
             this.state.filtered.map((value) =>
-            <div>
+
               <div className="list">
 
           <ListGroup>
@@ -154,6 +154,10 @@ class Events extends Component {
           <ListGroupItem className="item" >
             <ListGroupItemHeading>{value.Name} </ListGroupItemHeading>
             <ListGroupItemText>
+              <div className="event-date-location">
+                <ul><label> Date </label> {value.Date}</ul>
+                <ul><label> Location </label> {value.Location}</ul>
+              </div>
               <div className="event-text">
               {value.Description}
               </div>
@@ -191,9 +195,6 @@ class Events extends Component {
 
       </ListGroup>
 
-
-
-      </div>
     </div>)}
     </PerfectScrollbar>
       </section>

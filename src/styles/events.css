@@ -71,11 +71,17 @@
   margin-bottom: 1%;
   font-size: 2em;
 }
+.event-text{
+  overflow-x:hidden;
+  height: auto;
+  width: 80%;
+ word-wrap: break-word;
+}
 .scroll-container{
   border:2px solid black;
   border-radius: 2%;
   height:95% !important;
-  background-color: rgba(217, 215, 217, 0.43)
+  background-color: rgba(217, 215, 217, 0.43);
 
 }
 .select-bar{
@@ -92,8 +98,9 @@
 .item{
   height:100%;
 }
-.event-date-location{
+.event-date-location ul{
   display: inline;
+  float:right;
 }
 .empty-myevents{
   border: 2px solid transparent;
