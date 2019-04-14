@@ -1,6 +1,5 @@
 label{
   color:black;
-  padding-bottom: .7em;
 }
 .title-edit{
   text-align: center;
@@ -21,9 +20,17 @@ label{
 }
 
 .description-input-container{
-  display: inline-flex;
-
+  display: block;
 }
+
+.edit-input, .description-input-container{
+  text-align: left;
+}
+
+.edit-input input, .description-input-container textarea {
+  width: 100%;
+}
+
 .desc{
   height: 5em;
 }
