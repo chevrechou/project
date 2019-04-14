@@ -35,6 +35,23 @@ const EventForm = () => (
               placeholder="tags"
             />
           </div>
+          <div>
+            <label>Date</label>
+            <Field
+              name="Date"
+              component="input"
+              type="text"
+              placeholder="Date"
+            />
+        
+            <label>Location</label>
+            <Field
+              name="Location"
+              component="input"
+              type="text"
+              placeholder="Location"
+            />
+          </div>
           <div   className="description-input-container">
             <label>Description<br/>(max 500 char.)</label>
             <Field

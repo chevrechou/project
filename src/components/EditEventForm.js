@@ -39,6 +39,24 @@ const EditEventForm = (props) => {
               placeholder={props.props.Tag}
             />
           </div>
+          <div className="edit-input">
+            <label>Date</label>
+            <Field
+              name="Date"
+              component="input"
+              type="text"
+              placeholder={props.props.Date}
+            />
+          </div>
+          <div className="edit-input">
+            <label>Location</label>
+            <Field
+              name="Location"
+              component="input"
+              type="text"
+              placeholder={props.props.Location}
+            />
+          </div>
           <div   className="description-input-container">
             <label>Description<br/>(max 500 char.)</label>
             <Field
