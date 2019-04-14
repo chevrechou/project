@@ -170,6 +170,10 @@ console.log(this.state.myEvents.length)
                 <ListGroupItem >
                   <ListGroupItemHeading>{value.Name} </ListGroupItemHeading>
                   <ListGroupItemText>
+                    <div className="event-date-location">
+                      <ul><label> Date </label> {value.Date}</ul>
+                      <ul><label> Location </label> {value.Date}</ul>
+                    </div>
                     <div className="event-text">{value.Description}</div>
                       {
                         (value.Created==="true")?

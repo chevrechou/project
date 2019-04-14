@@ -19,7 +19,7 @@ const MyForm = () => (
       className="login-container"
       render={({ handleSubmit, form, submitting, values }) => (
         <form onSubmit={handleSubmit}>
-        <section>
+        <section className="login-section">
           <div className="input-field-container">
             <div className="username-field">
               <label>User Name</label>

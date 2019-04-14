@@ -9,3 +9,27 @@
 .admin-control{
    width: 100%;
 }
+.user-each{
+
+}
+.scroll-container-admin{
+   display: inline;
+}
+.right-admin{
+  background-color: rgb(235, 235, 235);
+
+  float:right;
+  width: 70%;
+  padding-top: 0.5%;
+  padding-bottom: 10%;
+  margin-bottom:0%;
+  border-right: 1px;
+  border-radius: 0 20px 20px 0px;
+    padding-right: 6%;
+    padding-left: 2%;
+    /* overflow: hidden; */
+}
+.user-each-type{
+   float:right;
+   background-color: red;
+}

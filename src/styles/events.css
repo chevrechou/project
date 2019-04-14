@@ -74,6 +74,7 @@
 .scroll-container{
   border:2px solid black;
   border-radius: 2%;
+  height:95% !important;
   background-color: rgba(217, 215, 217, 0.43)
 
 }
@@ -90,6 +91,9 @@
 }
 .item{
   height:100%;
+}
+.event-date-location{
+  display: inline;
 }
 .empty-myevents{
   border: 2px solid transparent;

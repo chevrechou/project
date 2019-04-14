@@ -9,7 +9,7 @@ import {
 import Sidebar from './Sidebar';
 import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 import '../styles/admin.css';
-
+import users from '../users.json';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
@@ -22,7 +22,7 @@ class Admin extends Component {
       userID:"123",
       type:"",
       isLogged:true,
-      users:[]
+      users
     }
   }
   componentDidMount(){
@@ -38,8 +38,9 @@ class Admin extends Component {
         <div className="sidebar">
           <Sidebar className="sidebar"/>
         </div>
+        <section className="right-admin">
         <div className="admin-control">Administrator Control</div>
-        <PerfectScrollbar >
+        <PerfectScrollbar className="scroll-container-admin">
         {
           this.state.users.map((user) =>
           <div>
@@ -48,10 +49,12 @@ class Admin extends Component {
               <ListGroup>
 
               <ListGroupItem className="item" >
-                <ListGroupItemHeading>{user.Name} </ListGroupItemHeading>
+                <ListGroupItemHeading>{user.userName} </ListGroupItemHeading>
                 <ListGroupItemText>
-                  <div className="event-text">
+                  <div className="user-each">
                     {user.type}
+                    <div className="user-each-type">
+                    </div>
                   </div>
                 </ListGroupItemText>
               </ListGroupItem>
@@ -60,7 +63,7 @@ class Admin extends Component {
           </div>)
           }
         </PerfectScrollbar>
-
+        </section>
       </div>
     );
   }
