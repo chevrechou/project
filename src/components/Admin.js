@@ -11,6 +11,7 @@ import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } fro
 import '../styles/admin.css';
 import users from '../users.json';
 import 'react-perfect-scrollbar/dist/css/styles.css';
+
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 
@@ -38,17 +39,15 @@ class Admin extends Component {
         <div className="sidebar">
           <Sidebar className="sidebar"/>
         </div>
-        <section className="right">
-        <div className="admin-control">Administrator Control</div>
+        <section className="right-admin">
+        <div className="events-title">Administrator Control</div>
         <PerfectScrollbar className="scroll-container-admin">
         {
           this.state.users.map((user) =>
 
-            <div className="admin-list">
-
+            <div className="list">
               <ListGroup>
-
-              <ListGroupItem className="user-admin" >
+              <ListGroupItem className="item-admin" >
                 <ListGroupItemHeading>{user.userName} </ListGroupItemHeading>
                 <ListGroupItemText>
                   <div className="user-each">
@@ -59,7 +58,7 @@ class Admin extends Component {
                 </ListGroupItemText>
               </ListGroupItem>
               </ListGroup>
-          
+
           </div>)
           }
         </PerfectScrollbar>
