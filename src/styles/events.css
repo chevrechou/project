@@ -105,6 +105,11 @@
   display: inline;
   float:right;
 }
+
+.event-date-location label {
+  color: black;
+}
+
 .empty-myevents{
   border: 2px solid transparent;
   border-radius: 25px;
