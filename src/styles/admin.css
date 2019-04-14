@@ -45,7 +45,10 @@
   border-radius: 15px;
 }
 .item-admin{
-
+  display: inline;
   height:90%;
 
+}
+.item-admin-text{
+  display: inline !important;
 }

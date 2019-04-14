@@ -98,6 +98,9 @@
 .item{
   height:100%;
 }
+.event-date-location {
+  display: block;
+}
 .event-date-location ul{
   display: inline;
   float:right;

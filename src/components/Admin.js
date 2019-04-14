@@ -49,10 +49,10 @@ class Admin extends Component {
               <ListGroup>
               <ListGroupItem className="item-admin" >
                 <ListGroupItemHeading>{user.userName} </ListGroupItemHeading>
-                <ListGroupItemText>
+                <ListGroupItemText className="item-admin-text">
                   <div className="user-each">
-                    {user.type}
                     <div className="user-each-type">
+                    {user.type}
                     </div>
                   </div>
                 </ListGroupItemText>
