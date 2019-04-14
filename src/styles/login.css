@@ -1,6 +1,6 @@
 .login-container{
-  width: 50%;
-  max-width: 80%;
+  width: 33%;
+  max-width: 50%;
   margin: 0 auto;
   background-color: #990000;
   align-items: left;
@@ -40,6 +40,6 @@ form {
   margin: 4%;
 }
 
-.login-section {
-  margin-bottom: 5%;
+.login-container {
+  margin-top: 10%;
 }

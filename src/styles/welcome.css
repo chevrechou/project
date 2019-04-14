@@ -2,6 +2,10 @@
   background-color: rgb(255, 255, 255);
   padding: 0.5% 0.5%;
   display: flex;
+  background-image: url("../img/usc2.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 100vh;
 }
 .welcome-left{
   padding-top: 6%;
@@ -20,9 +24,9 @@
   background-image: url('../img/WelcomeLogo.png');
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
   display: flex;
-  height: 80%;
-
+  height: 22%;
   width: 100%;
   justify-content: center;
 
