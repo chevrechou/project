@@ -1,4 +1,5 @@
- import React, { Component } from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
 import {
   BrowserRouter as Router,
   Route,
@@ -14,10 +15,10 @@ class Sidebar extends Component {
   constructor(props){
     super(props);
     this.state={
-      username:"test",
-      userID:"123",
-      type:"guest",
-      isLogged:true,
+      username:"",
+      userID:"",
+      type:"",
+      isLogged:"false",
       open: false,
 
     }
@@ -25,20 +26,34 @@ class Sidebar extends Component {
     this.closeModal = this.closeModal.bind(this);
 
   }
+
   componentDidMount(){
+    var user=JSON.parse(localStorage.getItem('user'));
     this.setState({
       userID:this.props.userID,
-      // username:this.props.username,
+      username:localStorage.getItem("username"),
+      type:user.type,
+
+
     })
   }
   componentWillReceiveProps(nextProps) {
    this.setState({
-     open: false
+     open: false,
+       username:localStorage.getItem("username")
    });
+
  }
 
 
 
+ logOut(){
+   console.log("LOGGED OUT");
+   localStorage.clear();
+   this.setState({
+     isLoggedIn:false
+   })
+ }
   openModal (){
     console.log("opening modal");
     this.setState({ open: true })
@@ -49,15 +64,20 @@ class Sidebar extends Component {
 
 
   render() {
-    console.log(this.state.username)
+    var user=JSON.parse(localStorage.getItem('user'));
+    console.log(JSON.parse(localStorage.getItem('user')));
+    console.log(this.context)
   const isLoggedIn=this.state.isLoggedIn;
+  if (this.state.isLogged===false) {
+    return <Redirect to={{ pathname: '/', isLoggedIn:false }} />;
+  }
     return (
       <div className="sidebar-container">
       <div className="menu">
       {(isLoggedIn)?
         <div></div>:
         <ul className="userInfo">
-          <h2>{this.state.username}  </h2>
+          <h2>{user.Username}  </h2>
           <h5>{this.state.type}
           </h5>
         </ul>
@@ -93,7 +113,7 @@ class Sidebar extends Component {
             </Popup>
               </ul>: <div></div>
             }
-          <ul>
+          <ul onClick={this.logOut}>
             <Link to={{ pathname: '/', isLoggedIn:false }}>Log Out  </Link>
           </ul>
           <ul>

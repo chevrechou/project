@@ -20,6 +20,8 @@ class Welcome extends Component {
     }
   }
   render() {
+    var user=JSON.parse(localStorage.getItem('user'));
+    console.log(user);
     return (
       <div className="welcome-container">
 
@@ -39,7 +41,7 @@ class Welcome extends Component {
             </h4>
           </section>
 
-          
+
 
 
       </div>

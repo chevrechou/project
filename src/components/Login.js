@@ -10,8 +10,11 @@ import {
 import "../styles/login.css";
 
 const onSubmit = async values => {
+  console.log(values)
+  // window.alert(JSON.stringify(values, 0, 2))
 
-  window.alert(JSON.stringify(values, 0, 2))
+  const storage=localStorage.setItem("username", values.username);
+
 }
 const MyForm = () => (
   <Form
@@ -53,7 +56,7 @@ const MyForm = () => (
 );
  class Login extends Component{
   clicked(){
-    console.log("c");
+    // console.log("c");
   }
   render(){
     return(

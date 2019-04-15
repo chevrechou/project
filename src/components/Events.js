@@ -17,7 +17,8 @@ const options = [
   { value: 'vanilla', label: 'Vanilla' }
 ];
 
-
+var user=JSON.parse(localStorage.getItem('user'));
+const myUser = React.createContext(user);
 class Events extends Component {
   constructor(props){
     super(props);
@@ -51,6 +52,8 @@ class Events extends Component {
   }
   componentDidMount () {
       console.log("comp did mount " + this.props.location.isLoggedIn);
+      var user=localStorage.getItem("user");
+        console.log(user.Username);
        this.setState({
         username:this.props.username,
         type:this.props.type,
