@@ -56,7 +56,7 @@ class Admin extends Component {
                   </div>
                   <div class="btn-container">
                     <label class="btn-label">Faculty</label>
-                    <input class = "admin-btn"type="radio" name={user.userID} value="2"/>
+                    <input class="admin-btn" type="radio" name={user.userID} value="2"/>
                   </div>
                   <div class="btn-container">
                     <label class="btn-label">Admin</label>
