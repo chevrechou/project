@@ -8,30 +8,43 @@ import {
   withRouter
 } from "react-router-dom";
 import "../styles/login.css";
-import Authenticator from '../util/Authenticator';
-
+import {Authenticator} from "../util/Authenticator";
 
 class Login extends Component{
   state={
     isAuthenticated:false,
+posts: [],
   }
   render(){
-  
-    const onSubmit = async values => {
+  const onSubmit = async values => {
     console.log(values);
+
+
+
+    var auth=new Authenticator;
+    // var authResponse = auth.authenticate(values.Username, values.Password);
+
+    // if(authResponse != -1){
+    //   console.log(authResponse);
+    // }
+    // else{
+    //   console.log("User don't exist bruh!");
+    // }
+fetch('http://localhost:3000/posts')
+      .then(response => response.json())
+      .then(posts => (console.log(posts)))
+      // console.log(this.state.posts)
     this.setState({
       isAuthenticated: true
     })
-
     var user = {
                 username: values.Username,
-                type: 'admin',
+                type: 'not guest',
                 isLoggedIn:true,
-                isGuest:false,
-              }
-    const storage=localStorage.setItem("user",JSON.stringify(user));
-
-  }
+                isGuest:false
+    }
+    const storage = localStorage.setItem("user", JSON.stringify(user));
+}
 const MyForm = () => (
   <Form
       onSubmit={onSubmit}
