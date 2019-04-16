@@ -21,15 +21,10 @@ posts: [],
   const onSubmit = async values => {
     console.log(values);
 
-<<<<<<< HEAD
    socket.emit('authenticate', {user: values.Username, pass: values.Password});
    socket.on('authenticateResponse', function(data){
     if(data != -1){
       console.log("SUCCESS");
-      this.setState({
-        isAuthenticated: true
-      })
-      var info = user.split(",");
       var user = {
         username: values.Username,
         type: 'not guest',
@@ -37,37 +32,17 @@ posts: [],
         isGuest:false
       }
       console.log(user);
-      const storage = localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("user", JSON.stringify(user));
       console.log("set storage");
+      this.setState({
+        isAuthenticated: true
+      })
+      var info = user.split(",");
+      
     }
     else {
       console.log("FAILED");
       // document.getElementById("error").innerHTML = "Invalid credentials";
-=======
-
-
-    var auth=new Authenticator;
-    // var authResponse = auth.authenticate(values.Username, values.Password);
-
-    // if(authResponse != -1){
-    //   console.log(authResponse);
-    // }
-    // else{
-    //   console.log("User don't exist bruh!");
-    // }
-fetch('http://localhost:3000/posts')
-      .then(response => response.json())
-      .then(posts => (console.log(posts)))
-      // console.log(this.state.posts)
-    this.setState({
-      isAuthenticated: true
-    })
-    var user = {
-                username: values.Username,
-                type: 'not guest',
-                isLoggedIn:true,
-                isGuest:false
->>>>>>> 3b5c1a6bf64775dd24eeacb153790eeea47a1b9e
     }
   }.bind(this));
 }

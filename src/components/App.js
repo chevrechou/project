@@ -9,7 +9,7 @@ import MyEvents from './MyEvents';
 import Register from './Register';
 import Admin from './Admin';
 import Event from '../models/Event';
-import {Authenticator} from '../util/Authenticator';
+// import {Authenticator} from '../util/Authenticator';
 
 
 var data = require('../test.json');
@@ -28,9 +28,9 @@ class App extends Component {
 
   render() {
     // const dummy=localStorage.setItem("dummy", "DUMMY");
-    var event=new Authenticator;
-    var res=event.authenticate("hello","hello");
-console.log(event)
+    // var event=new Authenticator;
+    // var res=event.authenticate("hello","hello");
+    // console.log(event)
       console.log(events);
 
 

@@ -4,7 +4,7 @@ const mysql      = require('mysql');
 const con = mysql.createConnection({
             host: 'localhost',
             user: 'root',
-            password: '2717',
+            password: 'root',
             database: 'events'
         });
 // export class Authenticator{
@@ -16,51 +16,50 @@ const con = mysql.createConnection({
 //         const express = require('express');
 // const bodyParser = require('body-parser');
 // const mysql      = require('mysql');}
-// // https://github.com/mysqljs/mysql
 
 
 // Initialize the app
-const app = express();
+// const app = express();
 
 
-        app.get('/posts',function(req,res){
-        // con.connect(function(err){
-            con.connect();
-            console.log('righthere')
-                // if(err) {
-                //     console.log("There was an error!")
-                //     console.log(err);
-                //     con.end();
-                // }
-                var username='bob';
-                var password='bob';
-            console.log('righthere')
-            var query = "SELECT UserID, username, accessLevel FROM user WHERE username=" + mysql.escape(username) + " AND password=" + mysql.escape(password);
-            con.query(query, function (err, result, fields){
-                if(err) {
-                    console.log("err");
-                    con.end();
-                }
-                else {
-                    var returnString = '';
-                    if(result.length == 0){
-                        con.end();
-                        console.log("Username/Password do not match!")
-                        return -1;
-                    }
-                    returnString = result[0].UserID + "," + result[0].username + "," + result[0].accessLevel;
-                    console.log(returnString);
-                    res.send(returnString)
-                    con.end();
+//         app.get('/posts',function(req,res){
+//         // con.connect(function(err){
+//             con.connect();
+//             console.log('righthere')
+//                 // if(err) {
+//                 //     console.log("There was an error!")
+//                 //     console.log(err);
+//                 //     con.end();
+//                 // }
+//                 var username='bob';
+//                 var password='bob';
+//             console.log('righthere')
+//             var query = "SELECT UserID, username, accessLevel FROM user WHERE username=" + mysql.escape(username) + " AND password=" + mysql.escape(password);
+//             con.query(query, function (err, result, fields){
+//                 if(err) {
+//                     console.log("err");
+//                     con.end();
+//                 }
+//                 else {
+//                     var returnString = '';
+//                     if(result.length == 0){
+//                         con.end();
+//                         console.log("Username/Password do not match!")
+//                         return -1;
+//                     }
+//                     returnString = result[0].UserID + "," + result[0].username + "," + result[0].accessLevel;
+//                     console.log(returnString);
+//                     res.send(returnString)
+//                     con.end();
 
-                    return returnString;
-                }
-            });
-        });
+//                     return returnString;
+//                 }
+//             });
+//         });
 
-            app.listen(3000, () => {
- console.log('Go to http://localhost:3000/posts to see posts');
-});
+//             app.listen(3000, () => {
+//  console.log('Go to http://localhost:3000/posts to see posts');
+// });
         // }
 
 
