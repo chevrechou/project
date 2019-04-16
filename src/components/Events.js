@@ -75,7 +75,7 @@ class Events extends Component {
         var user=JSON.parse(localStorage.getItem("user"));
         console.log(JSON.parse(localStorage.getItem('events')));
          this.setState({
-          username:user.username,
+          username: user.username,
           type:user.type,
           isLoggedIn:true,
           data:JSON.parse(localStorage.getItem('events')),

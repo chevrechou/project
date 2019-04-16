@@ -8,8 +8,10 @@ import {
   withRouter
 } from "react-router-dom";
 import "../styles/login.css";
-import {Authenticator} from "../util/Authenticator";
-
+import io from 'socket.io-client';
+// import {Authenticator} from "../util/Authenticator";
+<script src="http://localhost:2900/socket.io/socket.io.js"></script>
+var socket = io.connect('http://localhost:2900');
 class Login extends Component{
   state={
     isAuthenticated:false,
@@ -20,30 +22,29 @@ posts: [],
     console.log(values);
  
 
-   
-    var auth=new Authenticator;
-    // var authResponse = auth.authenticate(values.Username, values.Password);
-
-    // if(authResponse != -1){
-    //   console.log(authResponse);
-    // }
-    // else{
-    //   console.log("User don't exist bruh!");
-    // }
-fetch('http://localhost:3000/posts')
-      .then(response => response.json())
-      .then(posts => (console.log(posts)))
-      // console.log(this.state.posts)
-    this.setState({
-      isAuthenticated: true
-    })
-    var user = {
-                username: values.Username,
-                type: 'not guest',
-                isLoggedIn:true,
-                isGuest:false
+   socket.emit('authenticate', {user: values.Username, pass: values.Password});
+   socket.on('authenticateResponse', function(data){
+    if(data != -1){
+      console.log("SUCCESS");
+      this.setState({
+        isAuthenticated: true
+      })
+      var info = user.split(",");
+      var user = {
+        username: values.Username,
+        type: 'not guest',
+        isLoggedIn:true,
+        isGuest:false
+      }
+      console.log(user);
+      const storage = localStorage.setItem("user", JSON.stringify(user));
+      console.log("set storage");
     }
-    const storage = localStorage.setItem("user", JSON.stringify(user));
+    else {
+      console.log("FAILED");
+      // document.getElementById("error").innerHTML = "Invalid credentials";
+    }
+  }.bind(this));
 }
 const MyForm = () => (
   <Form
@@ -74,7 +75,9 @@ const MyForm = () => (
               />
             </div>
           </div>
+          {/* <div id="error">
 
+          </div> */}
         </section>
         <button type="submit" placeholder="Login" class="login">Login</button>
 
