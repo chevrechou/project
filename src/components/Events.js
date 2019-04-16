@@ -10,7 +10,10 @@ import Popup from 'reactjs-popup'
 import SearchField from "react-search-field";
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-var jsonData = require('../test.json');
+import { Socket } from 'net';
+import io from 'socket.io-client';
+<script src="http://localhost:2900/socket.io/socket.io.js"></script>
+var socket = io.connect('http://localhost:2900');
 const options = [
   { value: 'newest', label: 'Newest' },
   { value: 'tag', label: 'Tag' },
@@ -85,11 +88,7 @@ class Events extends Component {
         data: JSON.parse(localStorage.getItem('events')),
         filtered: JSON.parse(localStorage.getItem('events')),
       });
-
     }
-
-
-
   }
   removeEvent(value) {
 
@@ -113,15 +112,18 @@ class Events extends Component {
 
   }
   addEvent(value) {
-    console.log(value.id);
+    console.log('VALUE:');
+    console.log(value.EventID);
+    var userID = JSON.parse(localStorage.getItem('user')).userID;
+    socket.emit('addToFavorites' ,{UserID: userID, EventID: value.EventID});
     var found = false;
-    var obj = require('../myevents.json');
-
+    var obj = localStorage.getItem('myevents');
+    console.log('OBJ:');
+    console.log(obj);
     var c, found = false;
-    var id = 'id';
-
+    var id = 'EventID';
     for (c in obj) {
-      if (obj[c][id] == value.id) {
+      if (obj[c][id] == value.EventID) {
         found = true;
         break;
       }
@@ -141,7 +143,7 @@ class Events extends Component {
 
 
 
-      obj.push(value);
+      // obj.push(value);
       found = false;
       this.setState({
         added: true,

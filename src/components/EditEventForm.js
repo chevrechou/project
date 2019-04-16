@@ -27,6 +27,7 @@ const EditEventForm = (props) => {
               component="input"
               type="text"
               placeholder={props.props.Description}
+              value={props.props.Description}
             />
           </div>
 
@@ -37,6 +38,7 @@ const EditEventForm = (props) => {
               component="input"
               type="text"
               placeholder={props.props.Tag}
+              value={props.props.Tag}
             />
           </div>
           <div className="edit-input">
@@ -46,6 +48,7 @@ const EditEventForm = (props) => {
               component="input"
               type="text"
               placeholder={props.props.Date}
+              value={props.props.Date}
             />
           </div>
           <div className="edit-input">
@@ -55,6 +58,7 @@ const EditEventForm = (props) => {
               component="input"
               type="text"
               placeholder={props.props.Location}
+              value={props.props.Location}
             />
           </div>
           <div   className="description-input-container">
@@ -64,6 +68,7 @@ const EditEventForm = (props) => {
             // type="text"
               name="description"
               placeholder={props.props.Description}
+              value = {props.props.Description}
               maxlength="500"
               component="textarea"
 
@@ -86,4 +91,4 @@ const EditEventForm = (props) => {
   </div>
   </div>
 )};
-export default EditEventForm ;
+export default EditEventForm;

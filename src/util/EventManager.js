@@ -313,24 +313,7 @@ class EventManager {
         });
     };
     getUsersEvents(id){
-        var mysql = require('mysql');
-        var con = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: 'root',
-            database: 'events'
-        });
-        con.connect(function(err){
-            if(err) return err;
-            var query = "SELECT e.EventID, e.Title, e.DateTime, e.Location, e.Description, e.AccessLevel, u.username FROM event e, user u, favorites f WHERE e.EventID=f.eventID AND e.UserID=u.UserID AND f.userID="+mysql.escape(id);
-            con.query(query, function(err, result){
-                if(err) console.log(err);
-                var events = result;
-                console.log(events);
-                //at this point, send all data to the front end to display 
-            })
-            //see user.js getSavedvents func
-        });
+        
     };
     getEventsByTag(tag){
         var mysql = require('mysql');

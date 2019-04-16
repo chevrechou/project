@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { Form, Field } from 'react-final-form';
 import '../styles/eventsforms.css';
-
+import io from 'socket.io-client';
+<script src="http://localhost:2900/socket.io/socket.io.js"></script>
+var socket = io.connect('http://localhost:2900');
 const onSubmit = async values => {
+  values['UserID'] = JSON.parse(localStorage.getItem('user')).userID;
   var data=JSON.stringify(values, 0, 2)
   // window.alert(JSON.stringify(values, 0, 2))
   console.log(data)
+  socket.emit('createEvent', values);
 }
 const EventForm = () => (
   <div   className="eventForm-container">
@@ -19,7 +23,7 @@ const EventForm = () => (
           <div >
             <label>Event Name</label>
             <Field
-              name="name"
+              name="Title"
               component="input"
               type="text"
               placeholder="Event Name"
@@ -38,7 +42,7 @@ const EventForm = () => (
           <div>
             <label>Date</label>
             <Field
-              name="Date"
+              name="DateTime"
               component="input"
               type="text"
               placeholder="Date"
@@ -56,7 +60,7 @@ const EventForm = () => (
             <label>Description<br/>(max 500 char.)</label>
             <Field
             className="desc"
-              name="description"
+              name="Description"
               placeholder="Event Description"
               maxlength="500"
               component="textarea"
@@ -67,7 +71,30 @@ const EventForm = () => (
             )}
           />
           </div>
-
+          <div>
+            <label>Access Level</label>
+            <br/>
+            <div class='radio-group'>
+              <label class="access-btn">Public</label>
+              <Field
+                name="AccessLevel"
+                component="input"
+                type="radio"
+                value='0'
+                className="access-radio"
+              />
+            </div>
+            <div class='radio-group'>
+              <label class="access-btn">Private</label>
+              <Field
+                name="AccessLevel"
+                component="input"
+                type="radio"
+                value='1'
+                className="access-radio"
+              />
+            </div>
+          </div>
 
 
             </section>

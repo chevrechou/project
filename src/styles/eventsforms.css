@@ -1,5 +1,5 @@
 label{
-  color:black;
+  color:black !important;
   font-size: 1.25em;
   text-align: left
 }
@@ -24,4 +24,15 @@ label{
 }
 .desc{
   height: 5em;
+}
+.access-radio {
+  width: auto !important;
+  display: inline-block;
+}
+.radio-group{
+  display: inline-block !important;
+  margin-right: 1%;
+}
+.access-btn{
+  font-size: 1em;
 }
