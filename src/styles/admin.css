@@ -9,9 +9,30 @@
 .admin-control{
    width: 100%;
 }
-.user-each{
+/* .user-each{
 
+} */
+
+.admin-btn {
+  display: inline-flex;
+  width: auto;
 }
+
+.btn-label {
+  color: black;
+}
+
+.btn-container {
+  margin-right: 2%;
+  display: inline;
+}
+
+.btn-group-container{
+  text-align: left;
+  border: none !important;
+  padding: 0% !important;
+}
+
 .scroll-container-admin{
 
    border:2px solid black;

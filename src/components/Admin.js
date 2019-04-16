@@ -49,6 +49,20 @@ class Admin extends Component {
               <ListGroup>
               <ListGroupItem className="item-admin" >
                 <ListGroupItemHeading>{user.userName} </ListGroupItemHeading>
+                <ListGroupItem className="btn-group-container">
+                  <div class="btn-container">
+                    <label class="btn-label">Student</label>
+                    <input class = "admin-btn"type="radio" name="accessLevel" value="1"/>
+                  </div>
+                  <div class="btn-container">
+                    <label class="btn-label">Faculty</label>
+                    <input class = "admin-btn"type="radio" name="accessLevel" value="2"/>
+                  </div>
+                  <div class="btn-container">
+                    <label class="btn-label">Admin</label>
+                    <input class = "admin-btn"type="radio" name="accessLevel" value="3"/>
+                  </div>
+                </ListGroupItem>
                 <ListGroupItemText className="item-admin-text">
                   <div className="user-each">
                     <div className="user-each-type">
