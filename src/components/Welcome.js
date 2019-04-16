@@ -10,6 +10,13 @@ import '../styles/welcome.css'
 import Login from "./Login";
 
 
+var data = require('../test.json');
+var myData=require('../myevents.json');
+
+var userEvents=[];
+
+var events=JSON.parse(localStorage.getItem('events'));
+
 class Welcome extends Component {
   constructor(props){
     super(props);
@@ -19,9 +26,11 @@ class Welcome extends Component {
       isLoggedIn:false
     }
   }
+  componentDidMount(){
+    localStorage.setItem("events",JSON.stringify(data) );
+    localStorage.setItem("myevents",JSON.stringify(myData) );
+  }
   render() {
-    var user=JSON.parse(localStorage.getItem('user'));
-    console.log(user);
     return (
       <div className="welcome-container">
 
@@ -37,7 +46,7 @@ class Welcome extends Component {
             </h2>
             or <br/>
             <h4>
-              <Link to={{ pathname: '/events', isLoggedIn:false }}>Continue as Guest </Link>
+              <Link to={{ pathname: '/events', isLoggedIn:false , isGuest:true }}>Continue as Guest </Link>
             </h4>
           </section>
 

@@ -8,12 +8,24 @@ import {
   withRouter
 } from "react-router-dom";
 import "../styles/login.css";
+class Login extends Component{
+  state={
+    isAuthenticated:false,
+  }
+  render(){
+  const onSubmit = async values => {
+  console.log(values);
+  this.setState({
+    isAuthenticated: true
+  })
 
-const onSubmit = async values => {
-  console.log(values)
-  // window.alert(JSON.stringify(values, 0, 2))
-
-  const storage=localStorage.setItem("username", values.username);
+  var user = {
+              username: values.Username,
+              type: 'not guest',
+              isLoggedIn:true,
+              isGuest:false,
+            }
+  const storage=localStorage.setItem("user",JSON.stringify(user));
 
 }
 const MyForm = () => (
@@ -54,11 +66,11 @@ const MyForm = () => (
     )}
   />
 );
- class Login extends Component{
-  clicked(){
-    // console.log("c");
-  }
-  render(){
+
+
+if (this.state.isAuthenticated) {
+  return <Redirect to={{ pathname: '/events', isLoggedIn:true,isGuest:false }} />;
+}
     return(
 
         <div className="login-container">

@@ -26,13 +26,15 @@ class MyEvents extends Component {
     this.state={
       username:"testname",
       userID:"123",
-      type:"guest",
+      type:"not guest",
       isLoggedIn:true,
       searchTerm: "",
       open: false,
       selectedOption: null,
-      data,
-      myEvents:data,
+      data:[],
+      // filtered:data,
+      filtered:[],
+      myEvents:[],
       edit:false
      }
     this.openModal = this.openModal.bind(this);
@@ -44,34 +46,57 @@ class MyEvents extends Component {
   }
 
   componentDidMount () {
-      console.log("myEVENTS " + this.props.location.isLoggedIn);
-       this.setState({
-        username:this.props.location.state.username,
-        userID:this.props.location.state.userID,
-        type:this.props.type,
+
+    var user=JSON.parse(localStorage.getItem("user"));
+    console.log(JSON.parse(localStorage.getItem('events')));
+     this.setState({
+      username:user.username,
+      type:user.type,
         // isLoggedIn:this.props.location.isLoggedIn,
          selectedOption: null,
+         data:JSON.parse(localStorage.getItem('myevents')),
+          myEvents:JSON.parse(localStorage.getItem('myevents')),
+         // filtered:data,
+         filtered:JSON.parse(localStorage.getItem('myevents')),
        });
 
    }
    removeEvent(value){
      var c, found=false;
      var id='id';
-     var obj = this.state.myEvents;
+     var i=0;
+     var obj = this.state.data;
      for(c in obj) {
         if(obj[c][id] == value.id) {
             found=true;
+            console.log( obj[c])
             break;
         }
     }
     if(found){
           console.log(obj[c])
-        delete data[c];
+          var existing = localStorage.getItem('myevents');
+
+    // If no existing data, create an array
+    // Otherwise, convert the localStorage string to an array
+    existing = existing ? JSON.parse(existing) : {};
+
+    // Add new data to localStorage Array
+    // existing.remove(value);
+    var removeIndex = this.state.data.map(function(item) { return item.id; }).indexOf(value.id);
+
+    // remove object
+    this.state.data.splice(removeIndex, 1);
+
+      // this.state.data.filter(item => item !== obj[c])
+      console.log(this.state.data)
+        localStorage.setItem('myevents', JSON.stringify(this.state.data));
+        found=false;
     }
     console.log(obj)
 
     this.setState({
-      myEvents:obj
+      myEvents:JSON.parse(localStorage.getItem('myevents',))
     })
    }
    editEvent=(value) =>{

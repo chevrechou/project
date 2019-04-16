@@ -9,29 +9,35 @@ import MyEvents from './MyEvents';
 import Register from './Register';
 import Admin from './Admin';
 import Event from '../models/Event';
-var data = require('../myevents.json');
+
+
+
+var data = require('../test.json');
+var myData=require('../myevents.json');
 
 var userEvents=[];
 localStorage.setItem("events",JSON.stringify(data) );
-var user=JSON.parse(localStorage.getItem('user'));
-var test={ 'one': 1, 'two': 2, 'three': 3 };
+localStorage.setItem("myevents",JSON.stringify(myData) );
+var events=JSON.parse(localStorage.getItem('events'));
 
-const MyUser = React.createContext(test);
+
 class App extends Component {
   state={
-    allEvents:JSON.parse(localStorage.getItem("events"))
+    allEvents:events
   }
-  getData(){
 
-  }
   render() {
-    const dummy=localStorage.setItem("dummy", "DUMMY");
+    // const dummy=localStorage.setItem("dummy", "DUMMY");
     var event=new Event;
-    console.log("all events:" + (this.state.allEvent))
-      console.log(event);
-      console.log(localStorage.getItem("dummy"));
+
+      console.log(events);
+
+
+      var result = this.state.allEvents.map(person => ({ value: person.id, text: person.Name }));
+console.log(result)
+
     return (
-        <MyUser.Provider>
+
          <BrowserRouter>
         <div>
           <Route exact={true} exact path='/' render={() => (
@@ -70,7 +76,7 @@ class App extends Component {
 
         </div>
       </BrowserRouter>
-        </MyUser.Provider>
+
   )}
 }
 

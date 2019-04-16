@@ -23,10 +23,18 @@ class Register extends Component{
      // window.alert(JSON.stringify(values, 0, 2));
      // var reg=new Register({ isAuthenticated: false });
      console.log(data);
+     var user = {
+       username: values.Username,
+       type: 'not guest',
+       isGuest:"false",
+       isLoggedIn:"true",
+     }
+     this.setState({
+        isAuthenticated: true,
 
-     this.setState({ isAuthenticated: true })
-     // localStorage.setItem("username", values.Username)
-      localStorage.setItem("user",JSON.stringify(values))
+      })
+
+      localStorage.setItem("user",JSON.stringify(user))
 
    }
 
@@ -88,7 +96,7 @@ class Register extends Component{
      </div>
    )
   if (this.state.isAuthenticated) {
-    return <Redirect to={{ pathname: '/events', isLoggedIn:true }} />;
+    return <Redirect to={{ pathname: '/events', isLoggedIn:true, isGuest:false}} />;
   }
    return(
 
@@ -98,7 +106,7 @@ class Register extends Component{
            </div>
            <div className="guest-opt">
 
-             <Link to={{ pathname: '/events', isLoggedIn:false }}>Continue as Guest </Link>
+             <Link to={{ pathname: '/events', isLoggedIn:false , isGuest:true}}>Continue as Guest </Link>
 
            </div>
 

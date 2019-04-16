@@ -5,7 +5,7 @@ import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } fro
 import "../styles/events.css";
 import ScrollArea from 'react-scrollbar';
 import SearchInput, {createFilter} from 'react-search-input';
-import data from "../test.json";
+// import data from "../test.json";
 import Popup from 'reactjs-popup'
 import SearchField from "react-search-field";
 import 'react-perfect-scrollbar/dist/css/styles.css';
@@ -18,7 +18,9 @@ const options = [
 ];
 
 var user=JSON.parse(localStorage.getItem('user'));
-const myUser = React.createContext(user);
+
+
+
 class Events extends Component {
   constructor(props){
     super(props);
@@ -29,12 +31,13 @@ class Events extends Component {
       username:"",
       userID:"",
       type:"",
-      isLoggedIn:true,
+      isLoggedIn:"",
       searchTerm: "",
       open: false,
       selectedOption: "Newest",
-      data,
-      filtered:data,
+      data:[],
+      // filtered:data,
+      filtered:[]
      }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -43,23 +46,44 @@ class Events extends Component {
   }
 
 
-
-
-
   handleChange = (selectedOption) => {
    this.setState({ selectedOption });
    console.log(`Option selected:`, selectedOption);
   }
-  componentDidMount () {
-      console.log("comp did mount " + this.props.location.isLoggedIn);
-      var user=localStorage.getItem("user");
-        console.log(user.Username);
-       this.setState({
-        username:this.props.username,
-        type:this.props.type,
-      //  isLoggedIn:this.props.location.isLoggedIn
 
-       });
+
+  componentDidMount () {
+
+      if (this.props.location.isLoggedIn===false){
+          console.log(JSON.parse(localStorage.getItem('events')));
+        var user = {
+          username: "Guest",
+          type: 'guest',
+          isGuest:"true",
+          isLoggedIn:"false",
+        }
+        localStorage.setItem("user", JSON.stringify(user))
+        this.setState({
+         username:user.username,
+         type:user.type,
+         isLoggedIn:false,
+         data:JSON.parse(localStorage.getItem('events')),
+         filtered:JSON.parse(localStorage.getItem('events')),
+
+        });
+      }else{
+        var user=JSON.parse(localStorage.getItem("user"));
+        console.log(JSON.parse(localStorage.getItem('events')));
+         this.setState({
+          username:user.username,
+          type:user.type,
+          isLoggedIn:true,
+          data:JSON.parse(localStorage.getItem('events')),
+          filtered:JSON.parse(localStorage.getItem('events')),
+         });
+
+      }
+
 
    }
    addEvent(value){
@@ -77,7 +101,22 @@ class Events extends Component {
         }
     }
     if (!found){
+      var existing = JSON.parse(localStorage.getItem('myevents'));
+
+// If no existing data, create an array
+// Otherwise, convert the localStorage string to an array
+// existing = existing ? JSON.parse(existing) : {};
+
+// Add new data to localStorage Array
+existing.push(value);
+
+// Save back to localStorage
+localStorage.setItem('myevents', JSON.stringify(existing));
+
+
+
         obj.push(value);
+        found=false;
     }else{
       console.log("ALREADY IN MY EVENTS")
     }
@@ -97,8 +136,8 @@ class Events extends Component {
 
 
   search(value){
-    console.log(data);
-    var updatedList = data;
+    console.log(this.state.data);
+    var updatedList = this.state.data;
     updatedList = updatedList.filter(function(item){
       return item.Name.toLowerCase().search(
       value.toLowerCase()) !== -1;
@@ -108,7 +147,7 @@ class Events extends Component {
   }
 
   render() {
-    console.log("user is logged in: " + this.state.isLoggedIn);
+    console.log(this.state.filtered);
 
 
   const isLoggedIn=this.state.isLoggedIn;
@@ -150,7 +189,7 @@ class Events extends Component {
           {
             this.state.filtered.map((value) =>
 
-              <div className="list">
+              <div className="list" key={value.id}>
 
           <ListGroup>
 
@@ -181,13 +220,8 @@ class Events extends Component {
               onClose={this.closeModal}
               >
                 <div >
-                {/*  <a className="close" onClick={this.closeModal}>
-                  close
-                  </a> */}
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae magni
-                  omnis delectus nemo, maxime molestiae dolorem numquam mollitia, voluptate
-                  ea, accusamus excepturi deleniti ratione sapiente! Laudantium, aperiam
-                  doloribus. Odit, aut.
+
+                {value.Description}
                   </div>
               </Popup>
             </ListGroupItemText>
