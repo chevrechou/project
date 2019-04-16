@@ -6,3 +6,4 @@ export class Student extends User{
 		//this.id="mike";//comment this out at the end
 	}
 }
+module.exports = Student;
