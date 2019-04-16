@@ -37,7 +37,8 @@ class Events extends Component {
       selectedOption: "Newest",
       data:[],
       // filtered:data,
-      filtered:[]
+      filtered:[],
+      added:false,
      }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -138,6 +139,9 @@ localStorage.setItem('myevents', JSON.stringify(existing));
 
         obj.push(value);
         found=false;
+        this.setState({
+          added:true,
+        })
     }else{
       console.log("ALREADY IN MY EVENTS")
     }

@@ -1,8 +1,9 @@
-class Authenticator{
+export class Authenticator{
 	constructor(){
 
     }
     authenticate(username, password){
+        console.log("here");
         var mysql = require('mysql');
         var con = mysql.createConnection({
             host: 'localhost',
