@@ -14,13 +14,13 @@ var myData=require('../myevents.json');
 
 var userEvents=[];
 
-var events=JSON.parse(localStorage.getItem('events'));
-
+// var events= JSON.parse(localStorage.getItem('events'));
 class Welcome extends Component {
   constructor(props){
     super(props);
     this.state={
       username:"",
+      userID: 0,
       type:"guest",
       isLoggedIn:false
     }

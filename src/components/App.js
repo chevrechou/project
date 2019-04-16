@@ -9,17 +9,20 @@ import MyEvents from './MyEvents';
 import Register from './Register';
 import Admin from './Admin';
 import Event from '../models/Event';
-// import {Authenticator} from '../util/Authenticator';
+import io from 'socket.io-client';
+<script src="http://localhost:2900/socket.io/socket.io.js"></script>
+var socket = io.connect('http://localhost:2900');
+socket.emit('loadEvents', {userAC:3 , limit:50});
+socket.on('loadEventsRepsonse', function(data){
+  console.log(data);
+  var myData=require('../myevents.json');
 
+  var userEvents=[];
+  localStorage.setItem("events",JSON.stringify(data) );
+  localStorage.setItem("myevents",JSON.stringify(myData) );
 
-var data = require('../test.json');
-var myData=require('../myevents.json');
-
-var userEvents=[];
-localStorage.setItem("events",JSON.stringify(data) );
-localStorage.setItem("myevents",JSON.stringify(myData) );
+}.bind(this));
 var events=JSON.parse(localStorage.getItem('events'));
-
 
 class App extends Component {
   state={
@@ -31,7 +34,7 @@ class App extends Component {
     // var event=new Authenticator;
     // var res=event.authenticate("hello","hello");
     // console.log(event)
-      console.log(events);
+      // console.log(events);
 
 
       var result = this.state.allEvents.map(person => ({ value: person.id, text: person.Name }));
