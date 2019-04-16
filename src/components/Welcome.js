@@ -9,7 +9,6 @@ import {
 import '../styles/welcome.css'
 import Login from "./Login";
 
-
 var data = require('../test.json');
 var myData=require('../myevents.json');
 
@@ -33,10 +32,6 @@ class Welcome extends Component {
   render() {
     return (
       <div className="welcome-container">
-
-
-
-
           <section className="welcome-left">
             <div className="welcome-logo"></div>
 
@@ -49,10 +44,6 @@ class Welcome extends Component {
               <Link to={{ pathname: '/events', isLoggedIn:false, isGuest:true  }} className = "welcome-link">Continue as Guest </Link>
             </h4>
           </section>
-
-
-
-
       </div>
     );
   }
