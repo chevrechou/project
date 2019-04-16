@@ -42,7 +42,7 @@ class Events extends Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.search=this.search.bind(this);
-    // this.addEvent=this.addEvent.bind(this);
+    this.removeEvent=this.removeEvent.bind(this);
   }
 
 
@@ -83,6 +83,27 @@ class Events extends Component {
          });
 
       }
+
+
+   }
+   removeEvent(value){
+
+    console.log(value);
+
+     var removeIndex = this.state.data.map(function(item) { return item.id; }).indexOf(value.id);
+
+     // remove object
+     this.state.data.splice(removeIndex, 1);
+
+       // this.state.data.filter(item => item !== obj[c])
+
+      localStorage.setItem('events', JSON.stringify(this.state.data));
+
+  console.log(this.state.data)
+
+     this.setState({
+       filtered:JSON.parse(localStorage.getItem('events'))
+     })
 
 
    }
@@ -206,9 +227,19 @@ localStorage.setItem('myevents', JSON.stringify(existing));
               { (isLoggedIn)?
 
                     <div className="events-but">
-                      <button  onClick={this.openModal}> Details </button> <button onClick={() => this.addEvent(value)}>  Add to My Events </button>
-                    </div>:
-
+                    {(this.state.type=="admin")?
+                      <div>
+                      <button  onClick={()=>this.removeEvent(value)}> Remove Event </button>
+                      <button  onClick={this.openModal}> Details </button>
+                      <button onClick={() => this.addEvent(value)}>  Add to My Events </button>
+                      </div>
+                      :
+                      <div>
+                      <button  onClick={this.openModal}> Details </button>
+                      <button onClick={() => this.addEvent(value)}>  Add to My Events </button>
+                      </div>}
+                    </div>
+                    :
                     <div className="events-but">
                       <button  onClick={this.openModal}> Details </button>
                     </div>
