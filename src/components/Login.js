@@ -59,7 +59,7 @@ const MyForm = () => (
           </div>
 
         </section>
-        <button type="submit" placeholder="Login">Login</button>
+        <button type="submit" placeholder="Login" class="login">Login</button>
 
         {/*  <pre>{JSON.stringify( values, 0, 2)}</pre>*/}
         </form>

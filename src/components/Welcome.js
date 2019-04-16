@@ -42,11 +42,11 @@ class Welcome extends Component {
 
             <Login/>
             <br/>
-              <h2>  <Link to={{ pathname: '/register', isLoggedIn:false }}> Register </Link><br/>
+              <h2>  <Link to={{ pathname: '/register', isLoggedIn:false }} className = "welcome-link"> Register </Link><br/>
             </h2>
-            or <br/>
+            or<br/>
             <h4>
-              <Link to={{ pathname: '/events', isLoggedIn:false , isGuest:true }}>Continue as Guest </Link>
+              <Link to={{ pathname: '/events', isLoggedIn:false, isGuest:true  }} className = "welcome-link">Continue as Guest </Link>
             </h4>
           </section>
 
