@@ -21,8 +21,8 @@ const con = mysql.createConnection({
 
 // Initialize the app
 const app = express();
-        
-        
+
+
         app.get('/posts',function(req,res){
         // con.connect(function(err){
             con.connect();
@@ -57,12 +57,12 @@ const app = express();
                 }
             });
         });
-            
+
             app.listen(3000, () => {
  console.log('Go to http://localhost:3000/posts to see posts');
 });
         // }
-    
+
 
 //     createNewUser(username, email, password){
 //         var mysql = require('mysql');
