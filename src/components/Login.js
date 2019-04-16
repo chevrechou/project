@@ -13,21 +13,21 @@ class Login extends Component{
     isAuthenticated:false,
   }
   render(){
-  const onSubmit = async values => {
-  console.log(values);
-  this.setState({
-    isAuthenticated: true
-  })
+    const onSubmit = async values => {
+    console.log(values);
+    this.setState({
+      isAuthenticated: true
+    })
 
-  var user = {
-              username: values.Username,
-              type: 'not guest',
-              isLoggedIn:true,
-              isGuest:false,
-            }
-  const storage=localStorage.setItem("user",JSON.stringify(user));
+    var user = {
+                username: values.Username,
+                type: 'admin',
+                isLoggedIn:true,
+                isGuest:false,
+              }
+    const storage=localStorage.setItem("user",JSON.stringify(user));
 
-}
+  }
 const MyForm = () => (
   <Form
       onSubmit={onSubmit}
