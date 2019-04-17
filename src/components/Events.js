@@ -14,11 +14,7 @@ import { Socket } from 'net';
 import io from 'socket.io-client';
 <script src="http://localhost:2900/socket.io/socket.io.js"></script>
 var socket = io.connect('http://localhost:2900');
-const options = [
-  { value: 'newest', label: 'Newest' },
-  { value: 'tag', label: 'Tag' },
-  { value: 'vanilla', label: 'Vanilla' }
-];
+
 
 var user = JSON.parse(localStorage.getItem('user'));
 console.log('Init events');
@@ -89,15 +85,22 @@ class Events extends Component {
     } else {
       var user = JSON.parse(localStorage.getItem("user"));
       console.log(JSON.parse(localStorage.getItem('events')));
-      this.setState({
-        username: user.username,
-        userID: user.userID,
-        accessLevel : user.accessLevel,
-        type: user.type,
-        isLoggedIn: true,
-        data: JSON.parse(localStorage.getItem('events')),
-        filtered: JSON.parse(localStorage.getItem('events')),
-      });
+      console.log("USER ACLEVL" + user.accessLevel);
+      socket.emit('loadEvents', { userAC: user.accessLevel, limit: 50 });
+      socket.on('loadEventsRepsonse', function (data) {
+        console.log("Gather appropriate events");
+        localStorage.setItem("events", JSON.stringify(data));
+        console.log(data);
+        this.setState({
+          username: user.username,
+          type: user.type,
+          accessLevel: user.accessLevel,
+          isLoggedIn: false,
+          data: JSON.parse(localStorage.getItem('events')),
+          filtered: JSON.parse(localStorage.getItem('events'))
+        });
+      }.bind(this));
+      console.log(localStorage.getItem('events'));
     }
   }
   removeEvent(value) {
@@ -167,7 +170,7 @@ class Events extends Component {
     console.log(this.state.data);
     var updatedList = this.state.data;
     updatedList = updatedList.filter(function (item) {
-      return item.Name.toLowerCase().search(
+      return item.Title.toLowerCase().search(
         value.toLowerCase()) !== -1;
     });
 
@@ -262,7 +265,7 @@ class Events extends Component {
 
                       )}
                   </ListGroup>
-            
+
           </PerfectScrollbar>
         </section>
       </div>
