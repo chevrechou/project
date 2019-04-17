@@ -35,13 +35,13 @@ class Admin extends Component {
     socket.on('getUsersResponse', function (data) {
       dat = (data);
       localStorage.setItem('users', JSON.stringify(dat));
+      this.setState({
+        users: JSON.parse(localStorage.getItem('users'))
+      }, function(){
+        console.log("Set the fucking state");
+        console.log(JSON.parse(localStorage.getItem('users')));
+      });
     }.bind(this));
-    this.setState({
-      users: JSON.parse(localStorage.getItem('users'))
-    }, function(){
-      console.log("Set the fucking state");
-      console.log(JSON.parse(localStorage.getItem('users')));
-    });
   }
 
   render() {
