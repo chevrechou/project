@@ -11,15 +11,13 @@ import Login from "./Login";
 import io from 'socket.io-client';
 <script src="http://localhost:2900/socket.io/socket.io.js"></script>
 var socket = io.connect('http://localhost:2900');
-var eventData = '';
-var myData= '';
+var eventData = [];
+var myData= [];
 socket.emit('loadEvents', { userAC: 3, limit: 50 });
 socket.on('loadEventsRepsonse', function (data) {
   eventData = data;
   console.log('Grabbing data...');
   console.log(eventData);
-  myData = [];
-
 }.bind(this));
 var userEvents=[];
 class Welcome extends Component {

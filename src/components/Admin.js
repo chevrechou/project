@@ -9,8 +9,16 @@ import {
 import Sidebar from './Sidebar';
 import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 import '../styles/admin.css';
-import users from '../users.json';
+// import users from '../users.json';
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import io from 'socket.io-client';
+<script src="http://localhost:2900/socket.io/socket.io.js"></script>
+var socket = io.connect('http://localhost:2900');
+var users = [];
+socket.emit('getAllUsers');
+socket.on('getUsersResponse', function(data){
+  users = data;
+})
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 

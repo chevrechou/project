@@ -250,4 +250,32 @@ io.sockets.on('connection', function(socket){
             })
         })
     });
+    socket.on('getUsers', function(){
+        var mysql = require('mysql');
+	    var con = mysql.createConnection({
+	        host: 'localhost',
+	        user: 'root',
+	        password: 'root',
+	        database: 'events'
+		});
+	    con.connect(function(err){
+	        if(err){
+	            console.log(err);
+	            con.end();
+			}
+			else {
+				var query = "SELECT username, userID, accessLevel FROM user";
+				con.query(query, function(err, result){
+					if(err) {
+						console.log(err);
+					}
+					else {
+                        console.log("Changed access level!");
+                        socket.emit('getUsersResponse', result);
+					}
+					con.end();
+				})
+			}
+		});
+    })
 })
