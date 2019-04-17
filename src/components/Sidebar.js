@@ -31,7 +31,7 @@ class Sidebar extends Component {
   componentDidMount(){
 
     var user=JSON.parse(localStorage.getItem('user'));
-    console.log(user);
+    // console.log(user);
     if (!(user==null)) {
         this.setState({
         username:user.username,
@@ -67,10 +67,8 @@ class Sidebar extends Component {
 
   render() {
     var user=JSON.parse(localStorage.getItem('user'));
-    // console.log(JSON.parse(localStorage.getItem('user')));
-    // console.log(this.context)
-
-  const isLoggedIn=this.state.isLoggedIn;
+    
+    const isLoggedIn=this.state.isLoggedIn;
     console.log(this.state);
 
 
