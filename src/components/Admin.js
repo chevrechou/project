@@ -17,7 +17,6 @@ var socket = io.connect('http://localhost:2900');
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
-
 class Admin extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +37,6 @@ class Admin extends Component {
       this.setState({
         users: JSON.parse(localStorage.getItem('users'))
       }, function(){
-        console.log("Set the fucking state");
         console.log(JSON.parse(localStorage.getItem('users')));
       });
     }.bind(this));

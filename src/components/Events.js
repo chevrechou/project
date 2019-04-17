@@ -88,22 +88,29 @@ class Events extends Component {
       console.log(localStorage.getItem('events'));
     } else {
       var user = JSON.parse(localStorage.getItem("user"));
+      console.log(user);
       console.log(JSON.parse(localStorage.getItem('events')));
-      this.setState({
-        username: user.username,
-        userID: user.userID,
-        accessLevel : user.accessLevel,
-        type: user.type,
-        isLoggedIn: true,
-        data: JSON.parse(localStorage.getItem('events')),
-        filtered: JSON.parse(localStorage.getItem('events')),
-      });
+      socket.emit('loadEvents', { userAC: user.accessLevel, limit: 50 });
+      socket.on('loadEventsRepsonse', function (data) {
+        console.log("Gather appropriate events");
+        localStorage.setItem("events", JSON.stringify(data));
+        console.log(data);
+        this.setState({
+          username: user.username,
+          userID: user.userID,
+          accessLevel : user.accessLevel,
+          type: user.type,
+          isLoggedIn: true,
+          data: JSON.parse(localStorage.getItem('events')),
+          filtered: JSON.parse(localStorage.getItem('events')),
+        });
+      }.bind(this));
     }
   }
   removeEvent(value) {
 
-    console.log(value);
-
+    console.log("Event id?" + value.EventID);
+    socket.emit('deleteEvent', value.EventID);
     var removeIndex = this.state.data.map(function (item) { return item.id; }).indexOf(value.id);
 
     // remove object
@@ -195,7 +202,7 @@ class Events extends Component {
 
 
     const { selectedOption } = this.state;
-
+    console.log(this.state.type);
     return (
       <div className="events-container">
         <div className="sidebar">
