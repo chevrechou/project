@@ -9,7 +9,7 @@ const onSubmit = async values => {
 
 }
 const EditEventForm = (props) => {
-  console.log(props.props)
+  console.log(props.props.Name)
   return(
   <div   className="eventForm-container">
   <div className="title-edit"> <h2>Edit {props.props.Name}</h2></div>
@@ -17,73 +17,63 @@ const EditEventForm = (props) => {
   <Form
       onSubmit={onSubmit}
       className="editForm-form"
+        initialValues={props.props}
       render={({ handleSubmit, form, submitting, values }) => (
         <form onSubmit={handleSubmit}   className="eventForm-container">
           <section className="edit-eventForm-inner-reg">
           <div className="edit-input">
-            <label>Event Name</label>
+            <label className="label-event">Event Name</label>
             <Field
-              name="name"
+              name="Name"
               component="input"
               type="text"
-              placeholder={props.props.Description}
-              value={props.props.Description}
             />
           </div>
 
           <div className="edit-input">
-            <label>Tags</label>
+            <label className="label-event">Tags</label>
             <Field
-              name="tags"
+              name="Tags"
               component="input"
               type="text"
-              placeholder={props.props.Tag}
-              value={props.props.Tag}
+              initialValues={props.props.Tag}
             />
           </div>
           <div className="edit-input">
-            <label>Date</label>
+            <label className="label-event">Date</label>
             <Field
               name="Date"
               component="input"
               type="text"
-              placeholder={props.props.Date}
-              value={props.props.Date}
             />
           </div>
           <div className="edit-input">
-            <label>Location</label>
+            <label className="label-event">Location</label>
             <Field
               name="Location"
               component="input"
               type="text"
-              placeholder={props.props.Location}
-              value={props.props.Location}
             />
           </div>
           <div   className="description-input-container">
-            <label>Description<br/>(max 500 char.)</label>
+            <label className="label-event">Description<br/>(max 500 char.)</label>
             <Field
-            className="desc"
-            // type="text"
-              name="description"
-              placeholder={props.props.Description}
-              value = {props.props.Description}
+              className="desc"
+
+              name="Description"
               maxlength="500"
               component="textarea"
 
               render={({ input}) => (
-
                 <textarea {...input}/ >
-
-            )}
+              )}
           />
           </div>
 
             </section>
-          <br/>  <br/>
+
         <button className="edit-reg-but" type="submit" placeholder="Register">Edit Event</button>
-        <pre>{JSON.stringify( values, 0, 2)}</pre>
+
 
       </form>
     )}
