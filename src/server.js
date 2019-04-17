@@ -407,4 +407,91 @@ io.sockets.on('connection', function(socket){
             })
         });
     });
+    socket.on('updateEvent', function(data){
+        console.log(data);
+        var values = JSON.parse(data.values);
+        var User= JSON.parse(data.User);
+        console.log(values);
+        console.log(User);
+        var eventId = data.EventID;
+        var title = values.name;
+        var date = values.Date;
+        var location = values.Location;
+        var description = values.description;
+        var UserID = User.userID;
+        var mysql = require('mysql');
+        var con = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: 'root',
+            database: 'events'
+        });
+        con.connect(function(err){
+            if(err){
+                console.log(err);
+                con.end();
+            }
+            var query = "UPDATE event SET Title="+ mysql.escape(title) + ", DateTime=" + mysql.escape(date) + ", Location=" + mysql.escape(location)
+                + ", Description=" + mysql.escape(description)
+                + " WHERE EventID=" + eventId;
+            console.log(query);
+            con.query(query, function(err, result){
+                if(err){
+                    console.log(err);
+                    con.end();
+                }
+                else {
+                    con.query("INSERT INTO action (Type, EventID) VALUES ('edit', "+eventId+ ");", function(err, result1){
+                        if(err){
+                            console.log(err);
+                            con.end();
+                        }
+                        else {
+                            console.log("Edited!");
+                            var newQuery = "SELECT u.email FROM user u, event e, favorites f WHERE u.UserID = f.UserID AND f.EventID = e.EventID AND e.eventID="+eventId;
+                            con.query(newQuery, function(err, result){
+                                if(err){
+                                    console.log(err);
+                                    con.end();
+                                }
+                                else {
+                                    var emails = [];
+                                    for (var i in result){
+                                        emails.push(result[i].email);
+                                    }
+                                    var emailString = emails.join(', ');
+                                    if(emails.length > 0){
+                                        var mailer = require('nodemailer');
+                                        var transporter = mailer.createTransport({
+                                            service: 'gmail',
+                                            auth: {
+                                                user: 'usceventhub@gmail.com',
+                                                pass: 'Usc_Event_Hub'
+                                            }
+                                        });
+                                        var mailOptions = {
+                                            from: 'usceventhub@gmail.com',
+                                            to: emailString,
+                                            subject: 'An Event has been Updated!',
+                                            html: '<h1>An Event you saved has been updated</h1><p>Title: ' 
+                                            + title + '</p><p>DateTime: ' + date + '</p><p>Location: '
+                                            + location + '</p><p>Description: ' + description
+                                        }
+                                        transporter.sendMail(mailOptions, function(err, info){
+                                            if(err)
+                                                console.log(err);
+                                            else 
+                                                console.log("Email Sent " + info.response)
+                                        });
+                                        socket.emit('updateEventResponse', "Success!");
+                                    }
+                                    con.end();
+                                }
+                            });
+                        }
+                    });
+                }
+            })
+        });
+    });
 })
