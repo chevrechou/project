@@ -1,4 +1,5 @@
 var io = require('socket.io').listen(2900);
+var lastDateTime = convertDate(new Date());
 
 function pad2(word) {
     var str = '' + word;
@@ -17,6 +18,54 @@ function formatDate(dt){
         + ':' + pad2(dt.getSeconds());
     return dtstring;
 }
+
+function twoDigits(d) {
+    if(0 <= d && d < 10) return "0" + d.toString();
+    if(-10 < d && d < 0) return "-0" + (-1*d).toString();
+    return d.toString();
+}
+function convertDate(date){
+    return date.getUTCFullYear() + "-" + twoDigits(1 + date.getUTCMonth())
+    + "-" + twoDigits(date.getUTCDate()) + " " + twoDigits(date.getUTCHours()) 
+    + ":" + twoDigits(date.getUTCMinutes()) + ":" + twoDigits(date.getUTCSeconds());
+};
+        
+function getHistory(latestTime, callback){
+    var mysql = require('mysql');
+    var connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: 'root',
+        database: 'events'
+    });
+    connection.query('SELECT a.EventID FROM action a WHERE a.TimeStamp > "' + latestTime +'"', function(err, result){
+        return callback(result);
+    });
+}
+
+function eventUpdater(){
+    setInterval( function() {
+        console.log("Checking for updates...")
+        getHistory(lastDateTime, function(result) {
+            console.log(result);
+
+            if(result.length > 0){
+                // Emit update stuff
+                console.log("Emitting update!");
+                lastDateTime = convertDate(new Date());
+            }
+            else{
+                console.log("No new updates.");
+            }
+
+        });
+    }, 1000);
+
+}
+
+console.log("Server started!");
+eventUpdater();
+
 
 io.sockets.on('connection', function(socket){
     socket.on('authenticate', function(data) {
@@ -279,5 +328,83 @@ io.sockets.on('connection', function(socket){
 				})
 			}
 		});
-    })
+    });
+    socket.on('deleteEvent', function(id){
+        var mysql = require('mysql');
+        var con = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: 'root',
+            database: 'events'
+        });
+        var title = '';
+        con.connect(function(err){
+            if(err){
+                console.log(err);
+                con.end();
+            }
+            con.query("SELECT Title From event WHERE EventID="+id, function(err, result1){
+                if(err){
+                    console.log(err);
+                    con.end();
+                }
+                else{
+                    console.log(result1);
+                    var newQuery = "SELECT u.email FROM user u, event e, favorites f WHERE u.UserID=f.UserID AND f.EventID=e.EventID AND e.eventID="+id;
+                    con.query(newQuery, function(err, result2){
+                        if(err){
+                            console.log(err);
+                            con.end();
+                        }
+                        else {
+                            var emails = [];
+                            for (var i in result2){
+                                emails.push(result2[i].email);
+                            }
+                            var emailString = emails.join(', ');
+                            console.log("Emails: " + emailString);
+                            con.query("INSERT INTO action (Type, EventID) VALUES ('delete', "+id+ ");", function(err, result3){
+                                if(err){
+                                    console.log(err);
+                                    con.end();
+                                }
+                                else {
+                                    con.query("DELETE FROM event WHERE EventID=" + id, function(err, result4){
+                                        if(err){
+                                            console.log(err);
+                                            con.end();
+                                        }
+                                        else {
+                                            console.log("Deleted from event");
+                                            if(emails.length > 0){
+                                                var mailer = require('nodemailer');
+                                                var transporter = mailer.createTransport({
+                                                    service: 'gmail',
+                                                    auth: {
+                                                        user: 'usceventhub@gmail.com',
+                                                        pass: 'Usc_Event_Hub'
+                                                    }
+                                                });
+                                                var mailOptions = {
+                                                    from: 'usceventhub@gmail.com',
+                                                    to: emailString,
+                                                    subject: 'An Event has been Deleted!',
+                                                    html: '<h1>An Event you saved has been deleted</h1><p>Title: ' + result1[0].Title + "</p>"
+                                                }
+                                                transporter.sendMail(mailOptions, function(err, info){
+                                                    if(err) console.log(err);
+                                                    else console.log("Email Sent " + info.response);
+                                                });
+                                            }
+                                            con.end();
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            })
+        });
+    });
 })
