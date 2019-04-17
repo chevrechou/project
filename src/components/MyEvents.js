@@ -181,13 +181,13 @@ class MyEvents extends Component {
                   />
 
                 </div>
-                <div className="select-bar">
+                {/*<div className="select-bar">
                   <Select
                     value={selectedOption}
                     onChange={this.handleChange}
                     options={options}
                   />
-                </div>
+                </div>*/}
               </section>
 
               <div className="events-title">My Events</div>
