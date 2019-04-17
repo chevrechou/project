@@ -16,7 +16,7 @@ var socket = io.connect('http://localhost:2900');
 class Login extends Component{
   state={
     isAuthenticated:false,
-posts: [],
+    posts: [],
   }
   render(){
   const onSubmit = async values => {
@@ -26,24 +26,43 @@ posts: [],
    socket.on('authenticateResponse', function(data){
     if(data != -1){
       console.log("SUCCESS");
+      var info = data.split(",");
+      console.log(info);
+      var userType = '';
+      if(info[2] == 1)
+        userType = 'Student';
+      else if (info[2] == 2)
+        userType = 'Faculty';
+      else if (info[2] == 3)
+        userType = 'Admin';
       var user = {
-        username: values.Username,
-        type: 'not guest',
+        username: info[1],
+        userID: info[0],
+        type: userType,
         isLoggedIn:true,
         isGuest:false
       }
       console.log(user);
       localStorage.setItem("user", JSON.stringify(user));
       console.log("set storage");
+      socket.emit('loadEvents', { userAC: info[2], limit: 50 });
+      socket.on('loadEventsRepsonse', function (data) {
+        // console.log(data);
+        localStorage.setItem("events", JSON.stringify(data));
+      }.bind(this));
+      socket.emit('loadMyEvents', info[0]);
+      socket.on('loadMyEventsResponse', function(events){
+        // console.log(events);
+        localStorage.setItem("myevents", JSON.stringify(events));
+      });
       this.setState({
         isAuthenticated: true
       })
       var info = user.split(",");
-
     }
     else {
       console.log("FAILED");
-      // document.getElementById("error").innerHTML = "Invalid credentials";
+      document.getElementById("error").innerHTML = "Invalid credentials";
     }
   }.bind(this));
 }
@@ -76,9 +95,9 @@ const MyForm = () => (
               />
             </div>
           </div>
-          {/* <div id="error">
+          <div id="error">
 
-          </div> */}
+          </div>
         </section>
         <button type="submit" placeholder="Login" class="login">Login</button>
 

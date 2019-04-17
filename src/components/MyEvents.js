@@ -4,21 +4,23 @@ import EditEventForm from './EditEventForm';
 import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 import "../styles/events.css";
 import ScrollArea from 'react-scrollbar';
-import SearchInput, {createFilter} from 'react-search-input';
+import SearchInput, { createFilter } from 'react-search-input';
 import Select from 'react-select';
 import Popup from 'reactjs-popup';
 import SearchField from "react-search-field";
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import data from "../myevents.json";
-
+// import data from "../myevents.json";
+import io from 'socket.io-client';
+<script src="http://localhost:2900/socket.io/socket.io.js"></script>
+var socket = io.connect('http://localhost:2900');
 const options = [
   { value: 'newest', label: 'Newest' },
   { value: 'tag', label: 'Tag' },
   { value: 'vanilla', label: 'Vanilla' }
 ];
 class MyEvents extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     console.log("HERE");
 
@@ -31,135 +33,128 @@ class MyEvents extends Component {
       searchTerm: "",
       open: false,
       selectedOption: null,
-      data:[],
+      data: [],
       // filtered:data,
-      filtered:[],
-      myEvents:[],
-      edit:false
-     }
+      filtered: [],
+      myEvents: [],
+      edit: false
+    }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.edit = this.edit.bind(this);
     this.doneedit = this.doneedit.bind(this);
-    this.search=this.search.bind(this);
-    this.removeEvent=this.removeEvent.bind(this);
+    this.search = this.search.bind(this);
+    this.removeEvent = this.removeEvent.bind(this);
   }
 
-  componentDidMount () {
+  componentDidMount() {
 
-    var user=JSON.parse(localStorage.getItem("user"));
+    var user = JSON.parse(localStorage.getItem("user"));
     console.log(JSON.parse(localStorage.getItem('events')));
-     this.setState({
-      username:user.username,
-      type:user.type,
-        // isLoggedIn:this.props.location.isLoggedIn,
-         selectedOption: null,
-         data:JSON.parse(localStorage.getItem('myevents')),
-          myEvents:JSON.parse(localStorage.getItem('myevents')),
-         // filtered:data,
-         filtered:JSON.parse(localStorage.getItem('myevents')),
-       });
+    this.setState({
+      username: user.username,
+      type: user.type,
+      // isLoggedIn:this.props.location.isLoggedIn,
+      selectedOption: null,
+      data: JSON.parse(localStorage.getItem('myevents')),
+      myEvents: JSON.parse(localStorage.getItem('myevents')),
+      // filtered:data,
+      filtered: JSON.parse(localStorage.getItem('myevents')),
+    });
 
-   }
-   removeEvent(value){
-     var c, found=false;
-     var id='id';
-     var i=0;
-     var obj = this.state.data;
-     for(c in obj) {
-        if(obj[c][id] == value.id) {
-            found=true;
-            console.log( obj[c])
-            break;
-        }
+  }
+  removeEvent(value) {
+    var userID = JSON.parse(localStorage.getItem('user')).userID;
+    socket.emit('removeFromFavorites' ,{UserID: userID, EventID: value.EventID});
+    var c, found = false;
+    var id = 'EventID';
+    var i = 0;
+    var obj = this.state.data;
+    for (c in obj) {
+      if (obj[c][id] == value.EventID) {
+        found = true;
+        console.log(obj[c])
+        break;
+      }
     }
-    if(found){
-          console.log(obj[c])
-          var existing = localStorage.getItem('myevents');
+    if (found) {
+      console.log(obj[c])
+      var existing = localStorage.getItem('myevents');
 
-    // If no existing data, create an array
-    // Otherwise, convert the localStorage string to an array
-    existing = existing ? JSON.parse(existing) : {};
+      // If no existing data, create an array
+      // Otherwise, convert the localStorage string to an array
+      existing = existing ? JSON.parse(existing) : {};
+      console.log('what is data?')
+      console.log(this.state.data);
+      // Add new data to localStorage Array
+      // existing.remove(value);
+      var removeIndex = this.state.data.map(function (item) { return item.EventID; }).indexOf(value.EventID);
 
-    // Add new data to localStorage Array
-    // existing.remove(value);
-    var removeIndex = this.state.data.map(function(item) { return item.id; }).indexOf(value.id);
-
-    // remove object
-    this.state.data.splice(removeIndex, 1);
+      // remove object
+      this.state.data.splice(removeIndex, 1);
 
       // this.state.data.filter(item => item !== obj[c])
       console.log(this.state.data)
-        localStorage.setItem('myevents', JSON.stringify(this.state.data));
-        found=false;
+      localStorage.setItem('myevents', JSON.stringify(this.state.data));
+      found = false;
     }
     console.log(obj)
 
     this.setState({
-      myEvents:JSON.parse(localStorage.getItem('myevents',))
+      myEvents: JSON.parse(localStorage.getItem('myevents'))
     })
-   }
-   editEvent=(value) =>{
-     console.log("edit")
+  }
+  editEvent = (value) => {
+    console.log("edit")
 
 
-   }
-   search(value){
-     console.log(data);
-     var updatedList = data;
-     updatedList = updatedList.filter(function(item){
-       return item.Name.toLowerCase().search(
-       value.toLowerCase()) !== -1;
-     });
-     this.setState({myEvents: updatedList});
-   }
-   handleChange = (selectedOption) => {
+  }
+  search(value) {
+    //  console.log(data);
+    //  var updatedList = data;
+    var updatedList = updatedList.filter(function (item) {
+      return item.Name.toLowerCase().search(
+        value.toLowerCase()) !== -1;
+    });
+    this.setState({ myEvents: updatedList });
+  }
+  handleChange = (selectedOption) => {
     this.setState({ selectedOption });
     console.log(`Option selected:`, selectedOption);
   }
-  edit(){
+  edit() {
     this.setState({
-      edit:true
+      edit: true
     })
   }
-  doneedit(){
+  doneedit() {
     this.setState({
-      edit:false
+      edit: false
     })
   }
-   openModal (){
-     console.log("opening modal");
-     this.setState({ open: true })
-   }
-   closeModal () {
-     this.setState({ open: false })
-   }
-  searchUpdated (term) {
-    this.setState({searchTerm: term})
+  openModal() {
+    console.log("opening modal");
+    this.setState({ open: true })
+  }
+  closeModal() {
+    this.setState({ open: false })
+  }
+  searchUpdated(term) {
+    this.setState({ searchTerm: term })
   }
 
   render() {
     console.log(this.state.isLoggedIn);
     const { selectedOption } = this.state;
 
-  const isLoggedIn=this.state.isLoggedIn;
-  var isNotEmpty=false;
-  for (var i=0; i<this.state.data.length; i++) {
-  if (this.state.data[i] != null) {
-    isNotEmpty = true;
-    break;
-  }
-}
-
-console.log(this.state.myEvents.length)
-  return (
-
-    <div className="events-container">
-      <div className="sidebar">
-        <Sidebar className="sidebar"/>
-      </div>
-
-
+    const isLoggedIn = this.state.isLoggedIn;
+    var isNotEmpty = false;
+    for (var i = 0; i < this.state.data.length; i++) {
+      if (this.state.data[i] != null) {
+        isNotEmpty = true;
+        break;
+      }
+    }
       {
         (isNotEmpty)?
         <section className="right">
@@ -234,9 +229,9 @@ console.log(this.state.myEvents.length)
           </section>
           :<div className="empty-myevents"> <h3> No events to show. </h3> </div>
         }
-    </div>
+      </div>
 
-  );
+    );
   }
 }
 

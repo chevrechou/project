@@ -8,25 +8,30 @@ import {
 } from "react-router-dom";
 import '../styles/welcome.css'
 import Login from "./Login";
-
-var data = require('../test.json');
-var myData=require('../myevents.json');
-
+import io from 'socket.io-client';
+<script src="http://localhost:2900/socket.io/socket.io.js"></script>
+var socket = io.connect('http://localhost:2900');
+var eventData = [];
+var myData= [];
+socket.emit('loadEvents', { userAC: 3, limit: 50 });
+socket.on('loadEventsRepsonse', function (data) {
+  eventData = data;
+  console.log('Grabbing data...');
+  console.log(eventData);
+}.bind(this));
 var userEvents=[];
-
-var events=JSON.parse(localStorage.getItem('events'));
-
 class Welcome extends Component {
   constructor(props){
     super(props);
     this.state={
       username:"",
+      userID: 0,
       type:"guest",
       isLoggedIn:false
     }
   }
   componentDidMount(){
-    localStorage.setItem("events",JSON.stringify(data) );
+    localStorage.setItem("events",JSON.stringify(eventData) );
     localStorage.setItem("myevents",JSON.stringify(myData) );
   }
   render() {

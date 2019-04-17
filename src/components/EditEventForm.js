@@ -27,7 +27,6 @@ const EditEventForm = (props) => {
               name="Name"
               component="input"
               type="text"
-
             />
           </div>
 
@@ -46,7 +45,6 @@ const EditEventForm = (props) => {
               name="Date"
               component="input"
               type="text"
-
             />
           </div>
           <div className="edit-input">
@@ -55,7 +53,6 @@ const EditEventForm = (props) => {
               name="Location"
               component="input"
               type="text"
-
             />
           </div>
           <div   className="description-input-container">
@@ -64,7 +61,6 @@ const EditEventForm = (props) => {
               className="desc"
 
               name="Description"
-
               maxlength="500"
               component="textarea"
 
@@ -85,4 +81,4 @@ const EditEventForm = (props) => {
   </div>
   </div>
 )};
-export default EditEventForm ;
+export default EditEventForm;

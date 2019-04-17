@@ -9,8 +9,18 @@ import {
 import Sidebar from './Sidebar';
 import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 import '../styles/admin.css';
-import users from '../users.json';
+// import users from '../users.json';
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import io from 'socket.io-client';
+<script src="http://localhost:2900/socket.io/socket.io.js"></script>
+var socket = io.connect('http://localhost:2900');
+var users = [];
+socket.emit('getAllUsers');
+socket.on('getUsersResponse', function(data){
+  console.log(data);
+  users = JSON.parse(data);
+  console.log('h');
+}.bind(this));
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
@@ -23,11 +33,20 @@ class Admin extends Component {
       userID:"123",
       type:"",
       isLogged:true,
-      users
+      users: users
     }
   }
   componentDidMount(){
+    var socket = io.connect('http://localhost:2900');
+var users = [];
+socket.emit('getAllUsers');
+socket.on('getUsersResponse', function(data){
+  console.log('h');
+  users = JSON.parse(data);
+  console.log(users);
+}.bind(this));
     this.setState({
+       users: users
       // userID:this.props.userID,
       // username:this.props.username,
     })
