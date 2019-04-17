@@ -56,11 +56,17 @@ class Admin extends Component {
             {
               this.state.users.map((user) =>
 
-                <div className="list" key={user.userID-1}>
+                <div className="list" key={user.userID}>
                   <ListGroup>
                     <ListGroupItem className="item-admin" >
-                      <ListGroupItemHeading>{user.username} </ListGroupItemHeading>
+                      <ListGroupItemHeading>
+                      {user.username}'s current access level:
+                        { (user.accessLevel===1)?<div><i>Student</i></div>:<div></div>}
+                        { (user.accessLevel===2)?<div><i>Faculty</i></div>:<div></div>}
+                        { (user.accessLevel===3)?<div><i>Admin</i></div>:<div></div>}
+                      </ListGroupItemHeading>
                       <ListGroupItem className="btn-group-container">
+                      Change to:  <br/>
                         <div class="btn-container">
                           <label class="btn-label">Student</label>
                           <input class="admin-btn" type="radio" name={user.userID} value="1" />
