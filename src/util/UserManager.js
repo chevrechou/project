@@ -68,5 +68,36 @@ class UserManager{
 			}
 		});
 	}
+	getUsers(){
+		var mysql = require('mysql');
+	    var con = mysql.createConnection({
+	        host: 'localhost',
+	        user: 'root',
+	        password: 'root',
+	        database: 'events'
+		});
+	    con.connect(function(err){
+	        if(err){
+	            console.log(err);
+	            con.end();
+			}
+			else {
+				var query = "SELECT username, userID, accessLevel FROM user";
+				con.query(query, function(err, result){
+					if(err) {
+						console.log(err);
+					}
+					else {
+						console.log("Changed access level!");
+						console.log(result);
+					}
+					con.end();
+				})
+			}
+		});
+	}
 };
+
+var um = new UserManager();
+um.getUsers();
 module.exports = UserManager;
