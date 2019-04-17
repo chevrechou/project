@@ -213,7 +213,7 @@ class MyEvents extends Component {
                             </div>
                             <div className="event-text">{value.Description}</div>
                             {
-                              (this.state.type == "Admin") ?
+                              (value.Created === "true" || this.state.type==="Admin") ?
                                 <div className="events-but">
                                   <button onClick={this.edit}>Edit </button>
                                   <button onClick={this.openModal}> Details </button>

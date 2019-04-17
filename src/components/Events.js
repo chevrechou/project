@@ -113,11 +113,7 @@ class Events extends Component {
     socket.emit('deleteEvent', value.EventID);
     var removeIndex = this.state.data.map(function (item) { return item.id; }).indexOf(value.id);
 
-    // remove object
     this.state.data.splice(removeIndex, 1);
-
-    // this.state.data.filter(item => item !== obj[c])
-
     localStorage.setItem('events', JSON.stringify(this.state.data));
 
     console.log(this.state.data)
@@ -148,19 +144,10 @@ class Events extends Component {
     if (!found) {
       var existing = JSON.parse(localStorage.getItem('myevents'));
 
-      // If no existing data, create an array
-      // Otherwise, convert the localStorage string to an array
-      // existing = existing ? JSON.parse(existing) : {};
-
-      // Add new data to localStorage Array
       existing.push(value);
 
-      // Save back to localStorage
       localStorage.setItem('myevents', JSON.stringify(existing));
 
-
-
-      // obj.push(value);
       found = false;
       this.setState({
         added: true,
@@ -223,24 +210,17 @@ class Events extends Component {
               />
 
             </div>
-            {/*<div className="select-bar">
-              <Select
-                value={selectedOption}
-                onChange={this.handleChange}
-                options={options}
-              />
-            </div>*/}
           </section>
 
           <div className="events-title">All Events</div>
           <PerfectScrollbar className="scroll-container">
-            {
-              this.state.filtered.map((value) =>
 
-                <div className="list" key={value.id}>
+
 
                   <ListGroup>
+                  {this.state.filtered.map((value) =>
 
+                    <div className="list" key={value.id}>
                     <ListGroupItem className="item" >
                       <ListGroupItemHeading>{value.Title} </ListGroupItemHeading>
                       <ListGroupItemText>
@@ -285,12 +265,11 @@ class Events extends Component {
                       </ListGroupItemText>
                     </ListGroupItem>
 
+                    </div>
 
-
-
+                      )}
                   </ListGroup>
-
-                </div>)}
+            
           </PerfectScrollbar>
         </section>
       </div>
