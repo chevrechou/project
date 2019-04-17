@@ -8,7 +8,7 @@ const onSubmit = async values => {
   values['UserID'] = JSON.parse(localStorage.getItem('user')).userID;
   var data=JSON.stringify(values, 0, 2)
   // window.alert(JSON.stringify(values, 0, 2))
-  console.log(data);
+  console.log(values);
   var update= JSON.parse(localStorage.getItem('events'));
   console.log(update);
     update.push(data);
@@ -49,7 +49,7 @@ const EventForm = () => (
             <Field
               name="DateTime"
               component="input"
-              type="text"
+              type="date"
               placeholder="Date"
             />
 
@@ -67,7 +67,7 @@ const EventForm = () => (
             className="desc"
               name="Description"
               placeholder="Event Description"
-              maxlength="500"
+              maxLength="500"
               component="textarea"
               render={({ input}) => (
 
