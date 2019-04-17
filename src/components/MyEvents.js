@@ -111,16 +111,11 @@ class MyEvents extends Component {
       myEvents: JSON.parse(localStorage.getItem('myevents'))
     })
   }
-  editEvent = (value) => {
-    console.log("edit")
 
-
-  }
   search(value) {
-    //  console.log(data);
-    //  var updatedList = data;
+
     var updatedList = updatedList.filter(function (item) {
-      return item.Name.toLowerCase().search(
+      return item.Title.toLowerCase().search(
         value.toLowerCase()) !== -1;
     });
     this.setState({ myEvents: updatedList });
@@ -188,13 +183,7 @@ class MyEvents extends Component {
                   />
 
                 </div>
-                {/*<div className="select-bar">
-                  <Select
-                    value={selectedOption}
-                    onChange={this.handleChange}
-                    options={options}
-                  />
-                </div>*/}
+
               </section>
 
               <div className="events-title">My Events</div>
