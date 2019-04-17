@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import { Form, Field } from 'react-final-form';
 import '../styles/editForm.css';
-
+import io from 'socket.io-client';
+<script src="http://localhost:2900/socket.io/socket.io.js"></script>
+var socket = io.connect('http://localhost:2900');
+var EventID = '';
 const onSubmit = async values => {
-  var data=JSON.stringify(values, 0, 2)
+  var data=JSON.stringify(values, 0, 2);
+  var user = localStorage.getItem('user');
+  console.log(user);
   // window.alert(JSON.stringify(values, 0, 2))
-  console.log(data)
-
+  console.log(EventID);
+  console.log(data);
+  socket.emit('updateEvent', {EventID: EventID, User: user, values: data});
 }
 const EditEventForm = (props) => {
   console.log(props.props)
+  EventID = props.props.EventID;
   return(
   <div   className="eventForm-container">
   <div className="title-edit"> <h2>Edit {props.props.Name}</h2></div>
