@@ -8,8 +8,12 @@ const onSubmit = async values => {
   values['UserID'] = JSON.parse(localStorage.getItem('user')).userID;
   var data=JSON.stringify(values, 0, 2)
   // window.alert(JSON.stringify(values, 0, 2))
-  console.log(data)
+  console.log(data);
+  var update= JSON.parse(localStorage.getItem('events'));
+    update.push(data);
+  localStorage.setItem("events",JSON.stringify(update));
   socket.emit('createEvent', values);
+
 }
 const EventForm = () => (
   <div   className="eventForm-container">
@@ -47,7 +51,7 @@ const EventForm = () => (
               type="text"
               placeholder="Date"
             />
-        
+
             <label>Location</label>
             <Field
               name="Location"
@@ -100,7 +104,7 @@ const EventForm = () => (
             </section>
               <br/>  <br/>
           <button className="reg-but" type="submit" placeholder="Register">Create Event</button>
-          <pre>{JSON.stringify( values, 0, 2)}</pre>
+
 
         </form>
     )}

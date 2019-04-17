@@ -61,46 +61,59 @@ class Events extends Component {
 
     if (this.props.location.isLoggedIn === false) {
       console.log(JSON.parse(localStorage.getItem('events')));
+      console.log('GUEST USER');
       var user = {
         username: "Guest",
         userID: 0,
+        accessLevel: 0,
         type: 'guest',
         isGuest: "true",
         isLoggedIn: "false",
       }
-      localStorage.setItem("user", JSON.stringify(user))
-      this.setState({
-        username: user.username,
-        type: user.type,
-        isLoggedIn: false,
-        data: JSON.parse(localStorage.getItem('events')),
-        filtered: JSON.parse(localStorage.getItem('events')),
-
-      });
+      console.log("USER ACLEVL" + user.accessLevel);
+      socket.emit('loadEvents', { userAC: user.accessLevel, limit: 50 });
+      socket.on('loadEventsRepsonse', function (data) {
+        console.log("Gather appropriate events");
+        localStorage.setItem("events", JSON.stringify(data));
+        console.log(data);
+        this.setState({
+          username: user.username,
+          type: user.type,
+          accessLevel: user.accessLevel,
+          isLoggedIn: false,
+          data: JSON.parse(localStorage.getItem('events')),
+          filtered: JSON.parse(localStorage.getItem('events'))
+        });
+      }.bind(this));
+      console.log(localStorage.getItem('events'));
     } else {
       var user = JSON.parse(localStorage.getItem("user"));
+      console.log(user);
       console.log(JSON.parse(localStorage.getItem('events')));
-      this.setState({
-        username: user.username,
-        userID: user.userID,
-        type: user.type,
-        isLoggedIn: true,
-        data: JSON.parse(localStorage.getItem('events')),
-        filtered: JSON.parse(localStorage.getItem('events')),
-      });
+      socket.emit('loadEvents', { userAC: user.accessLevel, limit: 50 });
+      socket.on('loadEventsRepsonse', function (data) {
+        console.log("Gather appropriate events");
+        localStorage.setItem("events", JSON.stringify(data));
+        console.log(data);
+        this.setState({
+          username: user.username,
+          userID: user.userID,
+          accessLevel : user.accessLevel,
+          type: user.type,
+          isLoggedIn: true,
+          data: JSON.parse(localStorage.getItem('events')),
+          filtered: JSON.parse(localStorage.getItem('events')),
+        });
+      }.bind(this));
     }
   }
   removeEvent(value) {
 
-    console.log(value);
-
+    console.log("Event id?" + value.EventID);
+    socket.emit('deleteEvent', value.EventID);
     var removeIndex = this.state.data.map(function (item) { return item.id; }).indexOf(value.id);
 
-    // remove object
     this.state.data.splice(removeIndex, 1);
-
-    // this.state.data.filter(item => item !== obj[c])
-
     localStorage.setItem('events', JSON.stringify(this.state.data));
 
     console.log(this.state.data)
@@ -131,19 +144,10 @@ class Events extends Component {
     if (!found) {
       var existing = JSON.parse(localStorage.getItem('myevents'));
 
-      // If no existing data, create an array
-      // Otherwise, convert the localStorage string to an array
-      // existing = existing ? JSON.parse(existing) : {};
-
-      // Add new data to localStorage Array
       existing.push(value);
 
-      // Save back to localStorage
       localStorage.setItem('myevents', JSON.stringify(existing));
 
-
-
-      // obj.push(value);
       found = false;
       this.setState({
         added: true,
@@ -154,8 +158,8 @@ class Events extends Component {
 
 
   }
-  openModal() {
-    console.log("opening modal");
+  openModal(value) {
+    console.log(value.Description);
     this.setState({ open: true })
   }
   closeModal() {
@@ -185,7 +189,7 @@ class Events extends Component {
 
 
     const { selectedOption } = this.state;
-
+    console.log(this.state.type);
     return (
       <div className="events-container">
         <div className="sidebar">
@@ -206,24 +210,17 @@ class Events extends Component {
               />
 
             </div>
-            <div className="select-bar">
-              <Select
-                value={selectedOption}
-                onChange={this.handleChange}
-                options={options}
-              />
-            </div>
           </section>
 
           <div className="events-title">All Events</div>
           <PerfectScrollbar className="scroll-container">
-            {
-              this.state.filtered.map((value) =>
 
-                <div className="list" key={value.id}>
+
 
                   <ListGroup>
+                  {this.state.filtered.map((value) =>
 
+                    <div className="list" key={value.id}>
                     <ListGroupItem className="item" >
                       <ListGroupItemHeading>{value.Title} </ListGroupItemHeading>
                       <ListGroupItemText>
@@ -237,21 +234,21 @@ class Events extends Component {
                         {(isLoggedIn) ?
 
                           <div className="events-but">
-                            {(this.state.type == "admin") ?
+                            {(this.state.type == "Admin") ?
                               <div>
                                 <button onClick={() => this.removeEvent(value)}> Remove Event </button>
-                                <button onClick={this.openModal}> Details </button>
+                                <button onClick={()=>this.openModal(value)}> Details </button>
                                 <button onClick={() => this.addEvent(value)}>  Add to My Events </button>
                               </div>
                               :
                               <div>
-                                <button onClick={this.openModal}> Details </button>
+                                <button onClick={()=>this.openModal(value)}> Details </button>
                                 <button onClick={() => this.addEvent(value)}>  Add to My Events </button>
                               </div>}
                           </div>
                           :
                           <div className="events-but">
-                            <button onClick={this.openModal}> Details </button>
+                            <button onClick={()=>this.openModal(value)}> Details </button>
                           </div>
                         }
                         <Popup
@@ -268,12 +265,11 @@ class Events extends Component {
                       </ListGroupItemText>
                     </ListGroupItem>
 
+                    </div>
 
-
-
+                      )}
                   </ListGroup>
-
-                </div>)}
+            
           </PerfectScrollbar>
         </section>
       </div>

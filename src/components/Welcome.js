@@ -13,7 +13,7 @@ import io from 'socket.io-client';
 var socket = io.connect('http://localhost:2900');
 var eventData = [];
 var myData= [];
-socket.emit('loadEvents', { userAC: 3, limit: 50 });
+socket.emit('loadEvents', { userAC: 1, limit: 50 });
 socket.on('loadEventsRepsonse', function (data) {
   eventData = data;
   console.log('Grabbing data...');

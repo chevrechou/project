@@ -83,7 +83,7 @@ const EditEventForm = (props) => {
             </section>
           <br/>  <br/>
         <button className="edit-reg-but" type="submit" placeholder="Register">Edit Event</button>
-        <pre>{JSON.stringify( values, 0, 2)}</pre>
+      
 
       </form>
     )}

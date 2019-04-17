@@ -174,7 +174,7 @@ io.sockets.on('connection', function(socket){
                 console.log(JSON.stringify(events));
                 con.end();
                 //at this point, send all data to the front end to display
-                socket.emit('loadEventsRepsonse', events); 
+                socket.emit('loadEventsRepsonse', events);
             })
         });
     });
@@ -280,7 +280,7 @@ io.sockets.on('connection', function(socket){
                 con.end();
             }
             var values = info.join(", ");
-            console.log(values);    
+            console.log(values);
             var query = "INSERT INTO event (Title, DateTime, Location, Description, AccessLevel, UserID) SELECT " + values + " FROM DUAL WHERE NOT EXISTS "
             + "(SELECT Title, DateTime, Location, Description, AccessLevel, UserID FROM event WHERE Title="+ mysql.escape(title) + " AND DateTime=" + mysql.escape(formatDate(date)) + " AND Location=" + mysql.escape(location) +
             " AND Description=" + mysql.escape(description) + " AND AccessLevel="+ accessLevel+ " AND UserID=" + userId + ");";
@@ -328,5 +328,83 @@ io.sockets.on('connection', function(socket){
 				})
 			}
 		});
-    })
+    });
+    socket.on('deleteEvent', function(id){
+        var mysql = require('mysql');
+        var con = mysql.createConnection({
+            host: 'localhost',
+            user: 'root',
+            password: 'root',
+            database: 'events'
+        });
+        var title = '';
+        con.connect(function(err){
+            if(err){
+                console.log(err);
+                con.end();
+            }
+            con.query("SELECT Title From event WHERE EventID="+id, function(err, result1){
+                if(err){
+                    console.log(err);
+                    con.end();
+                }
+                else{
+                    console.log(result1);
+                    var newQuery = "SELECT u.email FROM user u, event e, favorites f WHERE u.UserID=f.UserID AND f.EventID=e.EventID AND e.eventID="+id;
+                    con.query(newQuery, function(err, result2){
+                        if(err){
+                            console.log(err);
+                            con.end();
+                        }
+                        else {
+                            var emails = [];
+                            for (var i in result2){
+                                emails.push(result2[i].email);
+                            }
+                            var emailString = emails.join(', ');
+                            console.log("Emails: " + emailString);
+                            con.query("INSERT INTO action (Type, EventID) VALUES ('delete', "+id+ ");", function(err, result3){
+                                if(err){
+                                    console.log(err);
+                                    con.end();
+                                }
+                                else {
+                                    con.query("DELETE FROM event WHERE EventID=" + id, function(err, result4){
+                                        if(err){
+                                            console.log(err);
+                                            con.end();
+                                        }
+                                        else {
+                                            console.log("Deleted from event");
+                                            if(emails.length > 0){
+                                                var mailer = require('nodemailer');
+                                                var transporter = mailer.createTransport({
+                                                    service: 'gmail',
+                                                    auth: {
+                                                        user: 'usceventhub@gmail.com',
+                                                        pass: 'Usc_Event_Hub'
+                                                    }
+                                                });
+                                                var mailOptions = {
+                                                    from: 'usceventhub@gmail.com',
+                                                    to: emailString,
+                                                    subject: 'An Event has been Deleted!',
+                                                    html: '<h1>An Event you saved has been deleted</h1><p>Title: ' + result1[0].Title + "</p>"
+                                                }
+                                                transporter.sendMail(mailOptions, function(err, info){
+                                                    if(err) console.log(err);
+                                                    else console.log("Email Sent " + info.response);
+                                                });
+                                            }
+                                            con.end();
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            })
+        });
+    });
 })

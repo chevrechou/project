@@ -51,16 +51,23 @@ class MyEvents extends Component {
 
     var user = JSON.parse(localStorage.getItem("user"));
     console.log(JSON.parse(localStorage.getItem('events')));
-    this.setState({
-      username: user.username,
-      type: user.type,
-      // isLoggedIn:this.props.location.isLoggedIn,
-      selectedOption: null,
-      data: JSON.parse(localStorage.getItem('myevents')),
-      myEvents: JSON.parse(localStorage.getItem('myevents')),
-      // filtered:data,
-      filtered: JSON.parse(localStorage.getItem('myevents')),
-    });
+    socket.emit('loadMyEvents', user.userID);
+    socket.on('loadMyEventsResponse', function(events){
+      // console.log(events);
+      localStorage.setItem("myevents", JSON.stringify(events));
+      console.log("ID "+ user.userID);
+      this.setState({
+        username: user.username,
+        type: user.type,
+        userID: user.userID,
+        // isLoggedIn:this.props.location.isLoggedIn,
+        selectedOption: null,
+        data: JSON.parse(localStorage.getItem('myevents')),
+        myEvents: JSON.parse(localStorage.getItem('myevents')),
+        // filtered:data,
+        filtered: JSON.parse(localStorage.getItem('myevents')),
+      });
+    }.bind(this));
 
   }
   removeEvent(value) {
@@ -181,13 +188,13 @@ class MyEvents extends Component {
                   />
 
                 </div>
-                <div className="select-bar">
+                {/*<div className="select-bar">
                   <Select
                     value={selectedOption}
                     onChange={this.handleChange}
                     options={options}
                   />
-                </div>
+                </div>*/}
               </section>
 
               <div className="events-title">My Events</div>
@@ -206,7 +213,7 @@ class MyEvents extends Component {
                             </div>
                             <div className="event-text">{value.Description}</div>
                             {
-                              (value.Created === "true") ?
+                              (value.Created === "true" || this.state.type==="Admin") ?
                                 <div className="events-but">
                                   <button onClick={this.edit}>Edit </button>
                                   <button onClick={this.openModal}> Details </button>
