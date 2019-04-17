@@ -9,8 +9,6 @@ import {
 } from "react-router-dom";
 import "../styles/login.css";
 import io from 'socket.io-client';
-// import io from 'socket.io/node_modules/socket.io-client';
-// import {Authenticator} from "../util/Authenticator";
 <script src="http://localhost:2900/socket.io/socket.io.js"></script>
 var socket = io.connect('http://localhost:2900');
 class Login extends Component{
@@ -58,7 +56,7 @@ class Login extends Component{
       this.setState({
         isAuthenticated: true
       })
-      var info = user.split(",");
+      
     }
     else {
       console.log("FAILED");
