@@ -29,7 +29,6 @@ class App extends Component {
 
   render() {
 
-    console.log(events);
 
     var result = this.state.allEvents.map(person => ({ value: person.id, text: person.Name }));
     console.log(result)

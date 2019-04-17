@@ -72,21 +72,10 @@
   font-size: 2em;
 }
 .event-text{
+  overflow-x:hidden;
+  height: auto;
   width: 80%;
-   height: 80%;
-   overflow-y: hidden;
-  white-space: wrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-   /* white-space: wrap; */
- /* word-wrap:break-word; */
-}
-.event-text p{
-    /* height: 3em;
-    overflow-y:hidden;
-  /* white-space: wrap;
-  overflow: hidden;*/
-
+ word-wrap: break-word;
 }
 .scroll-container{
   border:2px solid black;
@@ -131,7 +120,4 @@
 
 .list-group-item-heading, .list-group-item-text {
   text-align: left;
-}
-.label-event{
-  color:black !important;
 }
