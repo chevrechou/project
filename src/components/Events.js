@@ -220,7 +220,7 @@ class Events extends Component {
             {
               this.state.filtered.map((value) =>
 
-                <div className="list" key={value.id}>
+                <div className="list" key={value.EventID}>
 
                   <ListGroup>
 

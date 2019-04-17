@@ -14,87 +14,83 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import io from 'socket.io-client';
 <script src="http://localhost:2900/socket.io/socket.io.js"></script>
 var socket = io.connect('http://localhost:2900');
-var users = [];
-socket.emit('getAllUsers');
-socket.on('getUsersResponse', function(data){
-  console.log(data);
-  users = JSON.parse(data);
-  console.log('h');
-}.bind(this));
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 
 class Admin extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
-      username:"test",
-      userID:"123",
-      type:"",
-      isLogged:true,
-      users: users
+    this.state = {
+      username: "",
+      userID: "",
+      type: "",
+      isLogged: true,
+      users: []
     }
-  }
-  componentDidMount(){
-    var socket = io.connect('http://localhost:2900');
-var users = [];
-socket.emit('getAllUsers');
-socket.on('getUsersResponse', function(data){
-  console.log('h');
-  users = JSON.parse(data);
-  console.log(users);
-}.bind(this));
+  };
+  componentDidMount() {
+    var dat = [];
+    socket.emit('getAllUsers');
+    socket.on('getUsersResponse', function (data) {
+      console.log('h');
+      dat = (data);
+      console.log("DATA:");
+      console.log(dat);
+      localStorage.setItem('users', JSON.stringify(dat));
+    }.bind(this));
     this.setState({
-       users: users
-      // userID:this.props.userID,
-      // username:this.props.username,
-    })
+      users: JSON.parse(localStorage.getItem('users'))
+    }, function(){
+      console.log("Set the fucking state");
+      console.log(JSON.parse(localStorage.getItem('users')));
+    });
+    
   }
 
   render() {
     return (
       <div className="admin-container">
         <div className="sidebar">
-          <Sidebar className="sidebar"/>
+          <Sidebar className="sidebar" />
         </div>
         <section className="right-admin">
-        <div className="events-title">Administrator Control</div>
-        <PerfectScrollbar className="scroll-container-admin">
-        {
-          this.state.users.map((user) =>
+          <div className="events-title">Administrator Control</div>
+          <PerfectScrollbar className="scroll-container-admin">
+            {
+              this.state.users.map((user) =>
 
-            <div className="list">
-              <ListGroup>
-              <ListGroupItem className="item-admin" >
-                <ListGroupItemHeading>{user.userName} </ListGroupItemHeading>
-                <ListGroupItem className="btn-group-container">
-                  <div class="btn-container">
-                    <label class="btn-label">Student</label>
-                    <input class = "admin-btn"type="radio" name={user.userID} value="1"/>
-                  </div>
-                  <div class="btn-container">
-                    <label class="btn-label">Faculty</label>
-                    <input class="admin-btn" type="radio" name={user.userID} value="2"/>
-                  </div>
-                  <div class="btn-container">
-                    <label class="btn-label">Admin</label>
-                    <input class = "admin-btn"type="radio" name={user.userID} value="3"/>
-                  </div>
-                </ListGroupItem>
-                <ListGroupItemText className="item-admin-text">
-                  <div className="user-each">
-                    <div className="user-each-type">
-                    {user.type}
-                    </div>
-                  </div>
-                </ListGroupItemText>
-              </ListGroupItem>
-              </ListGroup>
+                <div className="list" key={user.userID-1}>
+                  <ListGroup>
+                    <ListGroupItem className="item-admin" >
+                      <ListGroupItemHeading>{user.username} </ListGroupItemHeading>
+                      <ListGroupItem className="btn-group-container">
+                        <div class="btn-container">
+                          <label class="btn-label">Student</label>
+                          <input class="admin-btn" type="radio" name={user.userID} value="1" />
+                        </div>
+                        <div class="btn-container">
+                          <label class="btn-label">Faculty</label>
+                          <input class="admin-btn" type="radio" name={user.userID} value="2" />
+                        </div>
+                        <div class="btn-container">
+                          <label class="btn-label">Admin</label>
+                          <input class="admin-btn" type="radio" name={user.userID} value="3" />
+                        </div>
+                      </ListGroupItem>
+                      <ListGroupItemText className="item-admin-text">
+                        <div className="user-each">
+                          <div className="user-each-type">
+                            {user.type}
+                          </div>
+                        </div>
+                      </ListGroupItemText>
+                    </ListGroupItem>
+                  </ListGroup>
 
-          </div>)
-          }
-        </PerfectScrollbar>
+                </div>)
+            }
+          </PerfectScrollbar>
         </section>
       </div>
     );
