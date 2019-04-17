@@ -164,7 +164,7 @@ class Sidebar extends Component {
             <Link to={{ pathname: '/', isLoggedIn:false }}>Log Out  </Link>
           </ul>:<ul onClick={this.logOut}>
             <Link to={{ pathname: '/', isLoggedIn:false }}>Log In</Link></ul>}
-          {(this.state.type==="admin") ?
+          {(this.state.type==="Admin") ?
           <ul>
           <Link to={{ pathname: '/admin',
               state: { username: this.state.username,
