@@ -36,6 +36,7 @@ class Login extends Component{
       var user = {
         username: info[1],
         userID: info[0],
+        accessLevel: info[2],
         type: userType,
         isLoggedIn:true,
         isGuest:false
