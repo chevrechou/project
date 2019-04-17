@@ -84,11 +84,12 @@ class Register extends Component{
 
 
 
-               </section>
-                 <br/>  <br/>
+          </section>
+           <br/>  <br/>
              <button className="reg-but" type="submit" placeholder="Register">
-             Register</button>
-             <pre>{JSON.stringify( values, 0, 2)}</pre>
+              Register
+             </button>
+
 
            </form>
        )}

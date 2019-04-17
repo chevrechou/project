@@ -27,15 +27,11 @@ class App extends Component {
   }
 
   render() {
-    // const dummy=localStorage.setItem("dummy", "DUMMY");
-    // var event=new Authenticator;
-    // var res=event.authenticate("hello","hello");
-    // console.log(event)
-      console.log(events);
 
+    console.log(events);
 
-      var result = this.state.allEvents.map(person => ({ value: person.id, text: person.Name }));
-console.log(result)
+    var result = this.state.allEvents.map(person => ({ value: person.id, text: person.Name }));
+    console.log(result)
 
     return (
 

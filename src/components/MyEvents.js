@@ -24,9 +24,9 @@ class MyEvents extends Component {
 
     this.searchUpdated = this.searchUpdated.bind(this)
     this.state={
-      username:"testname",
-      userID:"123",
-      type:"not guest",
+      username:"",
+      userID:"",
+      type:"",
       isLoggedIn:true,
       searchTerm: "",
       open: false,
@@ -176,13 +176,13 @@ console.log(this.state.myEvents.length)
               />
 
             </div>
-            <div className="select-bar">
+            {/*<div className="select-bar">
             <Select
             value={selectedOption}
             onChange={this.handleChange}
             options={options}
             />
-            </div>
+            </div>*/}
           </section>
 
           <div className="events-title">My Events</div>
