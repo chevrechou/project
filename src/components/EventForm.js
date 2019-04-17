@@ -10,6 +10,7 @@ const onSubmit = async values => {
   // window.alert(JSON.stringify(values, 0, 2))
   console.log(data);
   var update= JSON.parse(localStorage.getItem('events'));
+  console.log(update);
     update.push(data);
   localStorage.setItem("events",JSON.stringify(update));
   socket.emit('createEvent', values);

@@ -10,7 +10,7 @@ import Popup from 'reactjs-popup'
 import SearchField from "react-search-field";
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { Socket } from 'net';
+// import { Socket } from 'net';
 import io from 'socket.io-client';
 <script src="http://localhost:2900/socket.io/socket.io.js"></script>
 var socket = io.connect('http://localhost:2900');

@@ -46,12 +46,10 @@ class Login extends Component{
         console.log("set storage");
         socket.emit('loadEvents', { userAC: info[2], limit: 50 });
         socket.on('loadEventsRepsonse', function (data) {
-          // console.log(data);
           localStorage.setItem("events", JSON.stringify(data));
         }.bind(this));
         socket.emit('loadMyEvents', info[0]);
         socket.on('loadMyEventsResponse', function(events){
-          // console.log(events);
           localStorage.setItem("myevents", JSON.stringify(events));
         });
           this.setState({isAuthenticated: true})

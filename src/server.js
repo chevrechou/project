@@ -25,12 +25,14 @@ function twoDigits(d) {
     return d.toString();
 }
 function convertDate(date){
+    console.log(date.getUTCHours() -7);
     return date.getUTCFullYear() + "-" + twoDigits(1 + date.getUTCMonth())
-    + "-" + twoDigits(date.getUTCDate()) + " " + twoDigits(date.getUTCHours()) 
+    + "-" + twoDigits(date.getUTCDate()) + " " + twoDigits(date.getUTCHours()-7) 
     + ":" + twoDigits(date.getUTCMinutes()) + ":" + twoDigits(date.getUTCSeconds());
 };
         
 function getHistory(latestTime, callback){
+    console.log(latestTime);
     var mysql = require('mysql');
     var connection = mysql.createConnection({
         host: 'localhost',
@@ -38,17 +40,18 @@ function getHistory(latestTime, callback){
         password: 'root',
         database: 'events'
     });
-    connection.query('SELECT a.EventID FROM action a WHERE a.TimeStamp > "' + latestTime +'"', function(err, result){
+    connection.query('SELECT a.EventID FROM action a WHERE a.TimeStamp > "' + latestTime + '"', function(err, result){
+        console.log(result);
         return callback(result);
     });
 }
 
 function eventUpdater(){
     setInterval( function() {
+        // console.log(lastDateTime);
         console.log("Checking for updates...")
         getHistory(lastDateTime, function(result) {
             console.log(result);
-
             if(result.length > 0){
                 // Emit update stuff
                 console.log("Emitting update!");
@@ -493,5 +496,35 @@ io.sockets.on('connection', function(socket){
                 }
             })
         });
+    });
+    socket.on('changeAccessLevel', function(data){
+        var userId = data.UserID;
+        var newAccessLevel = data.AccessLevel;
+        console.log("Changing user: " + userId + "'access level to " + newAccessLevel);
+		var mysql = require('mysql');
+	    var con = mysql.createConnection({
+	        host: 'localhost',
+	        user: 'root',
+	        password: 'root',
+	        database: 'events'
+		});
+	    con.connect(function(err){
+	        if(err){
+	            console.log(err);
+	            con.end();
+			}
+			else {
+				var query = "UPDATE user SET AccessLevel=" + newAccessLevel + " WHERE UserID=" + userId;
+				con.query(query, function(err, result){
+					if(err) {
+						console.log(err);
+					}
+					else {
+						console.log("Changed access level!");
+					}
+					con.end();
+				})
+			}
+		});
     });
 })
