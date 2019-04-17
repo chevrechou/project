@@ -36,7 +36,7 @@ class Events extends Component {
       open: false,
       selectedOption: "Newest",
       data: [],
-      // filtered:data,
+      description:"",
       filtered: [],
       added: false,
     }
@@ -99,6 +99,7 @@ class Events extends Component {
           isLoggedIn: true,
           data: JSON.parse(localStorage.getItem('events')),
           filtered: JSON.parse(localStorage.getItem('events')),
+
         });
       }.bind(this));
     }
@@ -156,7 +157,11 @@ class Events extends Component {
   }
   openModal(value) {
     console.log(value.Description);
-    this.setState({ open: true })
+
+    this.setState({
+       open: true ,
+        description:value.Description
+      })
   }
   closeModal() {
     this.setState({ open: false })
@@ -179,23 +184,17 @@ class Events extends Component {
 
   render() {
     console.log(this.state.filtered);
-
-
     const isLoggedIn = this.state.isLoggedIn;
-
-
     const { selectedOption } = this.state;
-    console.log(this.state.type);
+    // console.log(this.state.type);
     return (
       <div className="events-container">
         <div className="sidebar">
           <Sidebar className="sidebar" />
         </div>
         <section className="right">
-
           <section className="right-top">
             <div className="searchBar">
-
               <SearchField
                 placeholder="Search..."
                 onChange={this.search}
@@ -204,19 +203,15 @@ class Events extends Component {
                 searchText=""
                 classNames="test-class"
               />
-
             </div>
           </section>
 
           <div className="events-title">All Events</div>
-          <PerfectScrollbar className="scroll-container">
+            <PerfectScrollbar className="scroll-container">
+              <ListGroup>
+                {this.state.filtered.map((value,i) =>
 
-
-
-                  <ListGroup>
-                  {this.state.filtered.map((value) =>
-
-                    <div className="list" key={value.id}>
+                  <div className="list" key={value.id}>
                     <ListGroupItem className="item" >
                       <ListGroupItemHeading>{value.Title} </ListGroupItemHeading>
                       <ListGroupItemText>
@@ -228,7 +223,6 @@ class Events extends Component {
                           {value.Description}
                         </div>
                         {(isLoggedIn) ?
-
                           <div className="events-but">
                             {(this.state.type == "Admin") ?
                               <div>
@@ -252,20 +246,21 @@ class Events extends Component {
                           closeOnDocumentClick
                           className="pop"
                           onClose={this.closeModal}
-                        >
-                          <div >
 
-                            {value.Description}
-                          </div>
+                        >
+
+                        <div>
+                        {this.state.description}
+</div>
+
                         </Popup>
                       </ListGroupItemText>
                     </ListGroupItem>
 
                     </div>
 
-                      )}
-                  </ListGroup>
-
+                  )}
+            </ListGroup>
           </PerfectScrollbar>
         </section>
       </div>
