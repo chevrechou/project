@@ -154,8 +154,8 @@ class Events extends Component {
 
 
   }
-  openModal() {
-    console.log("opening modal");
+  openModal(value) {
+    console.log(value.Description);
     this.setState({ open: true })
   }
   closeModal() {
@@ -220,7 +220,7 @@ class Events extends Component {
             {
               this.state.filtered.map((value) =>
 
-                <div className="list" key={value.EventID}>
+                <div className="list" key={value.id}>
 
                   <ListGroup>
 
@@ -240,18 +240,18 @@ class Events extends Component {
                             {(this.state.type == "admin") ?
                               <div>
                                 <button onClick={() => this.removeEvent(value)}> Remove Event </button>
-                                <button onClick={this.openModal}> Details </button>
+                                <button onClick={()=>this.openModal(value)}> Details </button>
                                 <button onClick={() => this.addEvent(value)}>  Add to My Events </button>
                               </div>
                               :
                               <div>
-                                <button onClick={this.openModal}> Details </button>
+                                <button onClick={()=>this.openModal(value)}> Details </button>
                                 <button onClick={() => this.addEvent(value)}>  Add to My Events </button>
                               </div>}
                           </div>
                           :
                           <div className="events-but">
-                            <button onClick={this.openModal}> Details </button>
+                            <button onClick={()=>this.openModal(value)}> Details </button>
                           </div>
                         }
                         <Popup

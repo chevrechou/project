@@ -33,10 +33,7 @@ class Admin extends Component {
     var dat = [];
     socket.emit('getAllUsers');
     socket.on('getUsersResponse', function (data) {
-      console.log('h');
       dat = (data);
-      console.log("DATA:");
-      console.log(dat);
       localStorage.setItem('users', JSON.stringify(dat));
     }.bind(this));
     this.setState({
@@ -45,7 +42,6 @@ class Admin extends Component {
       console.log("Set the fucking state");
       console.log(JSON.parse(localStorage.getItem('users')));
     });
-    
   }
 
   render() {

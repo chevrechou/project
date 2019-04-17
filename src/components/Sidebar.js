@@ -160,16 +160,18 @@ class Sidebar extends Component {
             </Popup>
               </ul>: <div></div>
             }
-          <ul onClick={this.logOut}>
+           {(this.state.type!=="guest") ?<ul onClick={this.logOut}>
             <Link to={{ pathname: '/', isLoggedIn:false }}>Log Out  </Link>
-          </ul>
+          </ul>:<ul onClick={this.logOut}>
+            <Link to={{ pathname: '/', isLoggedIn:false }}>Log In</Link></ul>}
+          {(this.state.type==="admin") ?
           <ul>
           <Link to={{ pathname: '/admin',
               state: { username: this.state.username,
                       userID:this.state.userID} ,
 
                     }}>Admin</Link>
-          </ul>
+          </ul>:<div></div> }
 
         </div>
 
