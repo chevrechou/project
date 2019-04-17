@@ -237,7 +237,7 @@ class Events extends Component {
                         {(isLoggedIn) ?
 
                           <div className="events-but">
-                            {(this.state.type == "admin") ?
+                            {(this.state.type == "Admin") ?
                               <div>
                                 <button onClick={() => this.removeEvent(value)}> Remove Event </button>
                                 <button onClick={()=>this.openModal(value)}> Details </button>

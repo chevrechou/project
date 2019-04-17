@@ -47,7 +47,7 @@ const EventForm = () => (
               type="text"
               placeholder="Date"
             />
-        
+
             <label>Location</label>
             <Field
               name="Location"
@@ -100,7 +100,7 @@ const EventForm = () => (
             </section>
               <br/>  <br/>
           <button className="reg-but" type="submit" placeholder="Register">Create Event</button>
-          <pre>{JSON.stringify( values, 0, 2)}</pre>
+        
 
         </form>
     )}
