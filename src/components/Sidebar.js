@@ -112,7 +112,7 @@ class Sidebar extends Component {
     // console.log(this.context)
 
   const isLoggedIn=this.state.isLoggedIn;
-    // console.log(isLoggedIn);
+    console.log(this.state);
 
 
   if (this.state.logOut===true) {
@@ -144,7 +144,7 @@ class Sidebar extends Component {
                       userID:this.state.userID} ,}}>
                       My Events </Link>
           </ul>}
-          {(this.state.type!=="guest") ?
+          {(this.state.type!=="guest" &&this.state.type!=="Student" ) ?
             <ul onClick={this.openModal}>
               <a> Add Event </a>
 

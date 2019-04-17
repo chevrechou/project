@@ -125,7 +125,7 @@ io.sockets.on('connection', function(socket){
                 console.log(JSON.stringify(events));
                 con.end();
                 //at this point, send all data to the front end to display
-                socket.emit('loadEventsRepsonse', events); 
+                socket.emit('loadEventsRepsonse', events);
             })
         });
     });
@@ -231,7 +231,7 @@ io.sockets.on('connection', function(socket){
                 con.end();
             }
             var values = info.join(", ");
-            console.log(values);    
+            console.log(values);
             var query = "INSERT INTO event (Title, DateTime, Location, Description, AccessLevel, UserID) SELECT " + values + " FROM DUAL WHERE NOT EXISTS "
             + "(SELECT Title, DateTime, Location, Description, AccessLevel, UserID FROM event WHERE Title="+ mysql.escape(title) + " AND DateTime=" + mysql.escape(formatDate(date)) + " AND Location=" + mysql.escape(location) +
             " AND Description=" + mysql.escape(description) + " AND AccessLevel="+ accessLevel+ " AND UserID=" + userId + ");";
