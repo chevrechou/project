@@ -250,7 +250,7 @@ io.sockets.on('connection', function(socket){
             })
         })
     });
-    socket.on('getUsers', function(){
+    socket.on('getAllUsers', function(){
         var mysql = require('mysql');
 	    var con = mysql.createConnection({
 	        host: 'localhost',
@@ -271,7 +271,9 @@ io.sockets.on('connection', function(socket){
 					}
 					else {
                         console.log("Changed access level!");
-                        socket.emit('getUsersResponse', result);
+                        console.log(result);
+                        var res=result;
+                        socket.emit('getUsersResponse', res);
 					}
 					con.end();
 				})
