@@ -23,7 +23,7 @@ const EditEventForm = ({props, toggle}) => {
   <div   className="editForm-form">
   <Form
       onSubmit={onSubmit}
-      onSubmit={toggle}
+      // onSubmit={toggle}
       className="editForm-form"
        initialValues={{props}.props}
       render={({ handleSubmit, form, submitting, values }) => (

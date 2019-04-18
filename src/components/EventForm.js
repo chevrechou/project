@@ -21,8 +21,8 @@ const EventForm = ({toggle}) => (
   <h2>Create a new Event</h2>
   <Form
       onSubmit={onSubmit}
-      onSubmit={toggle}
-      render={({ handleSubmit, form, submitting, values }) => (
+      // onSubmit={toggle}
+      render={({ handleSubmit, form, submitting,pristine, values }) => (
         <form onSubmit={handleSubmit}   className="eventForm-container">
           <section className="eventForm-inner-reg">
           <div >
@@ -106,7 +106,8 @@ const EventForm = ({toggle}) => (
 
             </section>
               <br/>  <br/>
-          <button className="reg-but" type="submit" placeholder="Register">Create Event</button>
+          <button className="reg-but" type="submit" placeholder="Register"
+               disabled={submitting || pristine}>Create Event</button>
 
 
         </form>
