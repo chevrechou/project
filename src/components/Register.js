@@ -28,10 +28,7 @@ class Register extends Component {
         console.log("INVALID PASS");
       }
       else {
-        console.log('passwords match!');
-        values['userAC'] = 1;
-        values['limit'] = 50;
-        console.log(values);
+        console.log('passwords match!'); 
         socket.emit('register', values);
         socket.on('registerResponse', function(data){
           // console.log("response received");

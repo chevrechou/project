@@ -17,7 +17,7 @@ function formatDate(dt){
         + ':' + pad2(dt.getMinutes())
         + ':' + pad2(dt.getSeconds());
     return dtstring;
-}
+} 
 
 function twoDigits(d) {
     if(0 <= d && d < 10) return "0" + d.toString();
@@ -425,10 +425,10 @@ io.sockets.on('connection', function(socket){
         console.log(values);
         console.log(User);
         var eventId = data.EventID;
-        var title = values.name;
-        var date = values.Date;
+        var title = values.Title;
+        var date = values.DateTime;
         var location = values.Location;
-        var description = values.description;
+        var description = values.Description;
         var UserID = User.userID;
         var mysql = require('mysql');
         var con = mysql.createConnection({
