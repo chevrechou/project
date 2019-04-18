@@ -43,7 +43,33 @@ class Events extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.search = this.search.bind(this);
     this.removeEvent = this.removeEvent.bind(this);
+    this.eventUpdateReceiver();
   }
+
+  eventUpdateReceiver(){
+    // Remove all other intervals
+    // New interval!
+    console.log("Event Update Reciever started!");
+    
+    console.log("Listening for updates...");
+    socket.on('pollEventsResponse', function(resp){
+        console.log("Recieved update from socket!");
+        if(resp != -1){
+            // Something here!
+            console.log(resp);
+            console.log("Update your events!");
+            window.alert("Events changed, please refresh!");
+        }
+    });
+    var id = setInterval( function() {
+      var highestTimeoutId = id;
+      for (var i = 0 ; i < highestTimeoutId ; i++) {
+          clearTimeout(i); 
+      }
+      socket.emit('pollEvents');
+    }, 2000);
+
+  };
 
   componentDidMount() {
 

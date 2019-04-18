@@ -45,37 +45,12 @@ function getHistory(latestTime, callback){
             console.log(err);
         }
         else {
-            console.log(result);
             return callback(result);
         }
     });
     connection.end();
 }
-
-function eventUpdater(){
-    setInterval( function() {
-        // console.log(lastDateTime);
-        console.log("Checking for updates...")
-        getHistory(lastDateTime, function(result) {
-            console.log(result);
-          if (typeof result!=="undefined"){
-            if(result.length > 0){
-                // Emit update stuff
-                console.log("Emitting update!");
-                lastDateTime = convertDate(new Date());
-            }
-            else{
-                console.log("No new updates.");
-            }
-          }
-
-        });
-    }, 1000);
-
-}
-
 console.log("Server started!");
-eventUpdater();
 
 
 io.sockets.on('connection', function(socket){
@@ -534,5 +509,24 @@ io.sockets.on('connection', function(socket){
 				})
 			}
 		});
+    });
+    socket.on('pollEvents', function(data){
+        console.log("Checking for updates...")
+        getHistory(lastDateTime, function(result) {
+            // console.log(result);
+            if (typeof result!=="undefined"){
+                if(result.length > 0){
+                    // Emit update stuff
+                    lastDateTime = convertDate(new Date());
+                    // io.sockets.on('connection', function(socket){
+                        console.log("Emitting update!");
+                        socket.emit('pollEventsResponse', result);
+                }
+                else{
+                    console.log("No new updates.");
+                    socket.emit('pollEventsResponse', -1);
+                }
+            }
+        });
     });
 })
