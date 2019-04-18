@@ -52,7 +52,7 @@ class Admin extends Component {
       this.setState({
         users: JSON.parse(localStorage.getItem('users'))
       }, function(){
-        console.log(JSON.parse(localStorage.getItem('users')));
+        // console.log(JSON.parse(localStorage.getItem('users')));
       });
     }.bind(this));
   }

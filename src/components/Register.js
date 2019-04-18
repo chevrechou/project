@@ -18,7 +18,7 @@ class Register extends Component {
 
 
   clicked() {
-    console.log("r");
+    // console.log("r");
   }
   render() {
     const onSubmit = async values => {
@@ -28,10 +28,10 @@ class Register extends Component {
         console.log("INVALID PASS");
       }
       else {
-        console.log('passwords match!')
+        // console.log('passwords match!')
         socket.emit('register', values);
         socket.on('registerResponse', function(data){
-          console.log("response received");
+          // console.log("response received");
           if(data != -1){
             var user = {
               username: values.Username,
@@ -41,9 +41,7 @@ class Register extends Component {
               isLoggedIn: "true"
             }
             localStorage.setItem("user", JSON.stringify(user));
-            this.setState({
-              isAuthenticated: true
-            })
+            this.setState({  isAuthenticated: true })
           }
           else {
             document.getElementById('error').innerHTML = 'Username was already taken!';
