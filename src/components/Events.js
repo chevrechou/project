@@ -58,7 +58,7 @@ class Events extends Component {
             // Something here!
             console.log(resp);
             console.log("Update your events!");
-            window.alert("Events changed, please refresh!");
+            // window.alert("Events changed, please refresh!");
         }
     });
     var id = setInterval( function() {
