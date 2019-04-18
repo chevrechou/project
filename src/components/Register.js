@@ -28,7 +28,10 @@ class Register extends Component {
         console.log("INVALID PASS");
       }
       else {
-        console.log('passwords match!')
+        console.log('passwords match!');
+        values['userAC'] = 1;
+        values['limit'] = 50;
+        console.log(values);
         socket.emit('register', values);
         socket.on('registerResponse', function(data){
           console.log("response received");
@@ -36,6 +39,7 @@ class Register extends Component {
             var user = {
               username: values.Username,
               userID: data,
+              accessLevel: 1,
               type: 'Student',
               isGuest: "false",
               isLoggedIn: "true"

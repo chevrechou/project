@@ -41,9 +41,15 @@ function getHistory(latestTime, callback){
         database: 'events'
     });
     connection.query('SELECT a.EventID FROM action a WHERE a.TimeStamp > "' + latestTime + '"', function(err, result){
-        console.log(result);
-        return callback(result);
+        if(err){
+            console.log(err);
+        }
+        else {
+            console.log(result);
+            return callback(result);
+        }
     });
+    connection.end();
 }
 
 function eventUpdater(){
@@ -146,8 +152,8 @@ io.sockets.on('connection', function(socket){
         });
     });
     socket.on('loadEvents', function(data){
-        var accessLevel = data.userAC;
         console.log(data);
+        var accessLevel = data.userAC;
         var limit = data.limit;
         if(accessLevel == undefined || !limit){
             console.log("Invalid call");
