@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Form, Field } from 'react-final-form';
 import '../styles/editForm.css';
 import io from 'socket.io-client';
@@ -90,7 +90,7 @@ const EditEventForm = (props) => {
             </section>
           <br/>  <br/>
         <button className="edit-reg-but" type="submit" placeholder="Register">Edit Event</button>
-      
+
 
       </form>
     )}

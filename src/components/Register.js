@@ -18,7 +18,7 @@ class Register extends Component {
 
 
   clicked() {
-    console.log("r");
+    // console.log("r");
   }
   render() {
     const onSubmit = async values => {
@@ -34,7 +34,7 @@ class Register extends Component {
         console.log(values);
         socket.emit('register', values);
         socket.on('registerResponse', function(data){
-          console.log("response received");
+          // console.log("response received");
           if(data != -1){
             var user = {
               username: values.Username,
@@ -45,9 +45,7 @@ class Register extends Component {
               isLoggedIn: "true"
             }
             localStorage.setItem("user", JSON.stringify(user));
-            this.setState({
-              isAuthenticated: true
-            })
+            this.setState({  isAuthenticated: true })
           }
           else {
             document.getElementById('error').innerHTML = 'Username was already taken!';
@@ -64,7 +62,7 @@ class Register extends Component {
             <form onSubmit={handleSubmit} className="registrationForm-container">
               <section className="inner-reg">
                 <div >
-                  <label>User Name</label>
+                  <h5 className="reg-label" >User Name</h5>
                   <Field
                     name="Username"
                     component="input"
@@ -73,7 +71,7 @@ class Register extends Component {
                   />
                 </div>
                 <div >
-                  <label>Email </label>
+                  <h5 className="reg-label">Email </h5>
                   <Field
                     name="Email"
                     component="input"
@@ -82,7 +80,7 @@ class Register extends Component {
                   />
                 </div>
                 <div>
-                  <label>Password</label>
+                  <h5 className="reg-label">Password</h5>
                   <Field
                     name="Password"
                     component="input"
@@ -91,7 +89,7 @@ class Register extends Component {
                   />
                 </div>
                 <div>
-                  <label>Confirm Password</label>
+                  <h5 className="reg-label" >Confirm Password</h5>
                   <Field
                     name="PasswordConfirmation"
                     component="input"
@@ -105,8 +103,8 @@ class Register extends Component {
               </section>
               <br />  <br />
               <button className="reg-but" type="submit" placeholder="Register">
-                Register</button>
-            
+                <h5> Register </h5> </button>
+
 
             </form>
           )}
@@ -119,13 +117,13 @@ class Register extends Component {
     return (
 
       <div className="register-container">
-        <div className="content"><label>Register </label>
+        <div className="content"><h2>Register </h2>
           <MyForm />
         </div>
         <div className="guest-opt">
-
-          <Link to={{ pathname: '/events', isLoggedIn: false, isGuest: true }}>Continue as Guest </Link>
-
+          <h3>
+          <Link to={{ pathname: '/events', isLoggedIn: false, isGuest: true }} className="guest-opt">Continue as Guest </Link>
+          </h3>
         </div>
 
       </div>

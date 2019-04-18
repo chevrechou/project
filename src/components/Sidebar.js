@@ -31,7 +31,7 @@ class Sidebar extends Component {
   componentDidMount(){
 
     var user=JSON.parse(localStorage.getItem('user'));
-    console.log(user);
+    // console.log(user);
     if (!(user==null)) {
         this.setState({
         username:user.username,
@@ -45,60 +45,19 @@ class Sidebar extends Component {
         isLoggedIn:false,
       })
     }
-//     var username;
-//     var type;
-// if (!(user==null)){
-//     console.log(1)
-//     if ( user.Username!=="Guest"){
-//       username=user.Username;
-//       // type=user.type
-//
-//       this.setState({
-//         isLoggedIn:true
-//             })
-//     }
-//     else{
-//         console.log(2)
-//       username="Guest"
-//       this.setState({
-//         isLoggedIn:false
-//       })
-//     }
-//
-//     this.setState({
-//       userID:this.props.userID,
-//       username:username,
-//       // type:user.type,
-//
-//
-//     })
-//   }else{
-//       console.log(3)
-//     this.setState({
-//       isLoggedIn:false
-//     })
-//   }
+
   }
 
   componentWillReceiveProps(nextProps) {
-   this.setState({
-     open: false,
+    this.setState({open: false,});
+  }
 
-   });
-
- }
-
-
-
- logOut(){
+  logOut(){
 
    localStorage.clear();
-   this.setState({
-     logOut:true
-   })
- }
+   this.setState({logOut:true})
+  }
   openModal (){
-
     this.setState({ open: true })
   };
   closeModal () {
@@ -108,10 +67,8 @@ class Sidebar extends Component {
 
   render() {
     var user=JSON.parse(localStorage.getItem('user'));
-    // console.log(JSON.parse(localStorage.getItem('user')));
-    // console.log(this.context)
-
-  const isLoggedIn=this.state.isLoggedIn;
+    
+    const isLoggedIn=this.state.isLoggedIn;
     console.log(this.state);
 
 

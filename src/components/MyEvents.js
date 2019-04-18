@@ -101,11 +101,11 @@ class MyEvents extends Component {
       this.state.data.splice(removeIndex, 1);
 
       // this.state.data.filter(item => item !== obj[c])
-      console.log(this.state.data)
+      // console.log(this.state.data)
       localStorage.setItem('myevents', JSON.stringify(this.state.data));
       found = false;
     }
-    console.log(obj)
+    // console.log(obj)
 
     this.setState({
       myEvents: JSON.parse(localStorage.getItem('myevents'))
@@ -115,19 +115,14 @@ class MyEvents extends Component {
   search(value) {
 
     var updatedList = updatedList.filter(function (item) {
-      return item.Title.toLowerCase().search(
-        value.toLowerCase()) !== -1;
+    return item.Title.toLowerCase().search(
+      value.toLowerCase()) !== -1;
     });
     this.setState({ myEvents: updatedList });
   }
-  handleChange = (selectedOption) => {
-    this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
-  }
+
   edit() {
-    this.setState({
-      edit: true
-    })
+    this.setState({edit: true})
   }
   doneedit() {
     this.setState({
@@ -135,7 +130,7 @@ class MyEvents extends Component {
     })
   }
   openModal() {
-    console.log("opening modal");
+    // console.log("opening modal");
     this.setState({ open: true })
   }
   closeModal() {
@@ -158,7 +153,7 @@ class MyEvents extends Component {
       }
     }
 
-    console.log(this.state.myEvents.length)
+    // console.log(this.state.myEvents.length)
     return (
 
       <div className="events-container">

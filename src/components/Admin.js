@@ -29,7 +29,7 @@ class Admin extends Component {
     }
   };
   updateAccessLevel = async (data) =>{
-    console.log(data);
+    // console.log(data);
     var string = 'input[name="'+data+'"]:checked';
     var val = document.querySelector(string).value;
     socket.emit('changeAccessLevel', {UserID:data, AccessLevel: val});
@@ -38,10 +38,10 @@ class Admin extends Component {
       newAC = 'Student'
     else if (val == 2)
       newAC = 'Faculty'
-    else 
+    else
       newAC = 'Admin'
     document.getElementsByClassName("accessLevel")[data-1].innerHTML = newAC.italics();
-    console.log(newAC);
+    // console.log(newAC);
   };
   componentDidMount() {
     var dat = [];
@@ -52,7 +52,7 @@ class Admin extends Component {
       this.setState({
         users: JSON.parse(localStorage.getItem('users'))
       }, function(){
-        console.log(JSON.parse(localStorage.getItem('users')));
+        // console.log(JSON.parse(localStorage.getItem('users')));
       });
     }.bind(this));
   }

@@ -12,6 +12,7 @@
   border: 1px solid black;
   border-radius: 15px;
   padding-top:3%;
+  padding-bottom: 3%;
   align-items: center;
 }
 .inner-reg{
@@ -22,6 +23,7 @@
 }
 .guest-opt{
   margin-top: 2%;
+  color: #990000;
 }
 .content{
   margin-top: 10%;
@@ -30,7 +32,7 @@
 .reg-but{
   align-self: center !important;
 }
-label {
+.reg-label {
   color: white;
   font-size: 1.25em;
 }

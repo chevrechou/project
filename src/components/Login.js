@@ -17,15 +17,15 @@ class Login extends Component{
     posts: [],
   }
   render(){
-  const onSubmit = async values => {
-    console.log(values);
+    const onSubmit = async values => {
+    // console.log(values);
 
    socket.emit('authenticate', {user: values.Username, pass: values.Password});
    socket.on('authenticateResponse', function(data){
     if(data != -1){
-      console.log("SUCCESS");
+      // console.log("SUCCESS");
       var info = data.split(",");
-      console.log(info);
+      // console.log(info);
       var userType = '';
       if(info[2] == 1)
           userType = 'Student';
@@ -43,7 +43,7 @@ class Login extends Component{
         }
         console.log(user);
         localStorage.setItem("user", JSON.stringify(user));
-        console.log("set storage");
+        // console.log("set storage");
         socket.emit('loadEvents', { userAC: info[2], limit: 50 });
         socket.on('loadEventsRepsonse', function (data) {
           localStorage.setItem("events", JSON.stringify(data));
@@ -55,7 +55,7 @@ class Login extends Component{
           this.setState({isAuthenticated: true})
         }
         else {
-          console.log("FAILED");
+          // console.log("FAILED");
           document.getElementById("error").innerHTML = "Invalid credentials";
         }
       }.bind(this));
@@ -93,7 +93,7 @@ class Login extends Component{
 
               </div>
             </section>
-            <button type="submit" placeholder="Login" class="login">Login</button>
+            <button type="submit" placeholder="Login" className="login">Login</button>
 
 
             </form>

@@ -34,7 +34,6 @@ class Events extends Component {
       isLoggedIn: "",
       searchTerm: "",
       open: false,
-      selectedOption: "Newest",
       data: [],
       description:"",
       filtered: [],
@@ -46,18 +45,11 @@ class Events extends Component {
     this.removeEvent = this.removeEvent.bind(this);
   }
 
-
-  handleChange = (selectedOption) => {
-    this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
-  }
-
-
   componentDidMount() {
 
     if (this.props.location.isLoggedIn === false) {
       console.log(JSON.parse(localStorage.getItem('events')));
-      console.log('GUEST USER');
+      // console.log('GUEST USER');
       var user = {
         username: "Guest",
         userID: 0,
@@ -66,12 +58,12 @@ class Events extends Component {
         isGuest: "true",
         isLoggedIn: "false",
       }
-      console.log("USER ACLEVL" + user.accessLevel);
+      // console.log("USER ACLEVL" + user.accessLevel);
       socket.emit('loadEvents', { userAC: user.accessLevel, limit: 50 });
       socket.on('loadEventsRepsonse', function (data) {
-        console.log("Gather appropriate events");
+        // console.log("Gather appropriate events");
         localStorage.setItem("events", JSON.stringify(data));
-        console.log(data);
+        // console.log(data);
         this.setState({
           username: user.username,
           type: user.type,
@@ -81,16 +73,16 @@ class Events extends Component {
           filtered: JSON.parse(localStorage.getItem('events'))
         });
       }.bind(this));
-      console.log(localStorage.getItem('events'));
+      // console.log(localStorage.getItem('events'));
     } else {
       var user = JSON.parse(localStorage.getItem("user"));
-      console.log(user);
-      console.log(JSON.parse(localStorage.getItem('events')));
+      // console.log(user);
+      // console.log(JSON.parse(localStorage.getItem('events')));
       socket.emit('loadEvents', { userAC: user.accessLevel, limit: 50 });
       socket.on('loadEventsRepsonse', function (data) {
-        console.log("Gather appropriate events");
+        // console.log("Gather appropriate events");
         localStorage.setItem("events", JSON.stringify(data));
-        console.log(data);
+        // console.log(data);
         this.setState({
           username: user.username,
           userID: user.userID,
@@ -113,7 +105,7 @@ class Events extends Component {
     this.state.data.splice(removeIndex, 1);
     localStorage.setItem('events', JSON.stringify(this.state.data));
 
-    console.log(this.state.data)
+    // console.log(this.state.data)
 
     this.setState({
       filtered: JSON.parse(localStorage.getItem('events'))
@@ -126,18 +118,13 @@ class Events extends Component {
     console.log(value.EventID);
     var userID = JSON.parse(localStorage.getItem('user')).userID;
     socket.emit('addToFavorites' ,{UserID: userID, EventID: value.EventID});
-    var found = false;
+
     var obj = localStorage.getItem('myevents');
-    console.log('OBJ:');
-    console.log(obj);
+    // console.log('OBJ:');
+  console.log(obj);
     var c, found = false;
     var id = 'EventID';
-    for (c in obj) {
-      if (obj[c][id] == value.EventID) {
-        found = true;
-        break;
-      }
-    }
+    found=obj.includes(value.EventID);
     if (!found) {
       var existing = JSON.parse(localStorage.getItem('myevents'));
 
@@ -150,7 +137,7 @@ class Events extends Component {
         added: true,
       })
     } else {
-      console.log("ALREADY IN MY EVENTS")
+      window.alert("ALREADY IN MY EVENTS");
     }
 
 
