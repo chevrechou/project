@@ -14,48 +14,48 @@ const onSubmit = async values => {
   console.log(data);
   socket.emit('updateEvent', {EventID: EventID, User: user, values: data});
 }
-const EditEventForm = (props) => {
-  console.log(props.props)
-  EventID = props.props.EventID;
+const EditEventForm = ({props, toggle}) => {
+  console.log({props}.props)
+  EventID = {props}.props.EventID;
   return(
   <div   className="eventForm-container">
-  <div className="title-edit"> <h2>Edit {props.props.Name}</h2></div>
+  <div className="title-edit"> <h2>Edit {{props}.props.Title}</h2></div>
   <div   className="editForm-form">
   <Form
       onSubmit={onSubmit}
+      onSubmit={toggle}
       className="editForm-form"
+       initialValues={{props}.props}
       render={({ handleSubmit, form, submitting, values }) => (
         <form onSubmit={handleSubmit}   className="eventForm-container">
           <section className="edit-eventForm-inner-reg">
           <div className="edit-input">
             <label>Event Name</label>
             <Field
-              name="name"
+              name="Title"
               component="input"
               type="text"
-              placeholder={props.props.Description}
-              value={props.props.Description}
+
             />
           </div>
-
+        <section className="short-form">
           <div className="edit-input">
             <label>Tags</label>
             <Field
-              name="tags"
+              name="Tags"
               component="input"
               type="text"
-              placeholder={props.props.Tag}
-              value={props.props.Tag}
+              // placeholder={props.props.Tag}
+              // value={props.props.Tag}
             />
           </div>
           <div className="edit-input">
             <label>Date</label>
             <Field
-              name="Date"
+              name="DateTime"
               component="input"
-              type="text"
-              placeholder={props.props.Date}
-              value={props.props.Date}
+              type="date"
+
             />
           </div>
           <div className="edit-input">
@@ -64,19 +64,19 @@ const EditEventForm = (props) => {
               name="Location"
               component="input"
               type="text"
-              placeholder={props.props.Location}
-              value={props.props.Location}
+
             />
           </div>
+        </section >
           <div   className="description-input-container">
             <label>Description<br/>(max 500 char.)</label>
             <Field
             className="desc"
             // type="text"
-              name="description"
-              placeholder={props.props.Description}
-              value = {props.props.Description}
-              maxlength="500"
+              name="Description"
+              // placeholder={props.props.Description}
+              // value = {props.props.Description}
+              maxLength="500"
               component="textarea"
 
               render={({ input}) => (
@@ -88,10 +88,8 @@ const EditEventForm = (props) => {
           </div>
 
             </section>
-          <br/>  <br/>
+          <br/>
         <button className="edit-reg-but" type="submit" placeholder="Register">Edit Event</button>
-
-
       </form>
     )}
   />

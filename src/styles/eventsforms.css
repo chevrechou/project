@@ -20,7 +20,7 @@ label{
 
 .description-input-container{
   display: inline-flex;
-
+  
 }
 .desc{
   height: 5em;
@@ -35,4 +35,7 @@ label{
 }
 .access-btn{
   font-size: 1em;
+}
+.short-form{
+  display: flex;
 }

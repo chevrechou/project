@@ -25,7 +25,7 @@ class Sidebar extends Component {
     }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-
+    this.addEvent=this.addEvent.bind(this);
   }
 
   componentDidMount(){
@@ -63,11 +63,17 @@ class Sidebar extends Component {
   closeModal () {
     this.setState({ open: false })
   };
+  addEvent(){
+    this.setState({
+      open:false
+    })
+    window.alert("Create New Event Successful!")
+  }
 
 
   render() {
     var user=JSON.parse(localStorage.getItem('user'));
-    
+
     const isLoggedIn=this.state.isLoggedIn;
     console.log(this.state);
 
@@ -112,7 +118,7 @@ class Sidebar extends Component {
             onClose={this.closeModal.bind(this)}
             >
 
-              {EventForm}
+              <EventForm toggle={this.addEvent.bind(this)}/>
 
             </Popup>
               </ul>: <div></div>

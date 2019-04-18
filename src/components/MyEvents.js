@@ -45,6 +45,7 @@ class MyEvents extends Component {
     this.doneedit = this.doneedit.bind(this);
     this.search = this.search.bind(this);
     this.removeEvent = this.removeEvent.bind(this);
+    this.editEvent=this.editEvent.bind(this);
   }
 
   componentDidMount() {
@@ -123,6 +124,11 @@ class MyEvents extends Component {
 
   edit() {
     this.setState({edit: true})
+  }
+  editEvent(){
+      this.setState({edit: false})
+    this.closeModal()
+    window.alert("Done editing event!");
   }
   doneedit() {
     this.setState({
@@ -205,19 +211,20 @@ class MyEvents extends Component {
                                   <Popup
                                     open={this.state.edit}
                                     closeOnDocumentClick
-                                    onClose={this.doneedit}
+                                    onClose={this.closeModal.bind(this)}
                                   >
 
-                                    <EditEventForm props={value} />
+                                    <EditEventForm props={value} toggle={this.editEvent.bind(this)}/>
                                   </Popup>
                                 </div>
                                 :
                                 <div className="events-but"><button onClick={this.openModal}> Details </button><button onClick={() => this.removeEvent(value)}>Remove from my Events </button></div>
                             }
                             <Popup
-                              open={this.state.open}
-                              closeOnDocumentClick
-                              onClose={this.closeModal}
+                            open={this.state.open}
+                            closeOnDocumentClick
+
+                            onClose={this.closeModal.bind(this)}
                             >
                               <div className="event-details">{value.Description}</div>
                             </Popup>

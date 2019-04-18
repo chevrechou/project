@@ -16,12 +16,12 @@ const onSubmit = async values => {
   socket.emit('createEvent', values);
 
 }
-const EventForm = () => (
+const EventForm = ({toggle}) => (
   <div   className="eventForm-container">
   <h2>Create a new Event</h2>
   <Form
       onSubmit={onSubmit}
-
+      onSubmit={toggle}
       render={({ handleSubmit, form, submitting, values }) => (
         <form onSubmit={handleSubmit}   className="eventForm-container">
           <section className="eventForm-inner-reg">
@@ -34,33 +34,35 @@ const EventForm = () => (
               placeholder="Event Name"
             />
           </div>
-
-          <div>
-            <label>Tags</label>
-            <Field
-              name="tags"
-              component="input"
-              type="text"
-              placeholder="tags"
-            />
-          </div>
-          <div>
-            <label>Date</label>
-            <Field
-              name="DateTime"
-              component="input"
-              type="date"
-              placeholder="Date"
-            />
-
-            <label>Location</label>
-            <Field
-              name="Location"
-              component="input"
-              type="text"
-              placeholder="Location"
-            />
-          </div>
+          <section className="short-form">
+            <div className="short-form-inner">
+              <label>Tags</label>
+              <Field
+                name="tags"
+                component="input"
+                type="text"
+                placeholder="tags"
+              />
+            </div>
+            <div className="short-form-inner">
+              <label>Date</label>
+              <Field
+                name="DateTime"
+                component="input"
+                type="date"
+                placeholder="Date"
+              />
+            </div>
+            <div>
+              <label>Location</label>
+              <Field
+                name="Location"
+                component="input"
+                type="text"
+                placeholder="Location"
+              />
+            </div>
+          </section>
           <div   className="description-input-container">
             <label>Description<br/>(max 500 char.)</label>
             <Field

@@ -84,7 +84,7 @@ class Login extends Component{
                     className="inputField"
                     name="Password"
                     component="input"
-                    type="text"
+                    type="password"
                     placeholder="Password"
                   />
                 </div>

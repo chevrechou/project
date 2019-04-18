@@ -27,10 +27,10 @@ function twoDigits(d) {
 function convertDate(date){
     console.log(date.getUTCHours() -7);
     return date.getUTCFullYear() + "-" + twoDigits(1 + date.getUTCMonth())
-    + "-" + twoDigits(date.getUTCDate()) + " " + twoDigits(date.getUTCHours()-7) 
+    + "-" + twoDigits(date.getUTCDate()) + " " + twoDigits(date.getUTCHours()-7)
     + ":" + twoDigits(date.getUTCMinutes()) + ":" + twoDigits(date.getUTCSeconds());
 };
-        
+
 function getHistory(latestTime, callback){
     console.log(latestTime);
     var mysql = require('mysql');
@@ -52,6 +52,7 @@ function eventUpdater(){
         console.log("Checking for updates...")
         getHistory(lastDateTime, function(result) {
             console.log(result);
+          if (typeof result!=="undefined"){
             if(result.length > 0){
                 // Emit update stuff
                 console.log("Emitting update!");
@@ -60,6 +61,7 @@ function eventUpdater(){
             else{
                 console.log("No new updates.");
             }
+          }
 
         });
     }, 1000);
@@ -476,14 +478,14 @@ io.sockets.on('connection', function(socket){
                                             from: 'usceventhub@gmail.com',
                                             to: emailString,
                                             subject: 'An Event has been Updated!',
-                                            html: '<h1>An Event you saved has been updated</h1><p>Title: ' 
+                                            html: '<h1>An Event you saved has been updated</h1><p>Title: '
                                             + title + '</p><p>DateTime: ' + date + '</p><p>Location: '
                                             + location + '</p><p>Description: ' + description
                                         }
                                         transporter.sendMail(mailOptions, function(err, info){
                                             if(err)
                                                 console.log(err);
-                                            else 
+                                            else
                                                 console.log("Email Sent " + info.response)
                                         });
                                         socket.emit('updateEventResponse', "Success!");
