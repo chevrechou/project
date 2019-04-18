@@ -60,7 +60,7 @@ class Register extends Component {
             <form onSubmit={handleSubmit} className="registrationForm-container">
               <section className="inner-reg">
                 <div >
-                  <label>User Name</label>
+                  <h5 className="reg-label" >User Name</h5>
                   <Field
                     name="Username"
                     component="input"
@@ -69,7 +69,7 @@ class Register extends Component {
                   />
                 </div>
                 <div >
-                  <label>Email </label>
+                  <h5 className="reg-label">Email </h5>
                   <Field
                     name="Email"
                     component="input"
@@ -78,7 +78,7 @@ class Register extends Component {
                   />
                 </div>
                 <div>
-                  <label>Password</label>
+                  <h5 className="reg-label">Password</h5>
                   <Field
                     name="Password"
                     component="input"
@@ -87,7 +87,7 @@ class Register extends Component {
                   />
                 </div>
                 <div>
-                  <label>Confirm Password</label>
+                  <h5 className="reg-label" >Confirm Password</h5>
                   <Field
                     name="PasswordConfirmation"
                     component="input"
@@ -101,8 +101,8 @@ class Register extends Component {
               </section>
               <br />  <br />
               <button className="reg-but" type="submit" placeholder="Register">
-                Register</button>
-            
+                <h5> Register </h5> </button>
+
 
             </form>
           )}
@@ -115,13 +115,13 @@ class Register extends Component {
     return (
 
       <div className="register-container">
-        <div className="content"><label>Register </label>
+        <div className="content"><h2>Register </h2>
           <MyForm />
         </div>
         <div className="guest-opt">
-
-          <Link to={{ pathname: '/events', isLoggedIn: false, isGuest: true }}>Continue as Guest </Link>
-
+          <h3>
+          <Link to={{ pathname: '/events', isLoggedIn: false, isGuest: true }} className="guest-opt">Continue as Guest </Link>
+          </h3>
         </div>
 
       </div>
